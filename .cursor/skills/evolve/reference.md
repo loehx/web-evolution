@@ -2,10 +2,11 @@
 
 ## Email template (verbatim)
 
-Use this exact wording. Replace `<preview>` with the deploy preview base URL (e.g. `https://deploy-preview-1--web-evolution-2026.netlify.app`) and `<word1>`, …, `<word5>` with the five web words from Step 1:
+Use this exact wording. Replace `<preview>` with the deploy preview base URL (e.g. `https://deploy-preview-1--web-evolution-2026.netlify.app`), `<agentUrl>` with this run's Cursor agent chat URL (from `cursor-cloud` MCP `run-info` → `url`, e.g. `https://cursor.com/agents/bc-…`), and `<word1>`, …, `<word5>` with the five web words from Step 1:
 
 ```
 <preview>/new
+<agentUrl>
 ```
 
 ```
@@ -20,6 +21,10 @@ Check them out here:
 
 <preview>/new
 
+Continue the review in this chat:
+
+<agentUrl>
+
 Which ones shall live and which ones shall die?
 
 Best regards,
@@ -28,12 +33,15 @@ Your MrRobotoOtto
 
 ### Resend send example
 
+Before sending, call `cursor-cloud` MCP **`run-info`** and use the returned `url` as `agentUrl`.
+
 ```typescript
 import { Resend } from 'resend'
 
 const resend = new Resend(process.env.RESEND_API_KEY)
 
 const previewUrl = 'https://deploy-preview-1--web-evolution-2026.netlify.app/new'
+const agentUrl = 'https://cursor.com/agents/bc-…' // from cursor-cloud run-info
 const words = ['viewport', 'marquee', 'skeleton', 'cache', 'gradient']
 
 const { data, error } = await resend.emails.send({
@@ -48,6 +56,10 @@ The words were: ${words.join(', ')}.
 Check them out here:
 
 ${previewUrl}
+
+Continue the review in this chat:
+
+${agentUrl}
 
 Which ones shall live and which ones shall die?
 

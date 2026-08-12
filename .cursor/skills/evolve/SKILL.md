@@ -187,7 +187,7 @@ Send via **Resend** (read `resend` skill first):
 
 - **To:** `alexloehn@gmail.com`
 - **Subject:** `5x new components for my king`
-- **Body:** use verbatim template; include the **five web words** from Step 1 and send **one link** to `<preview>/new` so Alex can browse the latest creations
+- **Body:** use verbatim template; include the **five web words** from Step 1, **one link** to `<preview>/new` so Alex can browse the latest creations, and **always** include this run's Cursor agent chat URL (`cursor-cloud` MCP `run-info` → `url`) so Alex can return to this conversation
 
 If Resend is not configured, draft the email in chat and tell Alex to connect Resend or run send manually.
 
@@ -236,6 +236,7 @@ After moves:
 - Duplicating an alive component under the same name
 - **Separate routes or pages per variant** — all variants must be stacked divs on one page
 - Sending email before preview URLs work
+- **Omitting the Cursor agent chat link** from the email to Alex
 - Moving to alive/dead before human explicitly chooses
 - **Declining without writing to MEMORY.md** when a reason was provided
 
