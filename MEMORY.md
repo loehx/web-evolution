@@ -2,7 +2,7 @@
 
 Learnings from declined components. **Read this at the start of every `/evolve` run** before inventing or building.
 
-When Alex declines a component and gives a reason, append an entry below. Format is defined in the `/evolve` skill reference (`~/.cursor/skills/evolve/reference.md`).
+When Alex declines a component and gives a reason, append an entry below. Format is defined in the `/evolve` skill reference (`.cursor/skills/evolve/reference.md`).
 
 ---
 
