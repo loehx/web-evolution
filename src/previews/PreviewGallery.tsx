@@ -1,4 +1,5 @@
 import { Link, useParams } from 'react-router-dom'
+import { formatAge } from '@/lib/utils'
 import type { StagedComponent } from '@/previews/types'
 import { sortByNewest } from '@/previews/types'
 
@@ -6,12 +7,8 @@ interface PreviewIndexProps {
   components: StagedComponent[]
 }
 
-function formatCreatedAt(iso: string) {
-  return new Intl.DateTimeFormat(undefined, {
-    month: 'short',
-    day: 'numeric',
-    year: 'numeric',
-  }).format(new Date(iso))
+function ComponentAge({ createdAt }: { createdAt: string }) {
+  return <span className="shrink-0 text-sm text-zinc-500">{formatAge(createdAt)}</span>
 }
 
 export function PreviewNew({ components }: PreviewIndexProps) {
@@ -32,9 +29,7 @@ export function PreviewNew({ components }: PreviewIndexProps) {
                 className="flex items-center justify-between gap-4 py-4 transition hover:text-violet-300"
               >
                 <span>{component.name}</span>
-                <span className="shrink-0 text-sm text-zinc-500">
-                  {formatCreatedAt(component.createdAt)}
-                </span>
+                <ComponentAge createdAt={component.createdAt} />
               </Link>
             </li>
           ))}
@@ -54,10 +49,10 @@ export function PreviewIndex({ components }: PreviewIndexProps) {
             <li key={component.slug}>
               <Link
                 to={`/${component.slug}`}
-                className="flex items-center justify-between py-4 transition hover:text-violet-300"
+                className="flex items-center justify-between gap-4 py-4 transition hover:text-violet-300"
               >
                 <span>{component.name}</span>
-                <span className="text-sm text-zinc-500">{component.variants.length}</span>
+                <ComponentAge createdAt={component.createdAt} />
               </Link>
             </li>
           ))}
