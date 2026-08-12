@@ -26,18 +26,21 @@ export const stagedComponents: StagedComponent[] = [
   {
     name: 'ParallaxHero',
     slug: 'ParallaxHero',
+    createdAt: '2026-08-12T08:51:59Z',
     variants: parallaxHeroVariants,
     render: (props) => <ParallaxHero {...(props as ParallaxHeroProps)} />,
   },
   {
     name: 'MarqueeRibbon',
     slug: 'MarqueeRibbon',
+    createdAt: '2026-08-12T08:51:59Z',
     variants: marqueeRibbonVariants,
     render: (props) => <MarqueeRibbon {...(props as MarqueeRibbonProps)} />,
   },
   {
     name: 'SkeletonReveal',
     slug: 'SkeletonReveal',
+    createdAt: '2026-08-12T08:51:59Z',
     variants: skeletonRevealVariants,
     render: (props) => {
       const p = props as SkeletonRevealProps & { demoLoaded?: boolean }
@@ -56,6 +59,7 @@ export const stagedComponents: StagedComponent[] = [
   {
     name: 'ViewportSnapDeck',
     slug: 'ViewportSnapDeck',
+    createdAt: '2026-08-12T08:51:59Z',
     variants: viewportSnapDeckVariants,
     render: (props) => {
       const p = props as ViewportSnapDeckProps & { slides?: string[] }

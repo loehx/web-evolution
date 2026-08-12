@@ -1,8 +1,47 @@
 import { Link, useParams } from 'react-router-dom'
 import type { StagedComponent } from '@/previews/types'
+import { sortByNewest } from '@/previews/types'
 
 interface PreviewIndexProps {
   components: StagedComponent[]
+}
+
+function formatCreatedAt(iso: string) {
+  return new Intl.DateTimeFormat(undefined, {
+    month: 'short',
+    day: 'numeric',
+    year: 'numeric',
+  }).format(new Date(iso))
+}
+
+export function PreviewNew({ components }: PreviewIndexProps) {
+  const latest = sortByNewest(components)
+
+  return (
+    <main className="min-h-svh bg-zinc-950 px-6 py-12 text-zinc-50">
+      <div className="mx-auto max-w-lg">
+        <Link to="/" className="text-sm text-zinc-500 hover:text-zinc-300">
+          ← All components
+        </Link>
+        <h1 className="mt-6 text-2xl font-semibold">Latest creations</h1>
+        <ul className="mt-6 divide-y divide-white/10 border-y border-white/10">
+          {latest.map((component) => (
+            <li key={component.slug}>
+              <Link
+                to={`/${component.slug}`}
+                className="flex items-center justify-between gap-4 py-4 transition hover:text-violet-300"
+              >
+                <span>{component.name}</span>
+                <span className="shrink-0 text-sm text-zinc-500">
+                  {formatCreatedAt(component.createdAt)}
+                </span>
+              </Link>
+            </li>
+          ))}
+        </ul>
+      </div>
+    </main>
+  )
 }
 
 export function PreviewIndex({ components }: PreviewIndexProps) {
