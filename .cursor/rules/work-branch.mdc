@@ -1,0 +1,22 @@
+---
+description: Work only on the work branch; use the fixed Netlify preview URL
+alwaysApply: true
+---
+
+# Work branch and preview
+
+## Branch policy
+
+- **Always work on `work`.** Do not commit, push, or open PRs targeting `main` unless Alex explicitly asks.
+- At the start of a session (or before the first edit), verify the current branch. If not on `work`:
+  - If `work` exists: `git checkout work`
+  - Otherwise: `git checkout -b work`
+- Push changes to `origin/work` only. Never push to `main`.
+
+This keeps production deploys on `main` stable and saves Netlify build minutes.
+
+## Fixed preview URL
+
+Base: `https://deploy-preview-1--web-evolution-2026.netlify.app`
+
+Append paths for review links (e.g. `/`, `/new`, `/ParallaxHero`). Do not use localhost or the production URL unless Alex asks.
