@@ -1,4 +1,9 @@
 import {
+  FaqAccordionStack,
+  type FaqAccordionStackProps,
+} from '../../staging/FaqAccordionStack/FaqAccordionStack'
+import { faqAccordionStackVariants } from '../../staging/FaqAccordionStack/previews'
+import {
   BreadcrumbTrail,
   type BreadcrumbTrailProps,
 } from '../../staging/BreadcrumbTrail/BreadcrumbTrail'
@@ -47,10 +52,18 @@ import {
 import { viewportSnapDeckVariants } from '../../staging/ViewportSnapDeck/previews'
 import type { StagedComponent } from '@/previews/types'
 
+const BATCH_3_CREATED = '2026-08-12T15:06:00Z'
 const BATCH_2_CREATED = '2026-08-12T09:20:37Z'
 const BATCH_1_CREATED = '2026-08-12T08:51:59Z'
 
 export const stagedComponents: StagedComponent[] = [
+  {
+    name: 'FaqAccordionStack',
+    slug: 'FaqAccordionStack',
+    createdAt: BATCH_3_CREATED,
+    variants: faqAccordionStackVariants,
+    render: (props) => <FaqAccordionStack {...(props as FaqAccordionStackProps)} />,
+  },
   {
     name: 'BreadcrumbTrail',
     slug: 'BreadcrumbTrail',

@@ -1,4 +1,9 @@
 export {
+  FaqAccordionStack,
+  type FaqAccordionStackProps,
+  type FaqItem,
+} from '../../staging/FaqAccordionStack'
+export {
   BreadcrumbTrail,
   type BreadcrumbTrailProps,
   type BreadcrumbItem,
