@@ -78,9 +78,7 @@ export const stagedComponents: StagedComponent[] = [
 ]
 
 export const previewBaseUrl =
-  typeof window !== 'undefined'
-    ? `${window.location.origin}/preview`
-    : 'http://localhost:5173/preview'
+  typeof window !== 'undefined' ? window.location.origin : 'http://localhost:5173'
 
 export function getPreviewLinks() {
   return stagedComponents.map(
