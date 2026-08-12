@@ -1,11 +1,12 @@
 ---
 name: evolve
 description: >-
-  Evolve bold web components in web-evolution: pick 5 web words, invent components,
-  dedupe against alive/dead, read MEMORY.md for past declines, research online
-  patterns, build 20 numbered preview variants each, email Alex for keep/die review,
-  log decline reasons to MEMORY.md, then move survivors to alive/ or dead/. Use when
-  the user invokes /evolve or asks to evolve, curate, or review web components.
+  Evolve bold web components in web-evolution: invent 5 content scenarios, build
+  components around them, dedupe against alive/dead, read MEMORY.md for past declines,
+  research online patterns, build 20 numbered preview variants each, email Alex for
+  keep/die review, log decline reasons to MEMORY.md, then move survivors to alive/
+  or dead/. Use when the user invokes /evolve or asks to evolve, curate, or review
+  web components.
 disable-model-invocation: true
 ---
 
@@ -44,7 +45,7 @@ Copy and track progress:
 ```
 Evolve Progress:
 - [ ] Step 0: Read MEMORY.md for past decline lessons
-- [ ] Step 1: Pick 5 random website-related words
+- [ ] Step 1: Invent 5 content scenarios (what the component holds)
 - [ ] Step 2: Scan alive/ and dead/ for duplicates
 - [ ] Step 3: Name 5 bold components (rename if duplicate design)
 - [ ] Step 4: Write SPEC.md per component (look, page, neighbors, resize)
@@ -62,7 +63,7 @@ Evolve Progress:
 
 ## Step 0 — Read memory (mandatory)
 
-Before picking words or designing components, read **`MEMORY.md`** at the project root.
+Before inventing content or designing components, read **`MEMORY.md`** at the project root.
 
 Apply past decline lessons to this batch:
 - Avoid repeated mistakes (layout, motion, naming, content patterns)
@@ -70,11 +71,37 @@ Apply past decline lessons to this batch:
 
 ---
 
-## Step 1 — Five random web words
+## Step 1 — Five content scenarios
 
-Pick **5 random words connected to websites** (e.g. viewport, payload, marquee, skeleton, parallax, cache, breadcrumb, modal, gradient, breakpoint).
+Invent **5 distinct content scenarios** — real things a website section would show, not abstract web jargon.
 
-State them explicitly before designing components.
+State them explicitly before designing components. Each scenario describes **what content** the component is built around.
+
+**Examples (pick different ones each batch; do not copy this list verbatim):**
+
+| Scenario | What it contains |
+|----------|------------------|
+| Brand list | Logos or names in a row/grid |
+| Welcome text | Greeting headline + intro paragraph |
+| Image + text | Side-by-side or stacked media and copy |
+| Contact form | Name, email, message fields + submit |
+| Testimonial | Quote, avatar, name, role |
+| Pricing table | Tiers, features, CTA per column |
+| FAQ | Question / answer pairs |
+| Team grid | Photos, names, titles |
+| Stats row | Big numbers + labels |
+| Newsletter signup | Headline + email field |
+| Feature list | Icon + title + blurb per item |
+| Event schedule | Date, time, title, location |
+| Product card | Image, title, price, buy button |
+| Location map + hours | Address block beside hours list |
+
+Rules:
+
+- **Content-first** — the scenario names the payload (brands, form fields, quotes), not a CSS trick or layout keyword.
+- **Diverse** — mix media-heavy, text-heavy, and interactive (forms, CTAs) across the five.
+- **Generic** — avoid domain-specific payloads (API JSON, dev tools, raw code inspectors).
+- **One scenario → one component** — each of the five becomes its own boldly designed component.
 
 ## Step 2 — Dedupe against alive and dead
 
@@ -93,21 +120,22 @@ bash .cursor/skills/evolve/scripts/list-components.sh
 
 ## Step 3 — Five bold components
 
-From the 5 words, derive **5 bold web components**. Not every word maps 1:1 — one word can spawn multiple components or several words can merge into one.
+From the **5 content scenarios**, derive **5 bold web components** — one component per scenario. Name components for their **layout or role**, not the content itself (e.g. `LogoMarqueeStrip` for a brand list, `SplitMediaCopy` for image + text, `InquiryFormBand` for a contact form).
 
-Use specific web component names when appropriate: `Hero`, `MarqueeRibbon`, `PayloadPanel`, `ViewportSnapDeck`, `SkeletonReveal`, etc.
+Use specific web component names when appropriate: `Hero`, `MarqueeRibbon`, `ViewportSnapDeck`, `SkeletonReveal`, etc. — but the **preview props and variants** must showcase the chosen content scenario with realistic sample copy.
 
 ## Step 4 — Component spec (SPEC.md)
 
 For each component, document in `SPEC.md`:
 
 1. **Look** — typography, color, spacing, motion, media slots
-2. **Page behavior** — scroll role, z-index, sticky/fixed, section flow
-3. **Neighbor behavior** — how it interacts with components above/below
-4. **Viewport / resize** — mobile, tablet, desktop (see `src/lib/breakpoints.ts`), `svh`/`dvh`, overflow, reduced motion
-5. **Width model** — full browser width; no fixed outer container
-6. **Image ratios** — aspect ratio per image slot and crop behavior
-7. **Headlines** — SVG lines via `ResponsiveHeadline`, or HTML with rationale
+2. **Content scenario** — which Step 1 scenario this component serves; list prop slots (headline, items, fields, …)
+3. **Page behavior** — scroll role, z-index, sticky/fixed, section flow
+4. **Neighbor behavior** — how it interacts with components above/below
+5. **Viewport / resize** — mobile, tablet, desktop (see `src/lib/breakpoints.ts`), `svh`/`dvh`, overflow, reduced motion
+6. **Width model** — full browser width; no fixed outer container
+7. **Image ratios** — aspect ratio per image slot and crop behavior
+8. **Headlines** — SVG lines via `ResponsiveHeadline`, or HTML with rationale
 
 ## Step 5 — Research and implement
 
@@ -124,14 +152,16 @@ For each component, document in `SPEC.md`:
 
 Each component gets **≥ 20 numbered variants** in `previews.tsx`.
 
-Variants must exercise different **content kinds**:
+Variants must exercise different **content shapes** for that component's scenario:
 
 - Headline only, long headline, missing headline
 - Body text: short, long, rich text, empty
 - Image: portrait, landscape, missing, broken URL
 - Video: autoplay loop, poster only, missing
 - CTAs: none, one, two, loading/disabled
-- Lists, stats, quotes, code blocks, forms (as relevant)
+- Lists, stats, quotes, form fields, table rows (as relevant to the scenario)
+
+Use **realistic sample content** matching the scenario (actual-looking brand names, form labels, quotes) — not generic lorem or abstract placeholders.
 
 Number variants **1–20** (continue if more needed). Each variant needs:
 
@@ -174,7 +204,10 @@ Output a catalog:
 ```markdown
 ## Evolve batch — <date>
 
+**Content scenarios:** brand list, welcome text, image + text, contact form, testimonial
+
 ### 1. ComponentName
+- Scenario: <which content type this serves>
 - Preview: http://localhost:5173/preview/ComponentName (all 20 variants on one page)
 - Jump link example: http://localhost:5173/preview/ComponentName#variant-7
 - Variants: 1–20 listed in separate divs (call out fragile ones, e.g. "#7: empty headline")
@@ -195,7 +228,7 @@ Send via **Resend** (read `resend` skill first):
 
 - **To:** `alexloehn@gmail.com`
 - **Subject:** `5x new components for my king`
-- **Body:** use verbatim template; include the **five web words** from Step 1, **one link** to `<preview>/new` so Alex can browse the latest creations, and **always** include this run's Cursor agent chat URL (`cursor-cloud` MCP `run-info` → `url`) so Alex can return to this conversation
+- **Body:** use verbatim template; include the **five content scenarios** from Step 1, **one link** to `<preview>/new` so Alex can browse the latest creations, and **always** include this run's Cursor agent chat URL (`cursor-cloud` MCP `run-info` → `url`) so Alex can return to this conversation
 
 If Resend is not configured, draft the email in chat and tell Alex to connect Resend or run send manually.
 
@@ -203,7 +236,7 @@ If Resend is not configured, draft the email in chat and tell Alex to connect Re
 
 Append the batch to **`CHANGELOG.md`** at the project root (newest batches first). Use the format in [reference.md](reference.md) → CHANGELOG.md.
 
-Include all five components with a ~20-word summary each. For declined components, append the decline reason after an em dash.
+Include all five components with a ~20-word summary each. List the batch's **content scenarios** (not web jargon words). For declined components, append the decline reason after an em dash.
 
 ## Step 10 — Keep or die
 
@@ -250,6 +283,8 @@ After moves:
 - **Fixed outer containers** (`max-w-*`, `container`) on new component root sections
 - **Images without a declared ratio** or with `object-contain` / stretch instead of crop
 - **Headlines only as fixed-px HTML** when primary title needs width-linked SVG line control
+- **Abstract web jargon as Step 1 input** (viewport, payload, cache) instead of concrete content scenarios
+- **Empty or lorem-only previews** — variants must use realistic sample content for the scenario (brand names, form labels, quotes)
 
 ## Additional resources
 

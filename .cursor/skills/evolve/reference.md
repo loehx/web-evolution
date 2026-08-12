@@ -2,7 +2,7 @@
 
 ## Email template (verbatim)
 
-Use this exact wording. Replace `<preview>` with the deploy preview base URL (e.g. `https://deploy-preview-1--web-evolution-2026.netlify.app`), `<agentUrl>` with this run's Cursor agent chat URL (from `cursor-cloud` MCP `run-info` → `url`, e.g. `https://cursor.com/agents/bc-…`), and `<word1>`, …, `<word5>` with the five web words from Step 1:
+Use this exact wording. Replace `<preview>` with the deploy preview base URL (e.g. `https://deploy-preview-1--web-evolution-2026.netlify.app`), `<agentUrl>` with this run's Cursor agent chat URL (from `cursor-cloud` MCP `run-info` → `url`, e.g. `https://cursor.com/agents/bc-…`), and `<scenario1>`, …, `<scenario5>` with the five content scenarios from Step 1:
 
 ```
 <preview>/new
@@ -15,7 +15,7 @@ Subject: 5x new components for my king
 Your Majesty,
 
 I've created 5 components after your instructions.
-The words were: <word1>, <word2>, <word3>, <word4>, <word5>.
+The content scenarios were: <scenario1>, <scenario2>, <scenario3>, <scenario4>, <scenario5>.
 
 Check them out here:
 
@@ -42,7 +42,13 @@ const resend = new Resend(process.env.RESEND_API_KEY)
 
 const previewUrl = 'https://deploy-preview-1--web-evolution-2026.netlify.app/new'
 const agentUrl = 'https://cursor.com/agents/bc-…' // from cursor-cloud run-info
-const words = ['viewport', 'marquee', 'skeleton', 'cache', 'gradient']
+const scenarios = [
+  'brand list',
+  'welcome text',
+  'image + text',
+  'contact form',
+  'testimonial quote',
+]
 
 const { data, error } = await resend.emails.send({
   from: 'Evolved Web <onboarding@resend.dev>', // replace with verified domain
@@ -51,7 +57,7 @@ const { data, error } = await resend.emails.send({
   text: `Your Majesty,
 
 I've created 5 components after your instructions.
-The words were: ${words.join(', ')}.
+The content scenarios were: ${scenarios.join(', ')}.
 
 Check them out here:
 
@@ -73,7 +79,24 @@ else console.log('Sent:', data?.id)
 
 ---
 
-## Twenty-variant content matrix
+## Content scenario bank
+
+Use as inspiration for Step 1. **Pick five different scenarios each batch** — do not repeat the same set across batches when avoidable.
+
+| Category | Scenarios |
+|----------|-----------|
+| **Marketing** | Welcome text, hero CTA, promo band, newsletter signup, stats row |
+| **Media** | Image + text, full-bleed gallery, video + caption, before/after pair |
+| **Social proof** | Testimonial, logo / brand list, review stars, case study teaser |
+| **Commerce** | Product card, pricing table, comparison table, cart summary |
+| **People** | Team grid, speaker lineup, author bio, avatar + quote |
+| **Navigation / info** | FAQ, feature list, step-by-step how-it-works, timeline |
+| **Contact** | Contact form, location + hours, map + address, booking CTA |
+| **Content** | Article excerpt, pull quote, code snippet block, download link |
+
+Each scenario must map to **one component** with props and preview variants filled with realistic sample content for that scenario.
+
+---
 
 Use as a checklist when building `previews.tsx`. Combine types across variants — not every component needs every row, but cover all relevant rows and reach **≥ 20 unique combinations**.
 
@@ -108,6 +131,10 @@ Add component-specific variants (e.g. PayloadPanel: streaming status, error stat
 
 ```markdown
 # ComponentName
+
+## Content scenario
+- **Type:** e.g. contact form, brand list, image + text
+- **Props:** headline, items[], fields[], …
 
 ## Look
 - ...
@@ -221,7 +248,7 @@ Append when Alex declines a component and explains why. Read the full file at th
 **Reason:** <Alex's explanation, verbatim or faithful paraphrase>
 **Variant refs:** #7, #14 (omit if none given)
 **Lesson:** <One concrete rule for future batches — what to avoid or do instead>
-**Batch:** optional short context, e.g. "evolve batch 2, words: cache modal gradient …"
+**Batch:** optional short context, e.g. "evolve batch 3, content: brand list, welcome text, contact form, FAQ, stats row"
 ```
 
 ### Example
@@ -261,7 +288,7 @@ Append after emailing Alex (Step 9). One section per evolve batch, newest first.
 ```markdown
 ## YYYY-MM-DD
 
-**Words:** word1, word2, word3, word4, word5
+**Content:** brand list, welcome text, image + text, contact form, testimonial
 
 * **ComponentName** - ~20-word summary of look, behavior, and page role.
 * **AnotherComponent** - ...
@@ -272,7 +299,7 @@ Append after emailing Alex (Step 9). One section per evolve batch, newest first.
 ```markdown
 ## 2026-08-12
 
-**Words:** viewport, payload, marquee, skeleton, parallax
+**Content:** welcome hero, scrolling brand logos, image + copy split, inquiry form, customer quote
 
 * **ParallaxHero** - Full-viewport hero with scroll-linked parallax layers for eyebrow, headline, subtitle, and CTA — adds depth and motion without scroll-jacking the page.
 * **PayloadPanel** - Dev-tool panel showing API endpoint, streaming status, labeled fields, and an expandable raw JSON drawer — declined as too domain-specific for a generic component library.
