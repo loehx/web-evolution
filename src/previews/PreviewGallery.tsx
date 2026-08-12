@@ -66,6 +66,12 @@ interface PreviewGalleryProps {
   components: StagedComponent[]
 }
 
+const constrainedSlugs: Record<string, string> = {
+  ViewportSnapDeck: 'h-[70svh]',
+  ParallaxHero: 'min-h-[32rem]',
+  ModalSpotlight: 'min-h-[24rem]',
+}
+
 export function PreviewGallery({ components }: PreviewGalleryProps) {
   const { slug } = useParams()
   const component = components.find((entry) => entry.slug === slug)
@@ -78,6 +84,8 @@ export function PreviewGallery({ components }: PreviewGalleryProps) {
     )
   }
 
+  const constraintClass = constrainedSlugs[component.slug] ?? ''
+
   return (
     <main className="min-h-svh bg-zinc-950 px-6 py-12 text-zinc-50">
       <div className="mx-auto max-w-4xl">
@@ -86,16 +94,36 @@ export function PreviewGallery({ components }: PreviewGalleryProps) {
         </Link>
         <h1 className="mt-6 text-2xl font-semibold">{component.name}</h1>
 
+        <nav
+          aria-label="Variant jump links"
+          className="sticky top-0 z-20 -mx-2 mt-6 overflow-x-auto bg-zinc-950/95 px-2 py-3 backdrop-blur-sm"
+        >
+          <ul className="flex gap-2">
+            {component.variants.map((variant) => (
+              <li key={variant.id}>
+                <a
+                  href={`#variant-${variant.id}`}
+                  className="inline-block rounded-md border border-white/10 px-2.5 py-1 font-mono text-xs text-zinc-400 transition hover:border-violet-400/40 hover:text-violet-300"
+                >
+                  #{variant.id}
+                </a>
+              </li>
+            ))}
+          </ul>
+        </nav>
+
         <div className="mt-10 space-y-12">
           {component.variants.map((variant) => (
-            <section key={variant.id}>
-              <p className="mb-3 text-sm text-zinc-500">
+            <section
+              key={variant.id}
+              id={`variant-${variant.id}`}
+              className="scroll-mt-28"
+            >
+              <p className="mb-3 font-mono text-sm text-zinc-500">
                 #{variant.id} · {variant.label}
               </p>
               <div
-                className={`overflow-hidden rounded-lg border border-white/10 bg-zinc-900/40 ${
-                  component.slug === 'ViewportSnapDeck' ? 'h-[70svh]' : ''
-                } ${component.slug === 'ParallaxHero' ? 'min-h-[32rem]' : ''}`}
+                className={`overflow-hidden rounded-lg border border-white/10 bg-zinc-900/40 ${constraintClass}`}
               >
                 {component.render(variant.props)}
               </div>

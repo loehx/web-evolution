@@ -1,4 +1,29 @@
 import {
+  BreadcrumbTrail,
+  type BreadcrumbTrailProps,
+} from '../../staging/BreadcrumbTrail/BreadcrumbTrail'
+import { breadcrumbTrailVariants } from '../../staging/BreadcrumbTrail/previews'
+import {
+  ModalSpotlight,
+  type ModalSpotlightProps,
+} from '../../staging/ModalSpotlight/ModalSpotlight'
+import { modalSpotlightVariants } from '../../staging/ModalSpotlight/previews'
+import {
+  GradientMeshBand,
+  type GradientMeshBandProps,
+} from '../../staging/GradientMeshBand/GradientMeshBand'
+import { gradientMeshBandVariants } from '../../staging/GradientMeshBand/previews'
+import {
+  CarouselCardDeck,
+  type CarouselCardDeckProps,
+} from '../../staging/CarouselCardDeck/CarouselCardDeck'
+import { carouselCardDeckVariants } from '../../staging/CarouselCardDeck/previews'
+import {
+  OverlayCaptionCard,
+  type OverlayCaptionCardProps,
+} from '../../staging/OverlayCaptionCard/OverlayCaptionCard'
+import { overlayCaptionCardVariants } from '../../staging/OverlayCaptionCard/previews'
+import {
   ParallaxHero,
   type ParallaxHeroProps,
 } from '../../staging/ParallaxHero/ParallaxHero'
@@ -22,25 +47,63 @@ import {
 import { viewportSnapDeckVariants } from '../../staging/ViewportSnapDeck/previews'
 import type { StagedComponent } from '@/previews/types'
 
+const BATCH_2_CREATED = '2026-08-12T09:20:37Z'
+const BATCH_1_CREATED = '2026-08-12T08:51:59Z'
+
 export const stagedComponents: StagedComponent[] = [
+  {
+    name: 'BreadcrumbTrail',
+    slug: 'BreadcrumbTrail',
+    createdAt: BATCH_2_CREATED,
+    variants: breadcrumbTrailVariants,
+    render: (props) => <BreadcrumbTrail {...(props as BreadcrumbTrailProps)} />,
+  },
+  {
+    name: 'ModalSpotlight',
+    slug: 'ModalSpotlight',
+    createdAt: BATCH_2_CREATED,
+    variants: modalSpotlightVariants,
+    render: (props) => <ModalSpotlight {...(props as ModalSpotlightProps)} />,
+  },
+  {
+    name: 'GradientMeshBand',
+    slug: 'GradientMeshBand',
+    createdAt: BATCH_2_CREATED,
+    variants: gradientMeshBandVariants,
+    render: (props) => <GradientMeshBand {...(props as GradientMeshBandProps)} />,
+  },
+  {
+    name: 'CarouselCardDeck',
+    slug: 'CarouselCardDeck',
+    createdAt: BATCH_2_CREATED,
+    variants: carouselCardDeckVariants,
+    render: (props) => <CarouselCardDeck {...(props as CarouselCardDeckProps)} />,
+  },
+  {
+    name: 'OverlayCaptionCard',
+    slug: 'OverlayCaptionCard',
+    createdAt: BATCH_2_CREATED,
+    variants: overlayCaptionCardVariants,
+    render: (props) => <OverlayCaptionCard {...(props as OverlayCaptionCardProps)} />,
+  },
   {
     name: 'ParallaxHero',
     slug: 'ParallaxHero',
-    createdAt: '2026-08-12T08:51:59Z',
+    createdAt: BATCH_1_CREATED,
     variants: parallaxHeroVariants,
     render: (props) => <ParallaxHero {...(props as ParallaxHeroProps)} />,
   },
   {
     name: 'MarqueeRibbon',
     slug: 'MarqueeRibbon',
-    createdAt: '2026-08-12T08:51:59Z',
+    createdAt: BATCH_1_CREATED,
     variants: marqueeRibbonVariants,
     render: (props) => <MarqueeRibbon {...(props as MarqueeRibbonProps)} />,
   },
   {
     name: 'SkeletonReveal',
     slug: 'SkeletonReveal',
-    createdAt: '2026-08-12T08:51:59Z',
+    createdAt: BATCH_1_CREATED,
     variants: skeletonRevealVariants,
     render: (props) => {
       const p = props as SkeletonRevealProps & { demoLoaded?: boolean }
@@ -59,7 +122,7 @@ export const stagedComponents: StagedComponent[] = [
   {
     name: 'ViewportSnapDeck',
     slug: 'ViewportSnapDeck',
-    createdAt: '2026-08-12T08:51:59Z',
+    createdAt: BATCH_1_CREATED,
     variants: viewportSnapDeckVariants,
     render: (props) => {
       const p = props as ViewportSnapDeckProps & { slides?: string[] }

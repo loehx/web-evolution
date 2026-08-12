@@ -4,6 +4,16 @@ Evolve batch history. Newest batches first.
 
 ---
 
+## 2026-08-12 (batch 2)
+
+**Words:** breadcrumb, modal, gradient, carousel, overlay
+
+* **BreadcrumbTrail** - Accessible breadcrumb navigation with slash, chevron, or dot separators and a violet underline on the current page — generic path context for docs, stores, and dashboards.
+* **ModalSpotlight** - Centered dialog with frosted backdrop, spring entrance, escape-to-close, and sm/md/lg sizes — content-agnostic overlay for confirmations, promos, and alerts.
+* **GradientMeshBand** - Section band with animated violet/fuchsia/cyan mesh blobs behind eyebrow, headline, body, and optional CTA — reusable promo block without domain-specific UI.
+* **CarouselCardDeck** - Horizontal scroll-snap card row with image, title, description, optional links, and arrow controls — generic media carousel for features, galleries, and collections.
+* **OverlayCaptionCard** - Image tile with bottom gradient overlay, title, subtitle, and optional link in landscape, portrait, or square aspect — editorial and marketing grid building block.
+
 ## 2026-08-12
 
 **Words:** viewport, payload, marquee, skeleton, parallax
