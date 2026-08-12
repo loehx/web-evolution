@@ -192,3 +192,37 @@ Declined 2026-08-12. See MEMORY.md entry "ComponentName (declined)".
 ```
 
 For remote review, deploy preview (Netlify) or tunnel local dev (`ngrok`, Cloudflare Tunnel) and put `<preview>/new` in the email.
+
+---
+
+## CHANGELOG.md — batch history
+
+**Path:** `CHANGELOG.md` (project root)
+
+### When to write
+
+Append after emailing Alex (Step 9). One section per evolve batch, newest first.
+
+### Entry format
+
+```markdown
+## YYYY-MM-DD
+
+**Words:** word1, word2, word3, word4, word5
+
+* **ComponentName** - ~20-word summary of look, behavior, and page role.
+* **AnotherComponent** - ...
+```
+
+### Example
+
+```markdown
+## 2026-08-12
+
+**Words:** viewport, payload, marquee, skeleton, parallax
+
+* **ParallaxHero** - Full-viewport hero with scroll-linked parallax layers for eyebrow, headline, subtitle, and CTA — adds depth and motion without scroll-jacking the page.
+* **PayloadPanel** - Dev-tool panel showing API endpoint, streaming status, labeled fields, and an expandable raw JSON drawer — declined as too domain-specific for a generic component library.
+```
+
+For declined components, append the reason after an em dash on the same line. Do not remove declined entries when moving to `dead/`.

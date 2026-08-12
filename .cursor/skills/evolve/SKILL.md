@@ -54,7 +54,8 @@ Evolve Progress:
 - [ ] Step 8: Wire preview URLs; run dev server; verify all variants
 - [ ] Step 9: Present creations with numbered use-case list
 - [ ] Step 10: Email Alex (alexloehn@gmail.com)
-- [ ] Step 11: On human verdict — move folders to alive/ or dead/
+- [ ] Step 11: Append batch to CHANGELOG.md
+- [ ] Step 12: On human verdict — move folders to alive/ or dead/
 ```
 
 ---
@@ -190,7 +191,13 @@ Send via **Resend** (read `resend` skill first):
 
 If Resend is not configured, draft the email in chat and tell Alex to connect Resend or run send manually.
 
-## Step 9 — Keep or die
+## Step 9 — Changelog
+
+Append the batch to **`CHANGELOG.md`** at the project root (newest batches first). Use the format in [reference.md](reference.md) → CHANGELOG.md.
+
+Include all five components with a ~20-word summary each. For declined components, append the decline reason after an em dash.
+
+## Step 10 — Keep or die
 
 When the human decides:
 
@@ -235,5 +242,6 @@ After moves:
 ## Additional resources
 
 - Email template + variant matrix: [reference.md](reference.md)
+- Changelog format: [reference.md](reference.md) → CHANGELOG.md
 - Decline memory format: [reference.md](reference.md) → MEMORY.md
 - List alive/dead/staging: [scripts/list-components.sh](scripts/list-components.sh)
