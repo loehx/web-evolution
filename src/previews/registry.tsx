@@ -1,4 +1,9 @@
 import {
+  PointerTiltShowcase,
+  type PointerTiltShowcaseProps,
+} from '../../staging/PointerTiltShowcase/PointerTiltShowcase'
+import { pointerTiltShowcaseVariants } from '../../staging/PointerTiltShowcase/previews'
+import {
   FaqAccordionStack,
   type FaqAccordionStackProps,
 } from '../../staging/FaqAccordionStack/FaqAccordionStack'
@@ -52,11 +57,19 @@ import {
 import { viewportSnapDeckVariants } from '../../staging/ViewportSnapDeck/previews'
 import type { StagedComponent } from '@/previews/types'
 
+const BATCH_4_CREATED = '2026-08-12T15:32:00Z'
 const BATCH_3_CREATED = '2026-08-12T15:06:00Z'
 const BATCH_2_CREATED = '2026-08-12T09:20:37Z'
 const BATCH_1_CREATED = '2026-08-12T08:51:59Z'
 
 export const stagedComponents: StagedComponent[] = [
+  {
+    name: 'PointerTiltShowcase',
+    slug: 'PointerTiltShowcase',
+    createdAt: BATCH_4_CREATED,
+    variants: pointerTiltShowcaseVariants,
+    render: (props) => <PointerTiltShowcase {...(props as PointerTiltShowcaseProps)} />,
+  },
   {
     name: 'FaqAccordionStack',
     slug: 'FaqAccordionStack',

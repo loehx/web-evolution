@@ -70,6 +70,7 @@ const constrainedSlugs: Record<string, string> = {
   ViewportSnapDeck: 'h-[70svh]',
   ParallaxHero: 'min-h-[32rem]',
   ModalSpotlight: 'min-h-[24rem]',
+  PointerTiltShowcase: 'min-h-[28rem]',
 }
 
 export function PreviewGallery({ components }: PreviewGalleryProps) {
