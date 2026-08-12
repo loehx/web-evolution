@@ -1,11 +1,8 @@
-import { lazy, Suspense, useCallback, useRef, useState } from 'react'
+import { Suspense, useCallback, useRef, useState } from 'react'
 import { ResponsiveHeadline } from '@/components/primitives'
+import { useInView } from '@/lib/useInView'
 import { cn } from '@/lib/utils'
-import type { PointerState } from './TiltModelScene'
-
-const TiltModelScene = lazy(() =>
-  import('./TiltModelScene').then((mod) => ({ default: mod.TiltModelScene })),
-)
+import { TiltModelScene, type PointerState } from './TiltModelScene'
 
 export interface PointerTiltShowcaseProps {
   eyebrow?: string
@@ -41,10 +38,11 @@ function usePrefersReducedMotion() {
   return reduced
 }
 
-function CanvasPlaceholder() {
+function ViewportPlaceholder() {
   return (
-    <div className="flex h-full w-full items-center justify-center bg-zinc-900 text-sm text-zinc-500">
-      Loading 3D model…
+    <div className="flex h-full w-full flex-col items-center justify-center gap-2 bg-zinc-900 text-sm text-zinc-500">
+      <div className="h-10 w-10 rounded-full border-2 border-dashed border-zinc-600" aria-hidden />
+      <span>Scroll here to load 3D model</span>
     </div>
   )
 }
@@ -66,6 +64,7 @@ export function PointerTiltShowcase({
   className,
 }: PointerTiltShowcaseProps) {
   const sectionRef = useRef<HTMLElement>(null)
+  const { ref: viewportRef, inView } = useInView('300px 0px')
   const [pointer, setPointer] = useState<PointerState>(DEFAULT_POINTER)
   const reducedMotion = usePrefersReducedMotion()
 
@@ -128,26 +127,39 @@ export function PointerTiltShowcase({
 
   const viewport = (
     <div
+      ref={viewportRef}
       className={cn(
-        'relative w-full overflow-hidden bg-zinc-900',
+        'relative w-full min-h-[16rem] overflow-hidden bg-zinc-900',
         ratioClasses[viewportRatio],
         modelFirst ? 'lg:order-1' : 'lg:order-2',
       )}
       aria-label="Interactive 3D model — move cursor or drag to tilt"
     >
-      <Suspense fallback={<CanvasPlaceholder />}>
-        <TiltModelScene
-          modelSrc={modelSrc}
-          pointer={pointer}
-          maxTilt={maxTilt}
-          reducedMotion={reducedMotion}
-          modelScale={modelScale}
-          className="absolute inset-0 h-full w-full touch-none"
-        />
-      </Suspense>
+      <div className="absolute inset-0">
+        {inView ? (
+          <Suspense
+            fallback={
+              <div className="flex h-full w-full items-center justify-center bg-zinc-900 text-sm text-zinc-500">
+                Loading 3D model…
+              </div>
+            }
+          >
+            <TiltModelScene
+              modelSrc={modelSrc}
+              pointer={pointer}
+              maxTilt={maxTilt}
+              reducedMotion={reducedMotion}
+              modelScale={modelScale}
+              className="h-full w-full touch-none"
+            />
+          </Suspense>
+        ) : (
+          <ViewportPlaceholder />
+        )}
+      </div>
       <div
         aria-hidden
-        className="pointer-events-none absolute inset-x-0 bottom-0 h-16 bg-gradient-to-t from-zinc-950/80 to-transparent"
+        className="pointer-events-none absolute inset-x-0 bottom-0 z-10 h-16 bg-gradient-to-t from-zinc-950/80 to-transparent"
       />
     </div>
   )

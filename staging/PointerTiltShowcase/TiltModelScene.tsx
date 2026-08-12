@@ -1,6 +1,6 @@
 import { Center, useGLTF } from '@react-three/drei'
 import { Canvas, useFrame } from '@react-three/fiber'
-import { Suspense, useMemo, useRef } from 'react'
+import { Component, Suspense, useMemo, useRef, type ReactNode } from 'react'
 import type { Group } from 'three'
 
 export interface PointerState {
@@ -14,6 +14,15 @@ interface ModelProps {
   maxTilt: number
   reducedMotion: boolean
   scale: number
+}
+
+function FallbackMesh() {
+  return (
+    <mesh>
+      <torusKnotGeometry args={[0.55, 0.18, 128, 32]} />
+      <meshStandardMaterial color="#a78bfa" metalness={0.35} roughness={0.4} />
+    </mesh>
+  )
 }
 
 function TiltModel({ url, pointer, maxTilt, reducedMotion, scale }: ModelProps) {
@@ -50,12 +59,48 @@ function TiltModel({ url, pointer, maxTilt, reducedMotion, scale }: ModelProps) 
   )
 }
 
-function SceneFallback() {
+class ModelErrorBoundary extends Component<
+  { fallback: ReactNode; children: ReactNode },
+  { failed: boolean }
+> {
+  state = { failed: false }
+
+  static getDerivedStateFromError() {
+    return { failed: true }
+  }
+
+  render() {
+    if (this.state.failed) return this.props.fallback
+    return this.props.children
+  }
+}
+
+function SceneContents({
+  modelSrc,
+  pointer,
+  maxTilt = 0.55,
+  reducedMotion = false,
+  modelScale = 1,
+}: Omit<TiltModelSceneProps, 'className'>) {
   return (
-    <mesh>
-      <boxGeometry args={[1, 1, 1]} />
-      <meshStandardMaterial color="#52525b" wireframe />
-    </mesh>
+    <>
+      <color attach="background" args={['#18181b']} />
+      <ambientLight intensity={0.75} />
+      <directionalLight position={[4, 6, 4]} intensity={1.2} />
+      <directionalLight position={[-3, 2, -2]} intensity={0.4} />
+      <pointLight position={[0, 2, 2]} intensity={0.5} />
+      <Suspense fallback={<FallbackMesh />}>
+        <ModelErrorBoundary fallback={<FallbackMesh />}>
+          <TiltModel
+            url={modelSrc}
+            pointer={pointer}
+            maxTilt={maxTilt}
+            reducedMotion={reducedMotion}
+            scale={modelScale}
+          />
+        </ModelErrorBoundary>
+      </Suspense>
+    </>
   )
 }
 
@@ -79,26 +124,21 @@ export function TiltModelScene({
   return (
     <Canvas
       className={className}
-      camera={{ position: [0, 0.5, 3.2], fov: 42 }}
-      gl={{ antialias: true, alpha: true }}
-      dpr={[1, 2]}
+      style={{ width: '100%', height: '100%', display: 'block' }}
+      camera={{ position: [0, 0.4, 2.8], fov: 45, near: 0.1, far: 100 }}
+      gl={{ antialias: true, alpha: false, powerPreference: 'high-performance' }}
+      dpr={[1, 1.75]}
+      frameloop="always"
     >
-      <color attach="background" args={['#18181b']} />
-      <ambientLight intensity={0.65} />
-      <directionalLight position={[4, 6, 4]} intensity={1.1} />
-      <directionalLight position={[-3, 2, -2]} intensity={0.35} />
-      <Suspense fallback={<SceneFallback />}>
-        <TiltModel
-          url={modelSrc}
-          pointer={pointer}
-          maxTilt={maxTilt}
-          reducedMotion={reducedMotion}
-          scale={modelScale}
-        />
-      </Suspense>
+      <SceneContents
+        modelSrc={modelSrc}
+        pointer={pointer}
+        maxTilt={maxTilt}
+        reducedMotion={reducedMotion}
+        modelScale={modelScale}
+      />
     </Canvas>
   )
 }
 
 useGLTF.preload('/models/duck.glb')
-useGLTF.preload('/models/avocado.glb')
