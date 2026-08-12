@@ -186,7 +186,7 @@ Send via **Resend** (read `resend` skill first):
 
 - **To:** `alexloehn@gmail.com`
 - **Subject:** `5x new components for my king`
-- **Body:** use verbatim template; preview links are **one URL per component** (all variants on that page), e.g. `https://preview.example.com/preview/ParallaxHero` — not one URL per variant
+- **Body:** use verbatim template; include the **five web words** from Step 1 and send **one link** to `<preview>/new` so Alex can browse the latest creations
 
 If Resend is not configured, draft the email in chat and tell Alex to connect Resend or run send manually.
 

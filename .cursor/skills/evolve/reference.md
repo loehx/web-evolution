@@ -2,13 +2,11 @@
 
 ## Email template (verbatim)
 
-Use this exact wording. Replace `<link-to-preview>/<component-name>` with the **component preview page** (all variants on one page):
+Use this exact wording. Replace `<preview>` with the deploy preview base URL (e.g. `https://deploy-preview-1--web-evolution-2026.netlify.app`) and `<word1>`, …, `<word5>` with the five web words from Step 1:
 
 ```
-https://<link-to-preview>/preview/<component-name>
+<preview>/new
 ```
-
-Example: `https://preview.example.com/preview/ParallaxHero` — not `/preview/ParallaxHero/12`.
 
 ```
 Subject: 5x new components for my king
@@ -16,13 +14,11 @@ Subject: 5x new components for my king
 Your Majesty,
 
 I've created 5 components after your instructions.
-Here we go:
+The words were: <word1>, <word2>, <word3>, <word4>, <word5>.
 
-1. https://<link-to-preview>/preview/<component-name>
-2. https://<link-to-preview>/preview/<component-name>
-3. https://<link-to-preview>/preview/<component-name>
-4. https://<link-to-preview>/preview/<component-name>
-5. https://<link-to-preview>/preview/<component-name>
+Check them out here:
+
+<preview>/new
 
 Which ones shall live and which ones shall die?
 
@@ -37,6 +33,9 @@ import { Resend } from 'resend'
 
 const resend = new Resend(process.env.RESEND_API_KEY)
 
+const previewUrl = 'https://deploy-preview-1--web-evolution-2026.netlify.app/new'
+const words = ['viewport', 'marquee', 'skeleton', 'cache', 'gradient']
+
 const { data, error } = await resend.emails.send({
   from: 'Evolved Web <onboarding@resend.dev>', // replace with verified domain
   to: ['alexloehn@gmail.com'],
@@ -44,13 +43,11 @@ const { data, error } = await resend.emails.send({
   text: `Your Majesty,
 
 I've created 5 components after your instructions.
-Here we go:
+The words were: ${words.join(', ')}.
 
-1. https://preview.example.com/preview/ComponentOne
-2. https://preview.example.com/preview/ComponentTwo
-3. https://preview.example.com/preview/ComponentThree
-4. https://preview.example.com/preview/ComponentFour
-5. https://preview.example.com/preview/ComponentFive
+Check them out here:
+
+${previewUrl}
 
 Which ones shall live and which ones shall die?
 
@@ -135,6 +132,7 @@ Same name in alive/ or dead/?
 
 | URL | Purpose |
 |-----|---------|
+| `/new` | Latest staging creations (email link target) |
 | `/preview` | Index of all staging components |
 | `/preview/ComponentName` | **Single page** — all variants 1–20 in separate stacked divs |
 | `/preview/ComponentName#variant-12` | In-page jump to variant #12 |
@@ -150,7 +148,7 @@ Same name in alive/ or dead/?
 ))}
 ```
 
-No per-variant routes. Email links point to the component page; humans reference `#7`, `#14`, etc. in feedback.
+No per-variant routes. The email links to `/new`; humans reference component names and variant numbers (e.g. `#7`, `#14`) in feedback.
 
 ---
 
@@ -193,4 +191,4 @@ When moving to `dead/`, you may add:
 Declined 2026-08-12. See MEMORY.md entry "ComponentName (declined)".
 ```
 
-For remote review, deploy preview (Vercel/Netlify) or tunnel local dev (`ngrok`, Cloudflare Tunnel) and put those URLs in the email.
+For remote review, deploy preview (Netlify) or tunnel local dev (`ngrok`, Cloudflare Tunnel) and put `<preview>/new` in the email.
