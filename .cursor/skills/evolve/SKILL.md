@@ -104,13 +104,21 @@ For each component, document in `SPEC.md`:
 1. **Look** — typography, color, spacing, motion, media slots
 2. **Page behavior** — scroll role, z-index, sticky/fixed, section flow
 3. **Neighbor behavior** — how it interacts with components above/below
-4. **Viewport / resize** — breakpoints, `svh`/`dvh`, overflow, reduced motion
+4. **Viewport / resize** — mobile, tablet, desktop (see `src/lib/breakpoints.ts`), `svh`/`dvh`, overflow, reduced motion
+5. **Width model** — full browser width; no fixed outer container
+6. **Image ratios** — aspect ratio per image slot and crop behavior
+7. **Headlines** — SVG lines via `ResponsiveHeadline`, or HTML with rationale
 
 ## Step 5 — Research and implement
 
 1. Search for similar components online (Aceternity, shadcn, community blocks, CSS-only patterns).
 2. Adapt patterns — do not copy verbatim. Use project stack: **React + TypeScript + Tailwind + Motion** (unless project differs).
 3. Standards: accessible markup, `prefers-reduced-motion`, typed props, `cn()` utility, no secrets in code.
+4. **New component rules** (see `.cursor/rules/new-components.mdc`):
+   - **Full width** — component shell spans the browser; no `max-w-*` / `container` on the root section.
+   - **Images** — every slot has a declared aspect ratio; crop with `object-cover` via `RatioImage` when possible.
+   - **Viewports** — mobile, tablet, and desktop layouts; document in `SPEC.md` using `src/lib/breakpoints.ts` ranges.
+   - **Headlines** — primary titles may use `ResponsiveHeadline` (dynamic SVG) for controlled line breaks; SVG scales with container width.
 
 ## Step 6 — Twenty preview variants (mandatory)
 
@@ -239,6 +247,9 @@ After moves:
 - **Omitting the Cursor agent chat link** from the email to Alex
 - Moving to alive/dead before human explicitly chooses
 - **Declining without writing to MEMORY.md** when a reason was provided
+- **Fixed outer containers** (`max-w-*`, `container`) on new component root sections
+- **Images without a declared ratio** or with `object-contain` / stretch instead of crop
+- **Headlines only as fixed-px HTML** when primary title needs width-linked SVG line control
 
 ## Additional resources
 

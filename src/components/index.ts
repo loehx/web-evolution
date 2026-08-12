@@ -29,3 +29,10 @@ export {
   type ViewportSnapSlideProps,
   type ViewportSnapNavProps,
 } from '../../staging/ViewportSnapDeck'
+export {
+  RatioImage,
+  ResponsiveHeadline,
+  type ImageRatio,
+  type RatioImageProps,
+  type ResponsiveHeadlineProps,
+} from './primitives'

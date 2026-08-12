@@ -1,0 +1,37 @@
+# New component standards
+
+Applies to every component in `staging/`, and to new work in `alive/` when refactored.
+
+## Layout — full browser width
+
+- Root section uses `w-full` (or `width: 100%`). Do **not** wrap the component shell in `max-w-*`, `container`, or centered column utilities.
+- Horizontal padding (`px-*`) is allowed for readable inset; the background and media still span the full viewport width.
+- Preview gallery chrome may stay constrained; the **component render area** must reflect full-width behavior.
+
+## Images — fixed ratio, cropped to fit
+
+- Every image slot declares an explicit aspect ratio (`aspect-[w/h]`, `RatioImage`, or equivalent).
+- Fill the ratio box with `object-cover` (or `background-size: cover`) so unlike-sized sources are **cropped**, never letterboxed or stretched.
+- Expose the ratio as a typed prop when variants need portrait, landscape, or square crops.
+
+## Viewports — mobile, tablet, desktop
+
+- Test and document all three ranges (see `src/lib/breakpoints.ts`).
+- Use Tailwind responsive prefixes (`md:`, `lg:`) or container queries — not one layout scaled only by font size.
+- Note mobile / tablet / desktop behavior in each component's `SPEC.md`.
+
+## Headlines — dynamic SVG, width-linked
+
+- Primary headlines may use `ResponsiveHeadline` (dynamic SVG) to control line breaks and scale.
+- SVG `width="100%"` with a fixed `viewBox`; size tracks the component / viewport width — not a fixed `px` font size alone.
+- Provide an accessible text fallback (`aria-label` or visually hidden duplicate).
+- Plain HTML headings remain acceptable for secondary text (eyebrows, subtitles, captions).
+
+## SPEC.md checklist
+
+Each new `SPEC.md` must include:
+
+1. **Aspect ratios** used for every image slot
+2. **Mobile / tablet / desktop** layout differences
+3. **Width model** — confirm no fixed outer container
+4. **Headline strategy** — SVG lines + scaling, or why HTML is used instead

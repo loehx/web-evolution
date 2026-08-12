@@ -119,11 +119,52 @@ Add component-specific variants (e.g. PayloadPanel: streaming status, error stat
 - Above: ...
 - Below: ...
 
+## Width model
+- Full browser width (`w-full`); no `max-w-*` / `container` on root section
+
+## Image ratios
+- <slot name>: <ratio> — cropped with object-cover
+
+## Headlines
+- Primary: ResponsiveHeadline lines `[...]` OR HTML with reason
+- Secondary: ...
+
 ## Viewport and resize
-- Mobile: ...
-- Tablet: ...
-- Desktop: ...
+- Mobile (< 768px): ...
+- Tablet (768–1023px): ...
+- Desktop (≥ 1024px): ...
 - prefers-reduced-motion: ...
+```
+
+---
+
+## New component implementation standards
+
+| Rule | Requirement | Primitive |
+|------|-------------|-----------|
+| Images | Fixed aspect ratio; center-crop unlike sources | `RatioImage` from `@/components/primitives` |
+| Width | No fixed outer container; span full viewport | Root `section` uses `w-full` only |
+| Viewports | Mobile, tablet, desktop layouts | Breakpoints in `src/lib/breakpoints.ts`; Tailwind `md:` / `lg:` |
+| Headlines | Controlled line breaks; scale with width | `ResponsiveHeadline` — SVG `width="100%"`, explicit `lines[]` |
+
+### RatioImage example
+
+```tsx
+import { RatioImage } from '@/components/primitives'
+
+<RatioImage src={imageUrl} alt="" ratio="16/10" />
+```
+
+### ResponsiveHeadline example
+
+```tsx
+import { ResponsiveHeadline } from '@/components/primitives'
+
+<ResponsiveHeadline
+  level={1}
+  lines={['Bold web', 'components']}
+  className="text-white"
+/>
 ```
 
 ---
