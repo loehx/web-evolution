@@ -903,6 +903,8 @@ function CopyOverlay({
       <div
         className={cn(
           'mt-0 flex max-w-[92vw] flex-col gap-2 md:max-w-[46vw] md:gap-3',
+          // Mobile: capture touches on copy so the page scrolls instead of orbiting the phone.
+          'max-md:pointer-events-auto max-md:touch-pan-y',
           copyRight && 'md:items-end',
         )}
       >
