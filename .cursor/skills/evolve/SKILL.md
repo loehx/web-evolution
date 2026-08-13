@@ -1,12 +1,12 @@
 ---
 name: evolve
 description: >-
-  Evolve bold web components in web-evolution: invent 5 content scenarios, build
-  components around them, dedupe against alive/dead, read MEMORY.md for past declines,
-  research online patterns, build 20 numbered preview variants each, email Alex for
-  keep/die review, log decline reasons to MEMORY.md, then move survivors to alive/
-  or dead/. Use when the user invokes /evolve or asks to evolve, curate, or review
-  web components.
+  Evolve bold web components in web-evolution: build the five required roles
+  (hero, card slider, image+text, contact form, footer) with at least one 3D
+  orbit model, dedupe against alive/dead, read MEMORY.md, research online
+  patterns, build 20 numbered preview variants each, email Alex for keep/die review,
+  log decline reasons to MEMORY.md, then move survivors to alive/ or dead/. Use when
+  the user invokes /evolve or asks to evolve, curate, or review web components.
 disable-model-invocation: true
 ---
 
@@ -45,25 +45,24 @@ Copy and track progress:
 ```
 Evolve Progress:
 - [ ] Step 0: Read MEMORY.md for past decline lessons
-- [ ] Step 1: Invent 5 content scenarios (what the component holds)
+- [ ] Step 1: Confirm the five required roles (hero, card slider, image+text, contact, footer)
 - [ ] Step 2: Scan alive/ and dead/ for duplicates
 - [ ] Step 3: Name 5 bold components (rename if duplicate design)
-- [ ] Step 4: Write SPEC.md per component (look, page, neighbors, resize)
-- [ ] Step 5: Research similar components online; adapt clean code
-- [ ] Step 6: Implement in staging/<ComponentName>/
-- [ ] Step 7: Create 20 numbered preview variants per component
-- [ ] Step 8: Wire preview URLs; run dev server; verify all variants
-- [ ] Step 9: Present creations with numbered use-case list
-- [ ] Step 10: Email Alex (alexloehn@gmail.com)
-- [ ] Step 11: Append batch to CHANGELOG.md
-- [ ] Step 12: On human verdict — move folders to alive/ or dead/
+- [ ] Step 3b: Creative direction per component (before any code)
+- [ ] Step 4: Write SPEC.md (look, motion, mobile→desktop, neighbors)
+- [ ] Step 5: Research, implement, then responsive + motion + reduced-motion review
+- [ ] Step 6: 20 variants, wire previews, verify
+- [ ] Step 7: Present creations with numbered use-case list
+- [ ] Step 8: Email Alex (alexloehn@gmail.com)
+- [ ] Step 9: Append batch to CHANGELOG.md
+- [ ] Step 10: On human verdict — move folders to alive/ or dead/
 ```
 
 ---
 
 ## Step 0 — Read memory (mandatory)
 
-Before inventing content or designing components, read **`MEMORY.md`** at the project root.
+Before naming or designing components, read **`MEMORY.md`** at the project root.
 
 Apply past decline lessons to this batch:
 - Avoid repeated mistakes (layout, motion, naming, content patterns)
@@ -71,37 +70,19 @@ Apply past decline lessons to this batch:
 
 ---
 
-## Step 1 — Five content scenarios
+## Step 1 — Five required roles
 
-Invent **5 distinct content scenarios** — real things a website section would show, not abstract web jargon.
+Do **not** invent five random concepts from words. Build **exactly these five roles**, each as a bold full-viewport stage (distinct names, not `Hero` / `Footer` clones):
 
-State them explicitly before designing components. Each scenario describes **what content** the component is built around.
+1. **Hero**
+2. **Slider of cards** (image + text per card)
+3. **Image + text**
+4. **Contact module + form**
+5. **Footer**
 
-**Examples (pick different ones each batch; do not copy this list verbatim):**
+**At least one** of the five must contain a **3D model** with click/tap-hold-drag orbit (`.cursor/rules/3d-orbit.mdc`).
 
-| Scenario | What it contains |
-|----------|------------------|
-| Brand list | Logos or names in a row/grid |
-| Welcome text | Greeting headline + intro paragraph |
-| Image + text | Side-by-side or stacked media and copy |
-| Contact form | Name, email, message fields + submit |
-| Testimonial | Quote, avatar, name, role |
-| Pricing table | Tiers, features, CTA per column |
-| FAQ | Question / answer pairs |
-| Team grid | Photos, names, titles |
-| Stats row | Big numbers + labels |
-| Newsletter signup | Headline + email field |
-| Feature list | Icon + title + blurb per item |
-| Event schedule | Date, time, title, location |
-| Product card | Image, title, price, buy button |
-| Location map + hours | Address block beside hours list |
-
-Rules:
-
-- **Content-first** — the scenario names the payload (brands, form fields, quotes), not a CSS trick or layout keyword.
-- **Diverse** — mix media-heavy, text-heavy, and interactive (forms, CTAs) across the five.
-- **Generic** — avoid domain-specific payloads (API JSON, dev tools, raw code inspectors).
-- **One scenario → one component** — each of the five becomes its own boldly designed component.
+State the five names and which one owns the 3D before designing.
 
 ## Step 2 — Dedupe against alive and dead
 
@@ -120,48 +101,58 @@ bash .cursor/skills/evolve/scripts/list-components.sh
 
 ## Step 3 — Five bold components
 
-From the **5 content scenarios**, derive **5 bold web components** — one component per scenario. Name components for their **layout or role**, not the content itself (e.g. `LogoMarqueeStrip` for a brand list, `SplitMediaCopy` for image + text, `InquiryFormBand` for a contact form).
+Map each required **role** to a distinctive component. Same job as a typical landing block, different spatial idea.
 
-Use specific web component names when appropriate: `Hero`, `MarqueeRibbon`, `ViewportSnapDeck`, `SkeletonReveal`, etc. — but the **preview props and variants** must showcase the chosen content scenario with realistic sample copy.
+Each component is a **full-viewport stage**, not a widget:
+
+- Root: `min-h-[100svh] w-full` — no `max-w-*` on the root
+- If it still works as a 400×300 card, it is too small — scale the idea up
+- **Forbidden looks:** centered SaaS hero (H1 + subtitle + CTAs + orbs), 2–3 feature cards, logo cloud, FAQ, thin marquee, shadcn/Aceternity clones, reskins of existing alive/dead/staging components
+- Name the spatial or motion idea in one sentence. If that sentence is “hero”, “cards”, or “marquee”, invent again
+
+`MEMORY.md` “generic” means domain-agnostic, **not** visually generic.
+
+Layout/type primitives (FullBleed, Display, Reveal, …) may be composed **inside** a stage. They must not become a stock landing-page section. Follow `.cursor/rules/design-motion-system.mdc`.
+
+## Step 3b — Creative direction (mandatory, before code)
+
+For **each** of the five names, write a `CREATIVE DIRECTION` block in `SPEC.md` (template in [reference.md](reference.md)). Pick one style. Five signatures in a batch must differ. Do not open the implementation file until this exists.
 
 ## Step 4 — Component spec (SPEC.md)
 
 For each component, document in `SPEC.md`:
 
-1. **Look** — typography, color, spacing, motion, media slots
-2. **Content scenario** — which Step 1 scenario this component serves; list prop slots (headline, items, fields, …)
-3. **Page behavior** — scroll role, z-index, sticky/fixed, section flow
-4. **Neighbor behavior** — how it interacts with components above/below
-5. **Viewport / resize** — mobile, tablet, desktop (see `src/lib/breakpoints.ts`), `svh`/`dvh`, overflow, reduced motion
-6. **Width model** — full browser width; no fixed outer container
-7. **Image ratios** — aspect ratio per image slot and crop behavior
-8. **Headlines** — SVG lines via `ResponsiveHeadline`, or HTML with rationale
+1. **Creative direction** — style, type, layout, color, motion, signature (Step 3b)
+2. **Look** — the one-sentence spatial/motion idea, hierarchy, whitespace
+3. **Motion** — role (hero / primary / content / chrome), named moves, durations from `src/lib/motion.ts`
+4. **Page behavior** — the component **is** the page slice: `min-h-[100svh] w-full`, scroll role, z-index
+5. **Neighbor behavior** — how it interacts with components above/below
+6. **Responsive** — mobile → tablet → desktop → large: layout, type, spacing, crop, interaction, animation. Hover/mouse-follow desktop-only.
+7. **Width / images / headlines** — full browser width; declared image ratios; `ResponsiveHeadline` when primary titles need SVG line control (see `.cursor/rules/new-components.mdc` if present)
 
 ## Step 5 — Research and implement
 
 1. Search for similar components online (Aceternity, shadcn, community blocks, CSS-only patterns).
-2. Adapt patterns — do not copy verbatim. Use project stack: **React + TypeScript + Tailwind + Motion** (unless project differs).
+2. Adapt patterns — do not copy verbatim. Stack: **Vite + React + TypeScript + Tailwind + Motion**. Tokens in `src/index.css`. Durations in `src/lib/motion.ts`.
 3. Standards: accessible markup, `prefers-reduced-motion`, typed props, `cn()` utility, no secrets in code.
-4. **New component rules** (see `.cursor/rules/new-components.mdc`):
-   - **Full width** — component shell spans the browser; no `max-w-*` / `container` on the root section.
-   - **Images** — every slot has a declared aspect ratio; crop with `object-cover` via `RatioImage` when possible.
-   - **Viewports** — mobile, tablet, and desktop layouts; document in `SPEC.md` using `src/lib/breakpoints.ts` ranges.
-   - **Headlines** — primary titles may use `ResponsiveHeadline` (dynamic SVG) for controlled line breaks; SVG scales with container width.
+4. After implementation, review: mobile independent of desktop, motion hierarchy, touch (no hover-required content), reduced motion.
+5. If the stage includes **3D**, wire `usePointerOrbit` (`src/lib/usePointerOrbit.ts`): click/tap-hold-drag rotates X and Y so the model can be seen from all sides. See `.cursor/rules/3d-orbit.mdc`.
+6. **New component rules** (see `.cursor/rules/new-components.mdc` when present): full-width root, declared image ratios / `RatioImage`, mobile-tablet-desktop, `ResponsiveHeadline` when needed.
 
 ## Step 6 — Twenty preview variants (mandatory)
 
 Each component gets **≥ 20 numbered variants** in `previews.tsx`.
 
-Variants must exercise different **content shapes** for that component's scenario:
+Variants must exercise different **content shapes**:
 
 - Headline only, long headline, missing headline
 - Body text: short, long, rich text, empty
 - Image: portrait, landscape, missing, broken URL
 - Video: autoplay loop, poster only, missing
 - CTAs: none, one, two, loading/disabled
-- Lists, stats, quotes, form fields, table rows (as relevant to the scenario)
+- Lists, stats, quotes, form fields, table rows (as relevant)
 
-Use **realistic sample content** matching the scenario (actual-looking brand names, form labels, quotes) — not generic lorem or abstract placeholders.
+Use **realistic sample content** — not generic lorem or abstract placeholders.
 
 Number variants **1–20** (continue if more needed). Each variant needs:
 
@@ -175,13 +166,11 @@ Number variants **1–20** (continue if more needed). Each variant needs:
 
 Implement in `src/previews/PreviewGallery.tsx`:
 
-1. One route per component: `/preview/<ComponentName>`
-2. Map `component.variants` → one `<div id="variant-{id}">` per variant
-3. Each div contains:
-   - **Header row** — `#id` (mono) + human label
-   - **Render area** — `{component.render(variant.props)}`
-4. Sticky top bar with jump links `#variant-1` … `#variant-20`
-5. Full-viewport components (e.g. `ParallaxHero`, `ViewportSnapDeck`) get a **constrained height** in the list so 20 variants stay scrollable (e.g. `min-h-[32rem]` or `h-[70svh]`)
+1. One route per component: `/<ComponentName>`
+2. Map `component.variants` → one `<section id="variant-{id}">` per variant
+3. Each section is **full bleed**: `min-h-[100svh] w-full` — no `max-w-*`, no page padding, no bordered card around the render
+4. Overlay chrome only: back link + `#id` · label (`fixed` / `absolute`)
+5. Do **not** shrink variants to `h-[70svh]` / `min-h-[32rem]` to pack the list — each variant owns at least one viewport
 
 Do **not** create `/preview/<ComponentName>/<variantId>` pages. Old links should redirect to the component page.
 
@@ -204,10 +193,9 @@ Output a catalog:
 ```markdown
 ## Evolve batch — <date>
 
-**Content scenarios:** brand list, welcome text, image + text, contact form, testimonial
+**Roles:** hero, card slider, image+text, contact form, footer
 
 ### 1. ComponentName
-- Scenario: <which content type this serves>
 - Preview: http://localhost:5173/preview/ComponentName (all 20 variants on one page)
 - Jump link example: http://localhost:5173/preview/ComponentName#variant-7
 - Variants: 1–20 listed in separate divs (call out fragile ones, e.g. "#7: empty headline")
@@ -228,7 +216,7 @@ Send via **Resend** (read `resend` skill first):
 
 - **To:** `alexloehn@gmail.com`
 - **Subject:** `5x new components for my king`
-- **Body:** use verbatim template; include the **five content scenarios** from Step 1, **one link** to `<preview>/new` so Alex can browse the latest creations, and **always** include this run's Cursor agent chat URL (`cursor-cloud` MCP `run-info` → `url`) so Alex can return to this conversation
+- **Body:** use verbatim template; include the **five roles** from Step 1, **one link** to `<preview>/new`, and **always** include this run's Cursor agent chat URL (`cursor-cloud` MCP `run-info` → `url`) so Alex can return to this conversation
 
 If Resend is not configured, draft the email in chat and tell Alex to connect Resend or run send manually.
 
@@ -236,7 +224,7 @@ If Resend is not configured, draft the email in chat and tell Alex to connect Re
 
 Append the batch to **`CHANGELOG.md`** at the project root (newest batches first). Use the format in [reference.md](reference.md) → CHANGELOG.md.
 
-Include all five components with a ~20-word summary each. List the batch's **content scenarios** (not web jargon words). For declined components, append the decline reason after an em dash.
+Include all five components with a ~20-word summary each. List the batch's **roles**. For declined components, append the decline reason after an em dash.
 
 ## Step 10 — Keep or die
 
@@ -275,6 +263,14 @@ After moves:
 - Fewer than 20 variants per component
 - Variants that only change color — vary **content shape**, not just theme
 - Duplicating an alive component under the same name
+- Preview containers (`max-w-*`, padded cards) that clip the component from the browser edges
+- Components shorter or narrower than the viewport
+- Boring / template UI (generic heroes, card grids, thin ribbons)
+- Coding before a written creative direction
+- Random animation (no named move / duration token)
+- Hover-only information; compressed-desktop “responsive”
+- Five components in one batch sharing the same visual signature
+- 3D that cannot be grabbed and orbit-rotated on pointer drag
 - **Separate routes or pages per variant** — all variants must be stacked divs on one page
 - Sending email before preview URLs work
 - **Omitting the Cursor agent chat link** from the email to Alex
@@ -283,12 +279,11 @@ After moves:
 - **Fixed outer containers** (`max-w-*`, `container`) on new component root sections
 - **Images without a declared ratio** or with `object-contain` / stretch instead of crop
 - **Headlines only as fixed-px HTML** when primary title needs width-linked SVG line control
-- **Abstract web jargon as Step 1 input** (viewport, payload, cache) instead of concrete content scenarios
-- **Empty or lorem-only previews** — variants must use realistic sample content for the scenario (brand names, form labels, quotes)
+- **Empty or lorem-only previews** — variants must use realistic sample content
 
 ## Additional resources
 
-- Email template + variant matrix: [reference.md](reference.md)
+- Email template, SPEC, motion language, design rules: [reference.md](reference.md)
 - Changelog format: [reference.md](reference.md) → CHANGELOG.md
 - Decline memory format: [reference.md](reference.md) → MEMORY.md
 - List alive/dead/staging: [scripts/list-components.sh](scripts/list-components.sh)

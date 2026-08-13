@@ -1,4 +1,26 @@
 import {
+  RelicOrbitHero,
+  type RelicOrbitHeroProps,
+} from '../../staging/RelicOrbitHero/RelicOrbitHero'
+import { relicOrbitHeroVariants } from '../../staging/RelicOrbitHero/previews'
+import {
+  TideCardRail,
+  type TideCardRailProps,
+} from '../../staging/TideCardRail/TideCardRail'
+import { tideCardRailVariants } from '../../staging/TideCardRail/previews'
+import { ShearSplit, type ShearSplitProps } from '../../staging/ShearSplit/ShearSplit'
+import { shearSplitVariants } from '../../staging/ShearSplit/previews'
+import {
+  InquiryChamber,
+  type InquiryChamberProps,
+} from '../../staging/InquiryChamber/InquiryChamber'
+import { inquiryChamberVariants } from '../../staging/InquiryChamber/previews'
+import {
+  ColophonFloor,
+  type ColophonFloorProps,
+} from '../../staging/ColophonFloor/ColophonFloor'
+import { colophonFloorVariants } from '../../staging/ColophonFloor/previews'
+import {
   FaqAccordionStack,
   type FaqAccordionStackProps,
 } from '../../staging/FaqAccordionStack/FaqAccordionStack'
@@ -52,11 +74,47 @@ import {
 import { viewportSnapDeckVariants } from '../../staging/ViewportSnapDeck/previews'
 import type { StagedComponent } from '@/previews/types'
 
+const BATCH_4_CREATED = '2026-08-13T09:00:00Z'
 const BATCH_3_CREATED = '2026-08-12T15:06:00Z'
 const BATCH_2_CREATED = '2026-08-12T09:20:37Z'
 const BATCH_1_CREATED = '2026-08-12T08:51:59Z'
 
 export const stagedComponents: StagedComponent[] = [
+  {
+    name: 'RelicOrbitHero',
+    slug: 'RelicOrbitHero',
+    createdAt: BATCH_4_CREATED,
+    variants: relicOrbitHeroVariants,
+    render: (props) => <RelicOrbitHero {...(props as RelicOrbitHeroProps)} />,
+  },
+  {
+    name: 'TideCardRail',
+    slug: 'TideCardRail',
+    createdAt: '2026-08-13T09:01:00Z',
+    variants: tideCardRailVariants,
+    render: (props) => <TideCardRail {...(props as TideCardRailProps)} />,
+  },
+  {
+    name: 'ShearSplit',
+    slug: 'ShearSplit',
+    createdAt: '2026-08-13T09:02:00Z',
+    variants: shearSplitVariants,
+    render: (props) => <ShearSplit {...(props as ShearSplitProps)} />,
+  },
+  {
+    name: 'InquiryChamber',
+    slug: 'InquiryChamber',
+    createdAt: '2026-08-13T09:03:00Z',
+    variants: inquiryChamberVariants,
+    render: (props) => <InquiryChamber {...(props as InquiryChamberProps)} />,
+  },
+  {
+    name: 'ColophonFloor',
+    slug: 'ColophonFloor',
+    createdAt: '2026-08-13T09:04:00Z',
+    variants: colophonFloorVariants,
+    render: (props) => <ColophonFloor {...(props as ColophonFloorProps)} />,
+  },
   {
     name: 'FaqAccordionStack',
     slug: 'FaqAccordionStack',
@@ -121,14 +179,12 @@ export const stagedComponents: StagedComponent[] = [
     render: (props) => {
       const p = props as SkeletonRevealProps & { demoLoaded?: boolean }
       return (
-        <div className="mx-auto max-w-xl p-8">
-          <SkeletonReveal
-            isLoading={p.isLoading}
-            skeleton={p.skeleton ?? <FeatureCardSkeleton />}
-          >
-            {p.children}
-          </SkeletonReveal>
-        </div>
+        <SkeletonReveal
+          isLoading={p.isLoading}
+          skeleton={p.skeleton ?? <FeatureCardSkeleton />}
+        >
+          {p.children}
+        </SkeletonReveal>
       )
     },
   },

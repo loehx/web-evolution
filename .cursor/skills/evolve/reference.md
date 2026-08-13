@@ -2,7 +2,7 @@
 
 ## Email template (verbatim)
 
-Use this exact wording. Replace `<preview>` with the deploy preview base URL (e.g. `https://deploy-preview-1--web-evolution-2026.netlify.app`), `<agentUrl>` with this run's Cursor agent chat URL (from `cursor-cloud` MCP `run-info` → `url`, e.g. `https://cursor.com/agents/bc-…`), and `<scenario1>`, …, `<scenario5>` with the five content scenarios from Step 1:
+Use this exact wording. Replace `<preview>` with the deploy preview base URL (e.g. `https://deploy-preview-1--web-evolution-2026.netlify.app`) and `<agentUrl>` with this run's Cursor agent chat URL (from `cursor-cloud` MCP `run-info` → `url`):
 
 ```
 <preview>/new
@@ -15,7 +15,7 @@ Subject: 5x new components for my king
 Your Majesty,
 
 I've created 5 components after your instructions.
-The content scenarios were: <scenario1>, <scenario2>, <scenario3>, <scenario4>, <scenario5>.
+The roles were: hero, card slider, image+text, contact form, footer.
 
 Check them out here:
 
@@ -42,13 +42,7 @@ const resend = new Resend(process.env.RESEND_API_KEY)
 
 const previewUrl = 'https://deploy-preview-1--web-evolution-2026.netlify.app/new'
 const agentUrl = 'https://cursor.com/agents/bc-…' // from cursor-cloud run-info
-const scenarios = [
-  'brand list',
-  'welcome text',
-  'image + text',
-  'contact form',
-  'testimonial quote',
-]
+const roles = ['hero', 'card slider', 'image+text', 'contact form', 'footer']
 
 const { data, error } = await resend.emails.send({
   from: 'Evolved Web <onboarding@resend.dev>', // replace with verified domain
@@ -57,7 +51,7 @@ const { data, error } = await resend.emails.send({
   text: `Your Majesty,
 
 I've created 5 components after your instructions.
-The content scenarios were: ${scenarios.join(', ')}.
+The roles were: ${roles.join(', ')}.
 
 Check them out here:
 
@@ -127,20 +121,45 @@ Add component-specific variants (e.g. PayloadPanel: streaming status, error stat
 
 ---
 
+## Creative direction template (write before code)
+
+```markdown
+## Creative direction
+
+**Style:** Editorial | Brutalist | Futuristic | Luxury | Playful  (pick one)
+**Typography:** e.g. huge grotesk headlines, compact body
+**Layout:** e.g. asymmetric, wide margins, full-bleed stage
+**Color:** e.g. off-white + black + one accent
+**Motion:** e.g. slow image-reveal, fast micro hovers, scroll text
+**Signature:** one motif you can name (not “gradient orbs + Inter”)
+```
+
+Five components in a batch must not share the same **Signature**.
+
 ## SPEC.md template
 
 ```markdown
 # ComponentName
 
-## Content scenario
-- **Type:** e.g. contact form, brand list, image + text
-- **Props:** headline, items[], fields[], …
+## Creative direction
+- Style / Typography / Layout / Color / Motion / Signature
+
+## Role
+- hero | card slider | image+text | contact form | footer
 
 ## Look
-- ...
+- One-sentence spatial or motion idea (not “hero”, “cards”, or “marquee”)
+- Hierarchy, type as a design element, intentional whitespace
+
+## Motion
+- Role: hero | primary interaction | content | chrome
+- Moves: fade-up | fade-in | scale-in | slide-in | image-reveal | text-reveal | stagger | parallax | magnetic | marquee
+- Durations: use `motionDuration` from `src/lib/motion.ts` (micro / standard / emphasis / hero)
+- prefers-reduced-motion: instant static layout, no essential info in motion
 
 ## Page behavior
-- ...
+- Root: `min-h-[100svh] w-full` (no max-width on the stage)
+- Scroll / z-index / sticky
 
 ## Neighbors
 - Above: ...
@@ -156,12 +175,37 @@ Add component-specific variants (e.g. PayloadPanel: streaming status, error stat
 - Primary: ResponsiveHeadline lines `[...]` OR HTML with reason
 - Secondary: ...
 
-## Viewport and resize
-- Mobile (< 768px): ...
-- Tablet (768–1023px): ...
-- Desktop (≥ 1024px): ...
-- prefers-reduced-motion: ...
+## Responsive (mobile → tablet → desktop → large)
+- Mobile: 1-col, smaller type, no hover-dependent UI, reduced animation
+- Tablet: simplified layout, reduced type, simplified hover
+- Desktop: extra columns only if the idea needs them; hover / mouse-follow OK
+- Large: use the extra width; do not letterbox in a centered column
+- Per breakpoint: layout, type scale, spacing, image crop, interaction, animation
+
+## 3D (if any)
+- Click/tap + hold + drag orbits X (pitch) and Y (yaw) via `usePointerOrbit`
+- Touch works; hover-only spin is not enough
 ```
+
+## Motion language
+
+| Token | Time | Use |
+|-------|------|-----|
+| `motionDuration.micro` | 150–250ms | Hover, focus, small UI |
+| `motionDuration.standard` | 300–500ms | Reveals, most transitions |
+| `motionDuration.emphasis` | 600–1000ms | Primary interaction |
+| `motionDuration.hero` | 1000–1500ms | Stage entrance only |
+
+Hierarchy: **hero highly animated → primary noticeable → content subtle → chrome restrained**. A bold stage is not one where everything moves.
+
+## Design rules (enforce in review)
+
+1. Never a generic SaaS landing page or repeated identical cards.
+2. Concept before components. Asymmetry and large type are allowed; decoration without composition is not.
+3. Animation must communicate hierarchy or interaction — never because it is possible.
+4. Every interaction works on touch. Hover never required to understand content.
+5. `prefers-reduced-motion`. Mobile is designed independently, not compressed desktop.
+6. Reuse tokens and named moves; do not make every stage visually identical.
 
 ---
 
@@ -217,16 +261,24 @@ Same name in alive/ or dead/?
 | `/preview/ComponentName` | **Single page** — all variants 1–20 in separate stacked divs |
 | `/preview/ComponentName#variant-12` | In-page jump to variant #12 |
 
-### Variant div structure
+### Variant section structure (full bleed)
 
 ```tsx
 {component.variants.map((variant) => (
-  <div key={variant.id} id={`variant-${variant.id}`} className="scroll-mt-28 ...">
-    <div>{/* header: #{variant.id} + {variant.label} */}</div>
-    <div>{component.render(variant.props)}</div>
-  </div>
+  <section
+    key={variant.id}
+    id={`variant-${variant.id}`}
+    className="relative min-h-[100svh] w-full overflow-hidden [&>*]:min-h-[100svh] [&>*]:w-full"
+  >
+    <p className="pointer-events-none absolute left-4 top-12 z-40 text-xs">
+      #{variant.id} · {variant.label}
+    </p>
+    {component.render(variant.props)}
+  </section>
 ))}
 ```
+
+No `max-w-*` wrapper. No bordered preview card. Overlay labels only.
 
 No per-variant routes. The email links to `/new`; humans reference component names and variant numbers (e.g. `#7`, `#14`) in feedback.
 
@@ -288,7 +340,7 @@ Append after emailing Alex (Step 9). One section per evolve batch, newest first.
 ```markdown
 ## YYYY-MM-DD
 
-**Content:** brand list, welcome text, image + text, contact form, testimonial
+**Roles:** hero, card slider, image+text, contact form, footer
 
 * **ComponentName** - ~20-word summary of look, behavior, and page role.
 * **AnotherComponent** - ...

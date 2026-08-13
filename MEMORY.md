@@ -12,5 +12,5 @@ When Alex declines a component and gives a reason, append an entry below. Format
 
 **Reason:** Too specific use case — more generic components are needed.
 **Variant refs:** (none given)
-**Lesson:** Avoid dev-tool / API-inspector patterns (endpoints, status badges, raw JSON drawers) as core library components. Prefer generic, content-agnostic building blocks: cards, media blocks, stat rows, CTAs, grids — reusable across marketing, product, and docs without a single domain baked in.
+**Lesson:** Avoid dev-tool / API-inspector patterns (endpoints, status badges, raw JSON drawers) as core library components. Prefer **domain-agnostic** stages reusable across marketing, product, and docs — not visually generic cards/heroes. Full-viewport, distinctive composition is required.
 **Batch:** Initial evolved-web batch (words: viewport, payload, marquee, skeleton, parallax)

@@ -4,6 +4,18 @@ Evolve batch history. Newest batches first.
 
 ---
 
+## 2026-08-13
+
+**Roles:** hero, card slider, image+text, contact form, footer
+
+* **RelicOrbitHero** - Brutalist full-viewport hero whose centerpiece is a grabable 3D bronze cube; click/tap-hold-drag orbits pitch and yaw so every face can be inspected.
+* **TideCardRail** - Editorial horizontal snap rail of oversized image+text cards that bleed off the viewport edges — a tide of stories, not a 3-up grid.
+* **ShearSplit** - Luxury image+text stage split by a diagonal shear; mobile stacks as two bands instead of a squashed cut.
+* **InquiryChamber** - Futuristic full-bleed contact ritual with numbered fields and a lime submit bar — a form that is the page, not a card (and not a JSON inspector).
+* **ColophonFloor** - Playful full-viewport footer where the brand is the floor and links are stepping stones, with legal type as a horizon line.
+
+---
+
 ## 2026-08-12 (batch 2)
 
 **Words:** breadcrumb, modal, gradient, carousel, overlay
@@ -13,6 +25,8 @@ Evolve batch history. Newest batches first.
 * **GradientMeshBand** - Section band with animated violet/fuchsia/cyan mesh blobs behind eyebrow, headline, body, and optional CTA — reusable promo block without domain-specific UI.
 * **CarouselCardDeck** - Horizontal scroll-snap card row with image, title, description, optional links, and arrow controls — generic media carousel for features, galleries, and collections.
 * **OverlayCaptionCard** - Image tile with bottom gradient overlay, title, subtitle, and optional link in landscape, portrait, or square aspect — editorial and marketing grid building block.
+
+---
 
 ## 2026-08-12
 

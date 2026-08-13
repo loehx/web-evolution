@@ -1,0 +1,43 @@
+---
+description: Creative direction, motion language, and mobile-first rules before any component code
+alwaysApply: true
+---
+
+# Design + motion system
+
+Do not design while coding. Order: **creative direction → spec → implement → responsive/motion/a11y review**.
+
+This repo: **Vite + React + Tailwind + Motion**. Tailwind is layout/tokens. Motion is animation. shadcn/Aceternity/Tailwind UI are research only — never the visual identity. Do not add Next.js. GSAP / Lenis / Three.js only if the concept cannot be done in Motion and you can justify it.
+
+## Creative direction (write in SPEC.md first)
+
+Pick one style (Editorial / Brutalist / Futuristic / Luxury / Playful). Define type, layout, color, motion, and a **signature motif**. Five components in a batch must not share the same signature.
+
+## Design rules
+
+1. No generic SaaS landing pages or identical card grids.
+2. Strong visual concept before components. Asymmetry and oversized type are design tools; whitespace is intentional.
+3. Every stage has a clear hierarchy. Prefer composition over decoration.
+4. Motion communicates hierarchy or interaction — never motion for its own sake.
+5. Touch-first: hover is optional enhancement, never required to understand content.
+6. Honor `prefers-reduced-motion`. Design mobile independently (not a compressed desktop).
+7. Reuse **tokens and motion primitives**, not the same section look twice.
+
+## Motion language (`src/lib/motion.ts`)
+
+| Role | Duration |
+|------|----------|
+| Micro | 150–250ms |
+| Standard | 300–500ms |
+| Emphasis | 600–1000ms |
+| Hero | 1000–1500ms |
+
+Named moves only: fade-up, fade-in, scale-in, slide-in, image-reveal, text-reveal, stagger, parallax, magnetic, marquee. Hero = highly animated; primary interaction = noticeable; content = subtle; chrome = restrained.
+
+## Responsive (mobile → tablet → desktop → large)
+
+Each SPEC must define layout, type scale, spacing, image crop, interaction, and animation **per breakpoint**. Desktop may use hover / mouse-follow; mobile must not depend on them and should reduce motion.
+
+## Tokens
+
+Use `--duration-*`, `--text-display`, `--radius-*` from `src/index.css`. Change personality via tokens, not one-off magic numbers.

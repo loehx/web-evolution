@@ -1,0 +1,40 @@
+---
+description: Every component is a full-viewport stage and must look unlike generic web UI
+alwaysApply: true
+---
+
+# Full-bleed, impossible-to-ignore components
+
+This is a hard constraint. If a component violates it, delete the design and start over.
+
+## Size (non-negotiable)
+
+The **root element** of every component must occupy at least the full viewport:
+
+- Height: `min-h-[100svh]` (never a strip, card, ribbon, toast, or widget)
+- Width: `w-full` with **no** `max-w-*` on the root (full browser width)
+
+Inner type/media may have a measure. The **stage** never sits in a centered column.
+
+## Preview chrome
+
+Component preview pages (`PreviewGallery`) must not wrap the component in a container:
+
+- No `max-w-*`, `mx-auto`, page `px-*` / `py-*` around the render
+- No card chrome (`rounded-*`, `border`, padded well) around the component
+- Each variant is its own `min-h-[100svh] w-full` section
+- Labels/back links are overlays (`fixed` / `absolute`), never layout that shrinks the stage
+
+## Ban generic looks
+
+**Illegal** if it could pass as “another landing-page block”:
+
+- Centered H1 + subtitle + 1–2 CTAs + gradient orbs / grid overlay
+- 2–3 feature cards, logo clouds, FAQ accordion, generic navbar, thin marquee
+- shadcn / Aceternity / Tailwind UI clones, or a reskin of an existing `staging/` / `alive/` / `dead/` component
+- Zinc/violet SaaS aesthetic as the whole idea
+- Anything that still looks complete if you shrink it to 400×300
+
+**Required:** a spatial or motion idea you can name in one sentence that is *not* “hero”, “cards”, or “marquee”. Distinct type, composition, and interaction. If it looks like everything else, it is unfinished — invent again.
+
+`MEMORY.md` “generic” means **domain-agnostic** (not a JSON inspector). It does **not** mean visually generic.
