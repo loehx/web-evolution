@@ -4,6 +4,14 @@ Evolve batch history. Newest batches first.
 
 ---
 
+## 2026-08-13 (Aether handset)
+
+**Roles:** hero
+
+* **AetherHandset** - Full-viewport hero with a procedural titanium iPhone in shader sky worlds; drag orbits the handset while copy overlays the stage. Aurora and Liquid variants scatter floating cubes around the phone (anthracite chassis on Aurora, accent-shine tints on Liquid).
+
+---
+
 ## 2026-08-13
 
 **Roles:** hero, card slider, image+text, contact form, footer

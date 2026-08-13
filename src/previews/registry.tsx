@@ -1,4 +1,9 @@
 import {
+  AetherHandset,
+  type AetherHandsetProps,
+} from '../../staging/AetherHandset/AetherHandset'
+import { aetherHandsetVariants } from '../../staging/AetherHandset/previews'
+import {
   RelicOrbitHero,
   type RelicOrbitHeroProps,
 } from '../../staging/RelicOrbitHero/RelicOrbitHero'
@@ -74,12 +79,20 @@ import {
 import { viewportSnapDeckVariants } from '../../staging/ViewportSnapDeck/previews'
 import type { StagedComponent } from '@/previews/types'
 
+const BATCH_6_CREATED = '2026-08-13T13:00:00Z'
 const BATCH_4_CREATED = '2026-08-13T09:00:00Z'
 const BATCH_3_CREATED = '2026-08-12T15:06:00Z'
 const BATCH_2_CREATED = '2026-08-12T09:20:37Z'
 const BATCH_1_CREATED = '2026-08-12T08:51:59Z'
 
 export const stagedComponents: StagedComponent[] = [
+  {
+    name: 'AetherHandset',
+    slug: 'AetherHandset',
+    createdAt: BATCH_6_CREATED,
+    variants: aetherHandsetVariants,
+    render: (props) => <AetherHandset {...(props as AetherHandsetProps)} />,
+  },
   {
     name: 'RelicOrbitHero',
     slug: 'RelicOrbitHero',
