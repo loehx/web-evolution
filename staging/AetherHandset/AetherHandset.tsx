@@ -73,11 +73,6 @@ function useStageAnchor(
   return [x, y, 0]
 }
 
-function groundY(layout: StageLayout) {
-  const [, ty] = phoneAnchor(layout)
-  return ty - PHONE_H / 2 - GROUND_GAP
-}
-
 const _camRight = new THREE.Vector3()
 const _camUp = new THREE.Vector3()
 const _camLook = new THREE.Vector3()
