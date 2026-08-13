@@ -54,13 +54,48 @@ function useSkyTexture(url: string | undefined) {
 function PhotoWorldSky({
   imageUrl,
   shift,
+  brightness = 1,
+  contrast = 1,
 }: {
   imageUrl: string
   shift: number
+  brightness?: number
+  contrast?: number
 }) {
   const texture = useSkyTexture(imageUrl)
+  const material = useMemo(() => {
+    if (!texture) return null
 
-  if (!texture) return null
+    const mat = new THREE.MeshBasicMaterial({
+      map: texture,
+      side: THREE.BackSide,
+      depthWrite: false,
+      toneMapped: false,
+    })
+
+    const b = Math.max(0, brightness)
+    const c = Math.max(0, contrast)
+
+    if (c !== 1) {
+      mat.onBeforeCompile = (shader) => {
+        shader.fragmentShader = shader.fragmentShader.replace(
+          '#include <map_fragment>',
+          `#include <map_fragment>
+          diffuseColor.rgb = clamp((diffuseColor.rgb - 0.5) * ${c} + 0.5, 0.0, 1.0);
+          diffuseColor.rgb *= ${b};`,
+        )
+      }
+      mat.customProgramCacheKey = () => `photo-sky-${b}-${c}`
+    } else if (b !== 1) {
+      mat.color.setScalar(b)
+    }
+
+    return mat
+  }, [texture, brightness, contrast])
+
+  useEffect(() => () => material?.dispose(), [material])
+
+  if (!texture || !material) return null
 
   return (
     <mesh
@@ -68,14 +103,9 @@ function PhotoWorldSky({
       frustumCulled={false}
       renderOrder={-1}
       rotation={[0, shift * Math.PI * 2, 0]}
+      material={material}
     >
       <sphereGeometry args={[1, 64, 32]} />
-      <meshBasicMaterial
-        map={texture}
-        side={THREE.BackSide}
-        depthWrite={false}
-        toneMapped={false}
-      />
     </mesh>
   )
 }
@@ -91,10 +121,17 @@ export function AetherWorldSky({
     world.skyImage ?? (world.style === 'milkyway' ? DEFAULT_MILKY_WAY_SKY : undefined)
 
   if (skyImage) {
-    return <PhotoWorldSky imageUrl={skyImage} shift={world.shift ?? 0} />
+    return (
+      <PhotoWorldSky
+        imageUrl={skyImage}
+        shift={world.shift ?? 0}
+        brightness={world.skyBrightness ?? 1}
+        contrast={world.skyContrast ?? 1}
+      />
+    )
   }
 
-  if (world.style === 'shadowstage') {
+  if (world.style === 'shadowstage' || world.style === 'galaxy' || world.style === 'starvolume') {
     return null
   }
 

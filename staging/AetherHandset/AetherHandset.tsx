@@ -8,6 +8,8 @@ import { motionDuration } from '@/lib/motion'
 import { usePointerOrbit, type OrbitRotation } from '@/lib/usePointerOrbit'
 import { WorldSpaceCubes } from './AuroraSpaceCubes'
 import { AetherWorldSky } from './AetherWorldSky'
+import { ProceduralGalaxy } from './ProceduralGalaxy'
+import { ScatteredStarVolume } from './ScatteredStarVolume'
 import { PHONE_CHASSIS } from './phoneMaterial'
 import {
   DEFAULT_AETHER_WORLD,
@@ -443,18 +445,22 @@ function ShadowEnvironmentSetup() {
   return null
 }
 
-function ShadowOrbitInertia({
+function OrbitInertia({
   rotationRef,
   velocityRef,
   isDragging,
   reduceMotion,
   decay,
+  pitchMin = -85,
+  pitchMax = 85,
 }: {
   rotationRef: MutableRefObject<OrbitRotation>
   velocityRef: MutableRefObject<OrbitRotation>
   isDragging: boolean
   reduceMotion: boolean
   decay: number
+  pitchMin?: number
+  pitchMax?: number
 }) {
   useFrame((_, delta) => {
     if (reduceMotion || isDragging) return
@@ -465,7 +471,7 @@ function ShadowOrbitInertia({
       return
     }
 
-    const nextX = THREE.MathUtils.clamp(rotationRef.current.x + vx * delta, -85, 85)
+    const nextX = THREE.MathUtils.clamp(rotationRef.current.x + vx * delta, pitchMin, pitchMax)
     const nextY = rotationRef.current.y + vy * delta
 
     if (nextX !== rotationRef.current.x + vx * delta) vx = 0
@@ -847,6 +853,9 @@ function World({
   stageSide?: 'left' | 'right'
 }) {
   const isShadowStage = world.style === 'shadowstage'
+  const isGalaxy = world.style === 'galaxy'
+  const isStarVolume = world.style === 'starvolume'
+  const isParticleVoid = isGalaxy || isStarVolume
   const anchor = useStageAnchor(layout, isShadowStage ? stageSide : undefined)
 
   return (
@@ -859,6 +868,13 @@ function World({
           <ShadowLight anchor={anchor} />
           <LightBeam anchor={anchor} reduceMotion={reduceMotion} />
           <ShadowFloor anchor={anchor} />
+        </>
+      ) : isParticleVoid ? (
+        <>
+          <ambientLight intensity={0.08} />
+          <directionalLight position={[5, 7, 8]} intensity={1.35} color="#fff0e8" />
+          <directionalLight position={[-4, 2, 5]} intensity={0.45} color="#8090c8" />
+          <pointLight position={[1.2, 0.2, 3.5]} intensity={0.35} color="#c8d0ff" distance={14} />
         </>
       ) : (
         <>
@@ -884,22 +900,28 @@ function World({
           reduceMotion={reduceMotion}
         />
       ) : null}
-      {isShadowStage ? (
-        <ShadowOrbitInertia
-          rotationRef={rotationRef}
-          velocityRef={velocityRef}
-          isDragging={isDragging}
-          reduceMotion={reduceMotion}
-          decay={inertiaDecay}
-        />
-      ) : null}
+      <OrbitInertia
+        rotationRef={rotationRef}
+        velocityRef={velocityRef}
+        isDragging={isDragging}
+        reduceMotion={reduceMotion}
+        decay={inertiaDecay}
+        pitchMin={isShadowStage ? -85 : -78}
+        pitchMax={isShadowStage ? 85 : 78}
+      />
       {isShadowStage ? (
         <FixedCameraRig layout={layout} />
       ) : (
         <CameraRig layout={layout} rotationRef={rotationRef} />
       )}
-      {!isShadowStage ? (
+      {!isShadowStage && !isParticleVoid ? (
         <AetherWorldSky world={world} reduceMotion={reduceMotion} />
+      ) : null}
+      {isGalaxy ? (
+        <ProceduralGalaxy anchor={anchor} world={world} reduceMotion={reduceMotion} />
+      ) : null}
+      {isStarVolume ? (
+        <ScatteredStarVolume anchor={anchor} world={world} reduceMotion={reduceMotion} />
       ) : null}
       {world.style === 'aurora' || world.style === 'liquid' ? (
         <WorldSpaceCubes anchor={anchor} world={world} reduceMotion={reduceMotion} />
@@ -1003,7 +1025,7 @@ export function AetherHandset({
     invertYaw: isShadowStage ? false : true,
     pitchScale: isShadowStage ? 1 : 0.8,
     idleCenterRef: isShadowStage ? undefined : idleCenterRef,
-    inertia: isShadowStage,
+    inertia: true,
   })
 
   return (

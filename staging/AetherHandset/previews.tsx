@@ -166,7 +166,7 @@ const worlds: AetherWorld[] = [
     accentA: '#101028',
     accentB: '#382868',
     accentC: '#8868c8',
-    skyImage: '/textures/milky-way-sky.jpg',
+    skyImage: '/textures/eso0932a.jpg',
     shift: 0,
   },
   {
@@ -184,6 +184,64 @@ const worlds: AetherWorld[] = [
     accentB: '#faf6f0',
     accentC: '#000000',
     shift: 0,
+  },
+  {
+    style: 'milkyway',
+    void: '#010108',
+    accentA: '#0a0a18',
+    accentB: '#283858',
+    accentC: '#6888b8',
+    skyImage: '/textures/night-sky-hdri008-8k.jpg',
+    skyBrightness: 0.1,
+    skyContrast: 1.5,
+    shift: 0.18,
+  },
+  {
+    style: 'milkyway',
+    void: '#01010a',
+    accentA: '#0c0a20',
+    accentB: '#2a2858',
+    accentC: '#6070a8',
+    skyImage: '/textures/night-sky-hdri003-4k.jpg',
+    skyBrightness: 0.8,
+    skyContrast: 1,
+    shift: 0.32,
+  },
+  {
+    style: 'galaxy',
+    void: '#000008',
+    accentA: '#ff6030',
+    accentB: '#1b3984',
+    accentC: '#6888c8',
+    shift: 0.12,
+  },
+  {
+    style: 'starvolume',
+    void: '#000008',
+    accentA: '#ff6030',
+    accentB: '#f0abfc',
+    accentC: '#a5f3fc',
+    shift: 0.24,
+    galaxyStarSize: 0.075,
+    galaxyRotation: 0.042,
+  },
+  {
+    style: 'galaxy',
+    void: '#000008',
+    accentA: '#ff6030',
+    accentB: '#f0abfc',
+    accentC: '#a5f3fc',
+    shift: 0.28,
+    galaxyCount: 3700,
+    galaxyRadius: 20,
+    galaxyArms: 2,
+    galaxyTightness: 2.5,
+    galaxyRandomness: 1.145,
+    galaxyRandomnessPower: 1,
+    galaxyStarSize: 0.05,
+    galaxyStarPalette: true,
+    galaxyStarLight: '#eaeaea',
+    galaxyRotation: 0.042,
   },
 ]
 
@@ -377,12 +435,19 @@ export const aetherHandsetVariants: PreviewVariant<AetherHandsetProps>[] = [
   },
   {
     id: 16,
-    label: 'Milky Way — Gaia panorama',
+    label: 'Genesis — ESO all-sky panorama',
     props: {
-      headline: 'GENESIS',
+      headline: (
+        <>
+          GENI
+          <br />
+          SIS
+        </>
+      ),
+      headlineLabel: 'GENESIS',
       tagline: 'Our galactic home',
       subheadline: 'Real all-sky Milky Way render mapped to the void.',
-      text: 'Gaia EDR3 equirectangular panorama — photographed star data, not procedural dots.',
+      text: 'ESO 360° celestial panorama — photographed star data mapped to the void.',
       screenImage: PLACEHOLDER_PORTRAIT,
       world: worlds[15],
     },
@@ -423,6 +488,101 @@ export const aetherHandsetVariants: PreviewVariant<AetherHandsetProps>[] = [
       screenImage: PLACEHOLDER_PORTRAIT,
       stageSide: 'right',
       world: worlds[17],
+    },
+  },
+  {
+    id: 20,
+    label: 'Genesis 2 — Night sky HDRI',
+    props: {
+      headline: (
+        <>
+          GENI
+          <br />
+          SIS
+        </>
+      ),
+      headlineLabel: 'GENESIS 2',
+      tagline: 'Stitched star panorama',
+      subheadline: 'Procedural night sky mapped to the void.',
+      text: 'ambientCG NightSkyHDRI008 — 8K tonemapped equirectangular panorama.',
+      screenImage: PLACEHOLDER_PORTRAIT,
+      world: worlds[18],
+    },
+  },
+  {
+    id: 21,
+    label: 'Genesis 3 — Night sky HDRI 003',
+    props: {
+      headline: (
+        <>
+          GENI
+          <br />
+          SIS
+        </>
+      ),
+      headlineLabel: 'GENESIS 3',
+      tagline: 'Stitched star panorama',
+      subheadline: 'Procedural night sky mapped to the void.',
+      text: 'ambientCG NightSkyHDRI003 — 4K tonemapped equirectangular panorama.',
+      screenImage: PLACEHOLDER_PORTRAIT,
+      world: worlds[19],
+    },
+  },
+  {
+    id: 22,
+    label: 'Genesis 4 — Procedural spiral',
+    props: {
+      headline: (
+        <>
+          GENI
+          <br />
+          SIS
+        </>
+      ),
+      headlineLabel: 'GENESIS 4',
+      tagline: 'Born in the spiral',
+      subheadline: 'Fifty thousand stars wheel behind the void.',
+      text: 'Procedural four-arm galaxy — additive particles, slow drift, deep space void.',
+      screenImage: PLACEHOLDER_PORTRAIT,
+      world: worlds[20],
+    },
+  },
+  {
+    id: 23,
+    label: 'Genesis 5 — Scattered void',
+    props: {
+      headline: (
+        <>
+          GENI
+          <br />
+          SIS
+        </>
+      ),
+      headlineLabel: 'GENESIS 5',
+      tagline: 'Stars in every direction',
+      subheadline: 'Random points fill the volume around the handset.',
+      text: 'Fifty thousand additive stars — uniform scatter through 3D space, slow Y spin.',
+      screenImage: PLACEHOLDER_PORTRAIT,
+      world: worlds[21],
+    },
+  },
+  {
+    id: 24,
+    label: 'Genesis 6 — Twin spiral',
+    props: {
+      headline: (
+        <>
+          GENI
+          <br />
+          SIS
+        </>
+      ),
+      headlineLabel: 'GENESIS 6',
+      tagline: 'Two arms, wide scatter',
+      subheadline: 'Three thousand seven hundred stars in a tight twin spiral.',
+      text: 'Galaxy radius 20 · 2 arms · tightness 2.5 · randomness 1.145 · Genesis 5 star palette.',
+      screenImage: PLACEHOLDER_PORTRAIT,
+      world: worlds[22],
     },
   },
 ]

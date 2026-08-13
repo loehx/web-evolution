@@ -26,6 +26,8 @@ export type AetherWorldStyle =
   | 'milkyway'
   | 'underwater'
   | 'shadowstage'
+  | 'galaxy'
+  | 'starvolume'
 
 export interface AetherWorld {
   style: AetherWorldStyle
@@ -36,6 +38,10 @@ export interface AetherWorld {
   accentC: string
   /** Equirectangular sky panorama (2:1). Defaults for milkyway style. */
   skyImage?: string
+  /** Photo sky brightness multiplier (1 = full, 0.7 = 30% darker). */
+  skyBrightness?: number
+  /** Photo sky contrast multiplier (1 = normal, 1.5 = 150%). */
+  skyContrast?: number
   /** Grid line tint (grid style). */
   grid?: string
   gridCols?: number
@@ -44,6 +50,20 @@ export interface AetherWorld {
   gridStrength?: number
   /** Phase offset — breaks symmetry between variants. */
   shift?: number
+  /** Procedural galaxy (style: galaxy). */
+  galaxyCount?: number
+  galaxyRadius?: number
+  galaxyArms?: number
+  galaxyTightness?: number
+  galaxyRandomness?: number
+  galaxyRandomnessPower?: number
+  galaxyStarSize?: number
+  /** Radians per second (~0.001/frame at 60fps ≈ 0.06). */
+  galaxyRotation?: number
+  /** Pick star colors from accentA/B/C instead of radius gradient. */
+  galaxyStarPalette?: boolean
+  /** Light star tint when galaxyStarPalette is true. */
+  galaxyStarLight?: string
 }
 
 export const DEFAULT_AETHER_WORLD: AetherWorld = {
@@ -90,6 +110,8 @@ export const WORLD_STYLE_INDEX: Record<AetherWorldStyle, number> = {
   milkyway: 24,
   underwater: 25,
   shadowstage: 26,
+  galaxy: 27,
+  starvolume: 28,
 }
 
 export const SKY_VERT = /* glsl */ `
