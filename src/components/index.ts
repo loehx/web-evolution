@@ -1,8 +1,4 @@
 export {
-  PointerTiltShowcase,
-  type PointerTiltShowcaseProps,
-} from '../../staging/PointerTiltShowcase'
-export {
   FaqAccordionStack,
   type FaqAccordionStackProps,
   type FaqItem,

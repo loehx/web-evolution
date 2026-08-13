@@ -1,34 +1,4 @@
 import {
-  NewsletterCaptureBand,
-  type NewsletterCaptureBandProps,
-} from '../../staging/NewsletterCaptureBand/NewsletterCaptureBand'
-import { newsletterCaptureBandVariants } from '../../staging/NewsletterCaptureBand/previews'
-import {
-  StatsCounterRow,
-  type StatsCounterRowProps,
-} from '../../staging/StatsCounterRow/StatsCounterRow'
-import { statsCounterRowVariants } from '../../staging/StatsCounterRow/previews'
-import {
-  ContactInquiryBand,
-  type ContactInquiryBandProps,
-} from '../../staging/ContactInquiryBand/ContactInquiryBand'
-import { contactInquiryBandVariants } from '../../staging/ContactInquiryBand/previews'
-import {
-  TestimonialQuoteStack,
-  type TestimonialQuoteStackProps,
-} from '../../staging/TestimonialQuoteStack/TestimonialQuoteStack'
-import { testimonialQuoteStackVariants } from '../../staging/TestimonialQuoteStack/previews'
-import {
-  PricingTierGrid,
-  type PricingTierGridProps,
-} from '../../staging/PricingTierGrid/PricingTierGrid'
-import { pricingTierGridVariants } from '../../staging/PricingTierGrid/previews'
-import {
-  PointerTiltShowcase,
-  type PointerTiltShowcaseProps,
-} from '../../staging/PointerTiltShowcase/PointerTiltShowcase'
-import { pointerTiltShowcaseVariants } from '../../staging/PointerTiltShowcase/previews'
-import {
   FaqAccordionStack,
   type FaqAccordionStackProps,
 } from '../../staging/FaqAccordionStack/FaqAccordionStack'
@@ -82,55 +52,11 @@ import {
 import { viewportSnapDeckVariants } from '../../staging/ViewportSnapDeck/previews'
 import type { StagedComponent } from '@/previews/types'
 
-const BATCH_5_CREATED = '2026-08-13T06:09:00Z'
-const BATCH_4_CREATED = '2026-08-12T15:32:00Z'
 const BATCH_3_CREATED = '2026-08-12T15:06:00Z'
 const BATCH_2_CREATED = '2026-08-12T09:20:37Z'
 const BATCH_1_CREATED = '2026-08-12T08:51:59Z'
 
 export const stagedComponents: StagedComponent[] = [
-  {
-    name: 'NewsletterCaptureBand',
-    slug: 'NewsletterCaptureBand',
-    createdAt: BATCH_5_CREATED,
-    variants: newsletterCaptureBandVariants,
-    render: (props) => <NewsletterCaptureBand {...(props as NewsletterCaptureBandProps)} />,
-  },
-  {
-    name: 'StatsCounterRow',
-    slug: 'StatsCounterRow',
-    createdAt: BATCH_5_CREATED,
-    variants: statsCounterRowVariants,
-    render: (props) => <StatsCounterRow {...(props as StatsCounterRowProps)} />,
-  },
-  {
-    name: 'ContactInquiryBand',
-    slug: 'ContactInquiryBand',
-    createdAt: BATCH_5_CREATED,
-    variants: contactInquiryBandVariants,
-    render: (props) => <ContactInquiryBand {...(props as ContactInquiryBandProps)} />,
-  },
-  {
-    name: 'TestimonialQuoteStack',
-    slug: 'TestimonialQuoteStack',
-    createdAt: BATCH_5_CREATED,
-    variants: testimonialQuoteStackVariants,
-    render: (props) => <TestimonialQuoteStack {...(props as TestimonialQuoteStackProps)} />,
-  },
-  {
-    name: 'PricingTierGrid',
-    slug: 'PricingTierGrid',
-    createdAt: BATCH_5_CREATED,
-    variants: pricingTierGridVariants,
-    render: (props) => <PricingTierGrid {...(props as PricingTierGridProps)} />,
-  },
-  {
-    name: 'PointerTiltShowcase',
-    slug: 'PointerTiltShowcase',
-    createdAt: BATCH_4_CREATED,
-    variants: pointerTiltShowcaseVariants,
-    render: (props) => <PointerTiltShowcase {...(props as PointerTiltShowcaseProps)} />,
-  },
   {
     name: 'FaqAccordionStack',
     slug: 'FaqAccordionStack',

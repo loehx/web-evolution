@@ -70,7 +70,6 @@ const constrainedSlugs: Record<string, string> = {
   ViewportSnapDeck: 'h-[70svh]',
   ParallaxHero: 'min-h-[32rem]',
   ModalSpotlight: 'min-h-[24rem]',
-  PointerTiltShowcase: 'min-h-[32rem]',
 }
 
 export function PreviewGallery({ components }: PreviewGalleryProps) {
@@ -127,7 +126,6 @@ export function PreviewGallery({ components }: PreviewGalleryProps) {
                 className={cn(
                   'overflow-hidden rounded-lg border border-white/10 bg-zinc-900/40',
                   constraintClass,
-                  component.slug === 'PointerTiltShowcase' && 'overflow-visible',
                 )}
               >
                 {component.render(variant.props)}

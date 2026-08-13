@@ -4,16 +4,6 @@ Evolve batch history. Newest batches first.
 
 ---
 
-## 2026-08-13
-
-**Content:** pricing table, testimonial quote, contact form, stats row, newsletter signup
-
-* **PricingTierGrid** - Responsive tier columns with price, feature checklists, highlighted popular plan, and per-tier CTAs — generic SaaS and membership pricing without domain-specific UI.
-* **TestimonialQuoteStack** - Customer quote cards with circular avatars, name, role, and company attribution in stack or featured-first layouts for social proof bands.
-* **ContactInquiryBand** - Configurable inquiry form with split or stacked copy column, violet focus states, loading submit, and emerald success confirmation for support and sales leads.
-* **StatsCounterRow** - Big metric numbers with uppercase labels in default, bordered, or glow variants — traction and credibility row for heroes and mid-page proof points.
-* **NewsletterCaptureBand** - Email capture band with optional side image, centered or split layout, privacy fine print, and mock subscribe success for list-growth footers.
-
 ## 2026-08-12 (batch 2)
 
 **Words:** breadcrumb, modal, gradient, carousel, overlay
