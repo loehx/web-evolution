@@ -295,12 +295,10 @@ export function GlyphVeil({
     y: 0,
     engaged: false,
     pressed: false,
-    movedWhilePressed: false,
   })
   const mobileRef = useRef(false)
   const rafRef = useRef(0)
   const [explored, setExplored] = useState(false)
-  const [torchVisible, setTorchVisible] = useState(true)
   const [isMobileLayout, setIsMobileLayout] = useState(false)
   const [mobileScrollable, setMobileScrollable] = useState(true)
   const reduceMotion = useReducedMotion()
@@ -326,7 +324,6 @@ export function GlyphVeil({
 
     mobileRef.current = isMobileViewport(w, h)
     setIsMobileLayout(mobileRef.current)
-    if (!mobileRef.current) setTorchVisible(true)
 
     const fontRem = resolveFontRem(w, h)
     const { cellW, cellH, fontStack } = measureCell(ctx, fontRem)
@@ -392,8 +389,7 @@ export function GlyphVeil({
       const ptr = pointerRef.current
       const radius = resolveTorchRadius(torchRadius, mobileRef.current)
       const r2 = radius * radius
-      const revealTorch =
-        !mobileRef.current || (torchVisible && ptr.engaged)
+      const revealTorch = !mobileRef.current || ptr.pressed
 
       if (torch) {
         positionTorch(torch, ptr.x, ptr.y, radius)
@@ -441,7 +437,7 @@ export function GlyphVeil({
 
     rafRef.current = requestAnimationFrame(frame)
     return () => cancelAnimationFrame(rafRef.current)
-  }, [torchRadius, torchVisible])
+  }, [torchRadius])
 
   const engage = () => {
     if (!pointerRef.current.engaged) {
@@ -461,25 +457,22 @@ export function GlyphVeil({
   }
 
   const handlePointerDown = (e: ReactPointerEvent<HTMLElement>) => {
-    if (mobileRef.current && !torchVisible) return
-
     const ptr = pointerRef.current
     const pos = pointerFromEvent(e)
     if (!pos) return
 
-    if (mobileRef.current && !ptr.engaged) {
+    if (mobileRef.current) {
       const radius = resolveTorchRadius(torchRadius, true)
       if (!isInsideTorch(pos.x, pos.y, ptr.x, ptr.y, radius)) return
     }
 
-    // Lock scroll immediately — waiting for `explored` state lets the browser
-    // interpret the first move as a page scroll and fire pointercancel.
+    // Lock scroll immediately — waiting for state lets the browser interpret
+    // the first move as a page scroll and fire pointercancel.
     applySectionTouchAction(sectionRef.current, mobileRef.current, false)
     setMobileScrollable(false)
 
     sectionRef.current?.setPointerCapture(e.pointerId)
     ptr.pressed = true
-    ptr.movedWhilePressed = false
 
     if (mobileRef.current) e.preventDefault()
 
@@ -489,19 +482,12 @@ export function GlyphVeil({
   }
 
   const handlePointerMove = (e: ReactPointerEvent<HTMLElement>) => {
-    if (mobileRef.current && !torchVisible) return
-    if (mobileRef.current && !pointerRef.current.engaged) return
+    if (mobileRef.current && !pointerRef.current.pressed) return
 
     const pos = pointerFromEvent(e)
     if (!pos) return
 
     const ptr = pointerRef.current
-
-    if (ptr.pressed) {
-      const dx = pos.x - ptr.x
-      const dy = pos.y - ptr.y
-      if (dx * dx + dy * dy > 4) ptr.movedWhilePressed = true
-    }
 
     if (!ptr.engaged) {
       const radius = resolveTorchRadius(torchRadius, mobileRef.current)
@@ -521,8 +507,7 @@ export function GlyphVeil({
 
     ptr.pressed = false
 
-    if (mobileRef.current && ptr.movedWhilePressed) {
-      setTorchVisible(false)
+    if (mobileRef.current) {
       applySectionTouchAction(sectionRef.current, true, true)
       setMobileScrollable(true)
     }
@@ -540,8 +525,6 @@ export function GlyphVeil({
     if (grid) grid.revealed.fill(0)
     pointerRef.current.engaged = false
     pointerRef.current.pressed = false
-    pointerRef.current.movedWhilePressed = false
-    setTorchVisible(true)
     applySectionTouchAction(sectionRef.current, mobileRef.current, true)
     setMobileScrollable(true)
     if (section) {
@@ -552,7 +535,6 @@ export function GlyphVeil({
     setExplored(false)
   }
 
-  const showTorch = !isMobileLayout || torchVisible
   const effectiveTorchRadius = resolveTorchRadius(torchRadius, isMobileLayout)
 
   return (
@@ -582,8 +564,8 @@ export function GlyphVeil({
         className="pointer-events-none absolute z-0 rounded-full"
         initial={{ opacity: 0, scale: 0.9 }}
         animate={{
-          opacity: showTorch ? 1 : 0,
-          scale: showTorch ? 1 : 0.9,
+          opacity: 1,
+          scale: 1,
         }}
         transition={{ duration: torchTransition, ease }}
         style={{
