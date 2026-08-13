@@ -259,6 +259,18 @@ function positionTorch(
   torch.style.top = `${y - radius}px`
 }
 
+function isInsideTorch(
+  x: number,
+  y: number,
+  torchX: number,
+  torchY: number,
+  radius: number,
+) {
+  const dx = x - torchX
+  const dy = y - torchY
+  return dx * dx + dy * dy <= radius * radius
+}
+
 export function GlyphVeil({
   className,
   headline = DEFAULT_HEADLINE,
@@ -370,7 +382,8 @@ export function GlyphVeil({
       const ptr = pointerRef.current
       const radius = resolveTorchRadius(torchRadius, mobileRef.current)
       const r2 = radius * radius
-      const revealTorch = !mobileRef.current || torchVisible
+      const revealTorch =
+        !mobileRef.current || (torchVisible && ptr.engaged)
 
       if (torch) {
         positionTorch(torch, ptr.x, ptr.y, radius)
@@ -440,21 +453,27 @@ export function GlyphVeil({
   const handlePointerDown = (e: ReactPointerEvent<HTMLElement>) => {
     if (mobileRef.current && !torchVisible) return
 
-    sectionRef.current?.setPointerCapture(e.pointerId)
     const ptr = pointerRef.current
+    const pos = pointerFromEvent(e)
+    if (!pos) return
+
+    if (mobileRef.current && !ptr.engaged) {
+      const radius = resolveTorchRadius(torchRadius, true)
+      if (!isInsideTorch(pos.x, pos.y, ptr.x, ptr.y, radius)) return
+    }
+
+    sectionRef.current?.setPointerCapture(e.pointerId)
     ptr.pressed = true
     ptr.movedWhilePressed = false
 
     engage()
-    const pos = pointerFromEvent(e)
-    if (pos) {
-      ptr.x = pos.x
-      ptr.y = pos.y
-    }
+    ptr.x = pos.x
+    ptr.y = pos.y
   }
 
   const handlePointerMove = (e: ReactPointerEvent<HTMLElement>) => {
     if (mobileRef.current && !torchVisible) return
+    if (mobileRef.current && !pointerRef.current.engaged) return
 
     const pos = pointerFromEvent(e)
     if (!pos) return
@@ -522,7 +541,8 @@ export function GlyphVeil({
         className,
       )}
       style={{
-        touchAction: isMobileLayout && !torchVisible ? 'pan-y' : 'none',
+        touchAction:
+          !isMobileLayout || (torchVisible && explored) ? 'none' : 'pan-y',
       }}
       onPointerDown={handlePointerDown}
       onPointerMove={handlePointerMove}
