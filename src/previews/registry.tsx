@@ -1,4 +1,9 @@
 import {
+  PlantOrbitHero,
+  type PlantOrbitHeroProps,
+} from '../../staging/PlantOrbitHero/PlantOrbitHero'
+import { plantOrbitHeroVariants } from '../../staging/PlantOrbitHero/previews'
+import {
   RelicOrbitHero,
   type RelicOrbitHeroProps,
 } from '../../staging/RelicOrbitHero/RelicOrbitHero'
@@ -80,6 +85,13 @@ const BATCH_2_CREATED = '2026-08-12T09:20:37Z'
 const BATCH_1_CREATED = '2026-08-12T08:51:59Z'
 
 export const stagedComponents: StagedComponent[] = [
+  {
+    name: 'PlantOrbitHero',
+    slug: 'PlantOrbitHero',
+    createdAt: '2026-08-13T11:30:00Z',
+    variants: plantOrbitHeroVariants,
+    render: (props) => <PlantOrbitHero {...(props as PlantOrbitHeroProps)} />,
+  },
   {
     name: 'RelicOrbitHero',
     slug: 'RelicOrbitHero',
