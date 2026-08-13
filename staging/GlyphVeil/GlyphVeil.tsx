@@ -438,12 +438,12 @@ export function GlyphVeil({
   }
 
   const handlePointerDown = (e: ReactPointerEvent<HTMLElement>) => {
+    if (mobileRef.current && !torchVisible) return
+
     sectionRef.current?.setPointerCapture(e.pointerId)
     const ptr = pointerRef.current
     ptr.pressed = true
     ptr.movedWhilePressed = false
-
-    if (mobileRef.current) setTorchVisible(true)
 
     engage()
     const pos = pointerFromEvent(e)
@@ -521,7 +521,9 @@ export function GlyphVeil({
         bgClass,
         className,
       )}
-      style={{ touchAction: 'none' }}
+      style={{
+        touchAction: isMobileLayout && !torchVisible ? 'pan-y' : 'none',
+      }}
       onPointerDown={handlePointerDown}
       onPointerMove={handlePointerMove}
       onPointerUp={handlePointerUp}
