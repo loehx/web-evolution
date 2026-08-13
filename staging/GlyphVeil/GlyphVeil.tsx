@@ -259,18 +259,6 @@ function positionTorch(
   torch.style.top = `${y - radius}px`
 }
 
-function isInsideTorch(
-  x: number,
-  y: number,
-  torchX: number,
-  torchY: number,
-  radius: number,
-) {
-  const dx = x - torchX
-  const dy = y - torchY
-  return dx * dx + dy * dy <= radius * radius
-}
-
 function applySectionTouchAction(
   section: HTMLElement | null,
   mobile: boolean,
@@ -389,24 +377,21 @@ export function GlyphVeil({
       const ptr = pointerRef.current
       const radius = resolveTorchRadius(torchRadius, mobileRef.current)
       const r2 = radius * radius
-      const revealTorch = !mobileRef.current || ptr.pressed
 
       if (torch) {
         positionTorch(torch, ptr.x, ptr.y, radius)
       }
 
-      if (revealTorch) {
-        const col0 = Math.max(0, Math.floor((ptr.x - radius) / cellW))
-        const col1 = Math.min(cols - 1, Math.ceil((ptr.x + radius) / cellW))
-        const row0 = Math.max(0, Math.floor((ptr.y - radius) / cellH))
-        const row1 = Math.min(rows - 1, Math.ceil((ptr.y + radius) / cellH))
-        for (let row = row0; row <= row1; row++) {
-          for (let col = col0; col <= col1; col++) {
-            const px = (col + 0.5) * cellW - ptr.x
-            const py = (row + 0.5) * cellH - ptr.y
-            if (px * px + py * py <= r2) {
-              revealed[row * cols + col] = 1
-            }
+      const col0 = Math.max(0, Math.floor((ptr.x - radius) / cellW))
+      const col1 = Math.min(cols - 1, Math.ceil((ptr.x + radius) / cellW))
+      const row0 = Math.max(0, Math.floor((ptr.y - radius) / cellH))
+      const row1 = Math.min(rows - 1, Math.ceil((ptr.y + radius) / cellH))
+      for (let row = row0; row <= row1; row++) {
+        for (let col = col0; col <= col1; col++) {
+          const px = (col + 0.5) * cellW - ptr.x
+          const py = (row + 0.5) * cellH - ptr.y
+          if (px * px + py * py <= r2) {
+            revealed[row * cols + col] = 1
           }
         }
       }
@@ -456,40 +441,44 @@ export function GlyphVeil({
     }
   }
 
-  const handlePointerDown = (e: ReactPointerEvent<HTMLElement>) => {
+  const beginTorchDrag = (
+    e: ReactPointerEvent<HTMLElement>,
+    pos: { x: number; y: number },
+  ) => {
     const ptr = pointerRef.current
-    const pos = pointerFromEvent(e)
-    if (!pos) return
 
-    if (mobileRef.current) {
-      const radius = resolveTorchRadius(torchRadius, true)
-      if (!isInsideTorch(pos.x, pos.y, ptr.x, ptr.y, radius)) return
-    }
-
-    // Lock scroll immediately — waiting for state lets the browser interpret
-    // the first move as a page scroll and fire pointercancel.
     applySectionTouchAction(sectionRef.current, mobileRef.current, false)
     setMobileScrollable(false)
 
-    sectionRef.current?.setPointerCapture(e.pointerId)
+    e.currentTarget.setPointerCapture(e.pointerId)
     ptr.pressed = true
-
-    if (mobileRef.current) e.preventDefault()
+    e.preventDefault()
 
     engage()
     ptr.x = pos.x
     ptr.y = pos.y
   }
 
-  const handlePointerMove = (e: ReactPointerEvent<HTMLElement>) => {
-    if (mobileRef.current && !pointerRef.current.pressed) return
+  const handlePointerDown = (e: ReactPointerEvent<HTMLElement>) => {
+    const pos = pointerFromEvent(e)
+    if (!pos) return
+    beginTorchDrag(e, pos)
+  }
 
+  const handleTorchPointerDown = (e: ReactPointerEvent<HTMLElement>) => {
+    const pos = pointerFromEvent(e)
+    if (!pos) return
+    beginTorchDrag(e, pos)
+  }
+
+  const updatePointerPosition = (e: ReactPointerEvent<HTMLElement>) => {
     const pos = pointerFromEvent(e)
     if (!pos) return
 
     const ptr = pointerRef.current
+    if (mobileRef.current && !ptr.pressed) return
 
-    if (!ptr.engaged) {
+    if (!ptr.engaged && !mobileRef.current) {
       const radius = resolveTorchRadius(torchRadius, mobileRef.current)
       const dx = pos.x - ptr.x
       const dy = pos.y - ptr.y
@@ -501,7 +490,7 @@ export function GlyphVeil({
     ptr.y = pos.y
   }
 
-  const handlePointerUp = (e: ReactPointerEvent<HTMLElement>) => {
+  const finishTorchDrag = (e: ReactPointerEvent<HTMLElement>) => {
     const ptr = pointerRef.current
     if (!ptr.pressed) return
 
@@ -513,10 +502,26 @@ export function GlyphVeil({
     }
 
     try {
-      sectionRef.current?.releasePointerCapture(e.pointerId)
+      e.currentTarget.releasePointerCapture(e.pointerId)
     } catch {
       /* already released */
     }
+  }
+
+  const handlePointerMove = (e: ReactPointerEvent<HTMLElement>) => {
+    updatePointerPosition(e)
+  }
+
+  const handleTorchPointerMove = (e: ReactPointerEvent<HTMLElement>) => {
+    updatePointerPosition(e)
+  }
+
+  const handlePointerUp = (e: ReactPointerEvent<HTMLElement>) => {
+    finishTorchDrag(e)
+  }
+
+  const handleTorchPointerUp = (e: ReactPointerEvent<HTMLElement>) => {
+    finishTorchDrag(e)
   }
 
   const resetModule = () => {
@@ -553,15 +558,22 @@ export function GlyphVeil({
             : 'none',
         WebkitTouchCallout: 'none',
       }}
-      onPointerDown={handlePointerDown}
-      onPointerMove={handlePointerMove}
-      onPointerUp={handlePointerUp}
-      onPointerCancel={handlePointerUp}
+      {...(!isMobileLayout
+        ? {
+            onPointerDown: handlePointerDown,
+            onPointerMove: handlePointerMove,
+            onPointerUp: handlePointerUp,
+            onPointerCancel: handlePointerUp,
+          }
+        : {})}
     >
       <motion.div
         ref={torchRef}
         aria-hidden
-        className="pointer-events-none absolute z-0 rounded-full"
+        className={cn(
+          'absolute z-[15] rounded-full touch-none',
+          isMobileLayout ? 'cursor-grab active:cursor-grabbing' : 'pointer-events-none z-0',
+        )}
         initial={{ opacity: 0, scale: 0.9 }}
         animate={{
           opacity: 1,
@@ -576,13 +588,25 @@ export function GlyphVeil({
           top: '50%',
           marginLeft: '-6rem',
           marginTop: '-6rem',
+          touchAction: 'none',
           willChange: 'transform, left, top, opacity',
         }}
+        {...(isMobileLayout
+          ? {
+              onPointerDown: handleTorchPointerDown,
+              onPointerMove: handleTorchPointerMove,
+              onPointerUp: handleTorchPointerUp,
+              onPointerCancel: handleTorchPointerUp,
+            }
+          : {})}
       />
 
       <canvas
         ref={canvasRef}
-        className="absolute inset-0 z-10 h-full w-full mix-blend-difference"
+        className={cn(
+          'absolute inset-0 z-10 h-full w-full mix-blend-difference',
+          isMobileLayout && 'pointer-events-none',
+        )}
         aria-hidden
       />
 

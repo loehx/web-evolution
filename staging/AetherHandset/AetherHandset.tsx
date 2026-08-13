@@ -443,6 +443,41 @@ function ShadowEnvironmentSetup() {
   return null
 }
 
+function ShadowOrbitInertia({
+  rotationRef,
+  velocityRef,
+  isDragging,
+  reduceMotion,
+  decay,
+}: {
+  rotationRef: MutableRefObject<OrbitRotation>
+  velocityRef: MutableRefObject<OrbitRotation>
+  isDragging: boolean
+  reduceMotion: boolean
+  decay: number
+}) {
+  useFrame((_, delta) => {
+    if (reduceMotion || isDragging) return
+
+    let { x: vx, y: vy } = velocityRef.current
+    if (Math.abs(vx) < 0.03 && Math.abs(vy) < 0.03) {
+      if (vx !== 0 || vy !== 0) velocityRef.current = { x: 0, y: 0 }
+      return
+    }
+
+    const nextX = THREE.MathUtils.clamp(rotationRef.current.x + vx * delta, -85, 85)
+    const nextY = rotationRef.current.y + vy * delta
+
+    if (nextX !== rotationRef.current.x + vx * delta) vx = 0
+    rotationRef.current = { x: nextX, y: nextY }
+
+    const damp = Math.exp(-decay * delta)
+    velocityRef.current = { x: vx * damp, y: vy * damp }
+  })
+
+  return null
+}
+
 function IdleOrbitDriver({
   rotationRef,
   idleCenterRef,
@@ -787,6 +822,8 @@ function createFallbackScreen(): HTMLCanvasElement {
 function World({
   screenImage,
   rotationRef,
+  velocityRef,
+  inertiaDecay,
   idleCenterRef,
   autoOrbitEnabledRef,
   isDragging,
@@ -798,6 +835,8 @@ function World({
 }: {
   screenImage?: string
   rotationRef: MutableRefObject<OrbitRotation>
+  velocityRef: MutableRefObject<OrbitRotation>
+  inertiaDecay: number
   idleCenterRef: MutableRefObject<OrbitRotation>
   autoOrbitEnabledRef: MutableRefObject<boolean>
   isDragging: boolean
@@ -843,6 +882,15 @@ function World({
           autoOrbitEnabledRef={autoOrbitEnabledRef}
           isDragging={isDragging}
           reduceMotion={reduceMotion}
+        />
+      ) : null}
+      {isShadowStage ? (
+        <ShadowOrbitInertia
+          rotationRef={rotationRef}
+          velocityRef={velocityRef}
+          isDragging={isDragging}
+          reduceMotion={reduceMotion}
+          decay={inertiaDecay}
         />
       ) : null}
       {isShadowStage ? (
@@ -955,6 +1003,7 @@ export function AetherHandset({
     invertYaw: isShadowStage ? false : true,
     pitchScale: isShadowStage ? 1 : 0.8,
     idleCenterRef: isShadowStage ? undefined : idleCenterRef,
+    inertia: isShadowStage,
   })
 
   return (
@@ -1009,6 +1058,8 @@ export function AetherHandset({
               <World
                 screenImage={screenImage}
                 rotationRef={orbit.rotationRef}
+                velocityRef={orbit.velocityRef}
+                inertiaDecay={orbit.inertiaDecay}
                 idleCenterRef={idleCenterRef}
                 autoOrbitEnabledRef={autoOrbitEnabledRef}
                 isDragging={orbit.isDragging}
