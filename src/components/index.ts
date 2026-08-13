@@ -35,6 +35,16 @@ export {
   type ViewportSnapNavProps,
 } from '../../staging/ViewportSnapDeck'
 export {
+  GlyphVeil,
+  type GlyphVeilProps,
+  type GlyphVeilTone,
+} from '../../staging/GlyphVeil'
+export {
+  LetterMosaic,
+  LetterMosaicHeadline,
+  type LetterMosaicProps,
+} from '../../staging/LetterMosaic'
+export {
   RatioImage,
   ResponsiveHeadline,
   type ImageRatio,

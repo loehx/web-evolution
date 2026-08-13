@@ -1,4 +1,14 @@
 import {
+  GlyphVeil,
+  type GlyphVeilProps,
+} from '../../staging/GlyphVeil/GlyphVeil'
+import { glyphVeilVariants } from '../../staging/GlyphVeil/previews'
+import {
+  LetterMosaic,
+  type LetterMosaicProps,
+} from '../../staging/LetterMosaic/LetterMosaic'
+import { letterMosaicVariants } from '../../staging/LetterMosaic/previews'
+import {
   AetherHandset,
   type AetherHandsetProps,
 } from '../../staging/AetherHandset/AetherHandset'
@@ -79,6 +89,8 @@ import {
 import { viewportSnapDeckVariants } from '../../staging/ViewportSnapDeck/previews'
 import type { StagedComponent } from '@/previews/types'
 
+const BATCH_7_CREATED = '2026-08-13T13:30:00Z'
+const BATCH_8_CREATED = '2026-08-13T15:00:00Z'
 const BATCH_6_CREATED = '2026-08-13T13:00:00Z'
 const BATCH_4_CREATED = '2026-08-13T09:00:00Z'
 const BATCH_3_CREATED = '2026-08-12T15:06:00Z'
@@ -86,6 +98,20 @@ const BATCH_2_CREATED = '2026-08-12T09:20:37Z'
 const BATCH_1_CREATED = '2026-08-12T08:51:59Z'
 
 export const stagedComponents: StagedComponent[] = [
+  {
+    name: 'GlyphVeil',
+    slug: 'GlyphVeil',
+    createdAt: BATCH_7_CREATED,
+    variants: glyphVeilVariants,
+    render: (props) => <GlyphVeil {...(props as GlyphVeilProps)} />,
+  },
+  {
+    name: 'LetterMosaic',
+    slug: 'LetterMosaic',
+    createdAt: BATCH_8_CREATED,
+    variants: letterMosaicVariants,
+    render: (props) => <LetterMosaic {...(props as LetterMosaicProps)} />,
+  },
   {
     name: 'AetherHandset',
     slug: 'AetherHandset',

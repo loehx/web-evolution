@@ -4,11 +4,27 @@ Evolve batch history. Newest batches first.
 
 ---
 
+## 2026-08-13 (Glyph veil)
+
+**Roles:** hero
+
+* **GlyphVeil** - Full-viewport living ASCII field with a neon-yellow torch behind difference-blended glyphs; drag to densify a pixel headline stencil in the cell grid.
+
+---
+
 ## 2026-08-13 (Aether handset)
 
 **Roles:** hero
 
 * **AetherHandset** - Full-viewport hero with a procedural titanium iPhone in shader sky worlds; drag orbits the handset while copy overlays the stage. Aurora and Liquid variants scatter floating cubes around the phone (anthracite chassis on Aurora, accent-shine tints on Liquid).
+
+---
+
+## 2026-08-13 (Quak pond)
+
+**Roles:** hero
+
+* **QuakPondHero** - Full-viewport flock of pickable rubber ducks on a grass lawn under a square QUAK/QUAK SVG stamp — declined; it sucks.
 
 ---
 
