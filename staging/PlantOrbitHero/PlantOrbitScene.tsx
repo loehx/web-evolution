@@ -1,8 +1,14 @@
 import { Canvas, useFrame } from '@react-three/fiber'
-import { Bounds, Center, Environment, useGLTF } from '@react-three/drei'
+import { Center, Environment, useGLTF } from '@react-three/drei'
 import { Suspense, useMemo, useRef } from 'react'
 import type { Group } from 'three'
-import { DEFAULT_PLANT, PLANT_URLS, type PlantId } from './plants'
+import {
+  DEFAULT_PLANT,
+  PLANT_CAMERA,
+  PLANT_FOV,
+  PLANT_URLS,
+  type PlantId,
+} from './plants'
 
 export interface PlantOrbitSceneProps {
   plant?: PlantId
@@ -73,14 +79,12 @@ function SceneContent({
         color="#fff4dc"
       />
       <Environment preset="park" environmentIntensity={0.55} />
-      <Bounds fit observe clip margin={1.2}>
-        <PlantPivot
-          url={url}
-          radians={radians}
-          autoRotate={autoRotate}
-          isDragging={isDragging}
-        />
-      </Bounds>
+      <PlantPivot
+        url={url}
+        radians={radians}
+        autoRotate={autoRotate}
+        isDragging={isDragging}
+      />
     </>
   )
 }
@@ -91,12 +95,15 @@ export function PlantOrbitScene({
   autoRotate = false,
   isDragging = false,
 }: PlantOrbitSceneProps) {
+  const cameraPos = PLANT_CAMERA[plant]
+  const fov = PLANT_FOV[plant]
+
   return (
     <Canvas
       gl={{ alpha: true, antialias: true, powerPreference: 'low-power' }}
       dpr={[1, 1.75]}
-      camera={{ position: [0, 0, 5], fov: 45, near: 0.01, far: 100 }}
-      style={{ background: 'transparent', pointerEvents: 'none' }}
+      camera={{ position: cameraPos, fov, near: 0.01, far: 100 }}
+      style={{ background: 'transparent', pointerEvents: 'none', width: '100%', height: '100%' }}
     >
       <Suspense fallback={null}>
         <SceneContent

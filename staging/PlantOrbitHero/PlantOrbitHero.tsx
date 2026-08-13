@@ -30,8 +30,8 @@ function PlantPulseFallback() {
   )
 }
 
-/** ~40% viewport margin so the next gallery variant can preload before scroll. */
-function useNearViewportRootMargin(ratio = 0.4) {
+/** ~15% viewport margin so typically 1–2 WebGL canvases are live, not 3+. */
+function useNearViewportRootMargin(ratio = 0.15) {
   const [rootMargin, setRootMargin] = useState(() => {
     const vh = typeof window !== 'undefined' ? window.innerHeight : 800
     return `${Math.round(vh * ratio)}px 0px`
@@ -68,6 +68,7 @@ function PlantStage({ plant }: { plant: PlantId }) {
         {inView ? (
           <Suspense fallback={<PlantPulseFallback />}>
             <PlantOrbitScene
+              key={plant}
               plant={plant}
               radians={radians}
               autoRotate={!reduceMotion}
