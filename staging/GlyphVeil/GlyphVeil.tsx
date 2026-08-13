@@ -271,6 +271,15 @@ function isInsideTorch(
   return dx * dx + dy * dy <= radius * radius
 }
 
+function applySectionTouchAction(
+  section: HTMLElement | null,
+  mobile: boolean,
+  scrollable: boolean,
+) {
+  if (!section) return
+  section.style.touchAction = !mobile || !scrollable ? 'none' : 'pan-y'
+}
+
 export function GlyphVeil({
   className,
   headline = DEFAULT_HEADLINE,
@@ -293,6 +302,7 @@ export function GlyphVeil({
   const [explored, setExplored] = useState(false)
   const [torchVisible, setTorchVisible] = useState(true)
   const [isMobileLayout, setIsMobileLayout] = useState(false)
+  const [mobileScrollable, setMobileScrollable] = useState(true)
   const reduceMotion = useReducedMotion()
   const appear = reduceMotion ? 0 : motionDuration.hero
   const torchTransition = reduceMotion ? 0 : motionDuration.standard
@@ -462,9 +472,16 @@ export function GlyphVeil({
       if (!isInsideTorch(pos.x, pos.y, ptr.x, ptr.y, radius)) return
     }
 
+    // Lock scroll immediately — waiting for `explored` state lets the browser
+    // interpret the first move as a page scroll and fire pointercancel.
+    applySectionTouchAction(sectionRef.current, mobileRef.current, false)
+    setMobileScrollable(false)
+
     sectionRef.current?.setPointerCapture(e.pointerId)
     ptr.pressed = true
     ptr.movedWhilePressed = false
+
+    if (mobileRef.current) e.preventDefault()
 
     engage()
     ptr.x = pos.x
@@ -500,10 +517,14 @@ export function GlyphVeil({
 
   const handlePointerUp = (e: ReactPointerEvent<HTMLElement>) => {
     const ptr = pointerRef.current
+    if (!ptr.pressed) return
+
     ptr.pressed = false
 
     if (mobileRef.current && ptr.movedWhilePressed) {
       setTorchVisible(false)
+      applySectionTouchAction(sectionRef.current, true, true)
+      setMobileScrollable(true)
     }
 
     try {
@@ -521,6 +542,8 @@ export function GlyphVeil({
     pointerRef.current.pressed = false
     pointerRef.current.movedWhilePressed = false
     setTorchVisible(true)
+    applySectionTouchAction(sectionRef.current, mobileRef.current, true)
+    setMobileScrollable(true)
     if (section) {
       const rect = section.getBoundingClientRect()
       pointerRef.current.x = rect.width / 2
@@ -536,13 +559,17 @@ export function GlyphVeil({
     <section
       ref={sectionRef}
       className={cn(
-        'relative min-h-[100svh] w-full overflow-hidden',
+        'relative min-h-[100svh] w-full overflow-hidden select-none',
         bgClass,
         className,
       )}
       style={{
-        touchAction:
-          !isMobileLayout || (torchVisible && explored) ? 'none' : 'pan-y',
+        touchAction: !isMobileLayout
+          ? 'none'
+          : mobileScrollable
+            ? 'pan-y'
+            : 'none',
+        WebkitTouchCallout: 'none',
       }}
       onPointerDown={handlePointerDown}
       onPointerMove={handlePointerMove}
