@@ -3,13 +3,13 @@ import { motion, useReducedMotion } from 'motion/react'
 import { cn } from '@/lib/utils'
 import { motionDuration } from '@/lib/motion'
 import { usePointerOrbit } from '@/lib/usePointerOrbit'
-import { DEFAULT_PLANT, type PlantId } from './PlantOrbitScene'
+import { DEFAULT_PLANT, type PlantId } from './plants'
 
 const PlantOrbitScene = lazy(() =>
   import('./PlantOrbitScene').then((module) => ({ default: module.PlantOrbitScene })),
 )
 
-export type { PlantId } from './PlantOrbitScene'
+export type { PlantId } from './plants'
 
 export interface PlantOrbitHeroProps {
   eyebrow?: string
@@ -108,7 +108,7 @@ export function PlantOrbitHero({
         <PlantStage plant={plant} />
       </motion.div>
 
-      <div className="relative z-10 flex min-h-[100svh] w-full flex-col justify-end p-5 pb-24 md:w-[42%] md:p-10 md:pb-16">
+      <div className="pointer-events-none relative z-10 flex min-h-[100svh] w-full flex-col justify-end p-5 pb-24 md:w-[42%] md:p-10 md:pb-16">
         {eyebrow ? (
           <p className="mb-3 font-sans text-[10px] font-semibold uppercase tracking-[0.45em] text-[#8fb996]">
             {eyebrow}
@@ -126,7 +126,7 @@ export function PlantOrbitHero({
           <button
             type="button"
             onClick={onCtaClick}
-            className="mt-8 w-fit border border-[#c9a96e]/70 px-6 py-3 font-sans text-xs uppercase tracking-[0.3em] text-[#d4bc82] transition-colors duration-[var(--duration-micro)] hover:border-[#c9a96e] hover:bg-[#c9a96e]/10 hover:text-[#f0e4c8]"
+            className="pointer-events-auto mt-8 w-fit border border-[#c9a96e]/70 px-6 py-3 font-sans text-xs uppercase tracking-[0.3em] text-[#d4bc82] transition-colors duration-[var(--duration-micro)] hover:border-[#c9a96e] hover:bg-[#c9a96e]/10 hover:text-[#f0e4c8]"
           >
             {ctaLabel}
           </button>
