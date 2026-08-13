@@ -1,7 +1,8 @@
-import { lazy, Suspense } from 'react'
+import { lazy, Suspense, useEffect, useState } from 'react'
 import { motion, useReducedMotion } from 'motion/react'
 import { cn } from '@/lib/utils'
 import { motionDuration } from '@/lib/motion'
+import { useInView } from '@/lib/useInView'
 import { usePointerOrbit } from '@/lib/usePointerOrbit'
 import { DEFAULT_PLANT, type PlantId } from './plants'
 
@@ -21,14 +22,42 @@ export interface PlantOrbitHeroProps {
   className?: string
 }
 
+function PlantPulseFallback() {
+  return (
+    <div className="flex h-full w-full items-center justify-center">
+      <div className="h-10 w-10 animate-pulse rounded-full border border-[#6b9e72]/30 bg-[#1e3424]/60" />
+    </div>
+  )
+}
+
+/** ~40% viewport margin so the next gallery variant can preload before scroll. */
+function useNearViewportRootMargin(ratio = 0.4) {
+  const [rootMargin, setRootMargin] = useState(() => {
+    const vh = typeof window !== 'undefined' ? window.innerHeight : 800
+    return `${Math.round(vh * ratio)}px 0px`
+  })
+
+  useEffect(() => {
+    const update = () =>
+      setRootMargin(`${Math.round(window.innerHeight * ratio)}px 0px`)
+    window.addEventListener('resize', update)
+    return () => window.removeEventListener('resize', update)
+  }, [ratio])
+
+  return rootMargin
+}
+
 function PlantStage({ plant }: { plant: PlantId }) {
   const reduceMotion = useReducedMotion()
+  const rootMargin = useNearViewportRootMargin()
+  const { ref, inView } = useInView(rootMargin)
   const { radians, bind, isDragging } = usePointerOrbit({
     initial: { x: -12, y: 28 },
   })
 
   return (
     <div
+      ref={ref}
       className="relative h-full min-h-[50svh] w-full"
       {...bind}
       style={bind.style}
@@ -36,20 +65,18 @@ function PlantStage({ plant }: { plant: PlantId }) {
       role="img"
     >
       <div className="pointer-events-none absolute inset-0">
-        <Suspense
-          fallback={
-            <div className="flex h-full w-full items-center justify-center">
-              <div className="h-10 w-10 animate-pulse rounded-full border border-[#6b9e72]/30 bg-[#1e3424]/60" />
-            </div>
-          }
-        >
-          <PlantOrbitScene
-            plant={plant}
-            radians={radians}
-            autoRotate={!reduceMotion}
-            isDragging={isDragging}
-          />
-        </Suspense>
+        {inView ? (
+          <Suspense fallback={<PlantPulseFallback />}>
+            <PlantOrbitScene
+              plant={plant}
+              radians={radians}
+              autoRotate={!reduceMotion}
+              isDragging={isDragging}
+            />
+          </Suspense>
+        ) : (
+          <PlantPulseFallback />
+        )}
       </div>
 
       {/* Vitrine corner marks */}
