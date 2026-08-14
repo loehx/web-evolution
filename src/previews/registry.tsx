@@ -1,4 +1,9 @@
 import {
+  StarAscent,
+  type StarAscentProps,
+} from '../../staging/StarAscent/StarAscent'
+import { starAscentVariants } from '../../staging/StarAscent/previews'
+import {
   GlyphVeil,
   type GlyphVeilProps,
 } from '../../staging/GlyphVeil/GlyphVeil'
@@ -98,6 +103,13 @@ const BATCH_2_CREATED = '2026-08-12T09:20:37Z'
 const BATCH_1_CREATED = '2026-08-12T08:51:59Z'
 
 export const stagedComponents: StagedComponent[] = [
+  {
+    name: 'StarAscent',
+    slug: 'StarAscent',
+    createdAt: '2026-08-13T21:45:00Z',
+    variants: starAscentVariants,
+    render: (props) => <StarAscent {...(props as StarAscentProps)} />,
+  },
   {
     name: 'GlyphVeil',
     slug: 'GlyphVeil',
