@@ -17,12 +17,18 @@ import {
   StarAscentFlightSurface,
   useStarAscentFlightInput,
 } from './StarAscentFlight'
+import { MarsOrbitSurface, useMarsTrackballInput } from './MarsOrbitSurface'
+import { MarsPlanet } from './MarsPlanet'
+import { MARS_PLANET } from './marsAssets'
+import { StarAscentScrollRig } from './StarAscentScrollRig'
 import { ScrollStarField } from './ScrollStarField'
 
 export type StarAscentProps = {
   className?: string
-  /** Total scroll runway — default 500vh for now. */
+  /** Total scroll runway — default 600vh (stars → Mars). */
   scrollHeight?: string
+  /** Mars idle autospin in radians per second — default very slow. */
+  marsRollSpeed?: number
   starSize?: number
   starCount?: number
   motionBrightness?: number
@@ -40,6 +46,7 @@ export type StarAscentProps = {
 function useSectionScroll(sectionRef: React.RefObject<HTMLElement | null>) {
   const scrollPxRef = useRef(0)
   const velocityPxRef = useRef(0)
+  const progressRef = useRef(0)
 
   useEffect(() => {
     let frame = 0
@@ -63,6 +70,7 @@ function useSectionScroll(sectionRef: React.RefObject<HTMLElement | null>) {
 
         scrollPxRef.current = nextScrollPx
         velocityPxRef.current = smoothedVelocity
+        progressRef.current = maxScroll > 0 ? nextScrollPx / maxScroll : 0
         lastScrollPx = nextScrollPx
       }
 
@@ -76,7 +84,7 @@ function useSectionScroll(sectionRef: React.RefObject<HTMLElement | null>) {
     }
   }, [sectionRef])
 
-  return { scrollPxRef, velocityPxRef }
+  return { scrollPxRef, velocityPxRef, progressRef }
 }
 
 function useDebouncedValue<T>(value: T, delayMs: number) {
@@ -92,7 +100,8 @@ function useDebouncedValue<T>(value: T, delayMs: number) {
 
 export function StarAscent({
   className,
-  scrollHeight = '500vh',
+  scrollHeight = '600vh',
+  marsRollSpeed = MARS_PLANET.autoSpinSpeed,
   starSize = DEFAULT_STAR_ASCENT_SETTINGS.starSize,
   starCount = DEFAULT_STAR_ASCENT_SETTINGS.starCount,
   motionBrightness = DEFAULT_STAR_ASCENT_SETTINGS.motionBrightness,
@@ -107,10 +116,18 @@ export function StarAscent({
 }: StarAscentProps) {
   const sectionRef = useRef<HTMLElement>(null)
   const flightSurfaceRef = useRef<HTMLDivElement>(null)
+  const marsSurfaceRef = useRef<HTMLDivElement>(null)
+  const marsDraggingRef = useRef(false)
   const reduceMotion = useReducedMotion()
-  const { scrollPxRef, velocityPxRef } = useSectionScroll(sectionRef)
+  const { scrollPxRef, velocityPxRef, progressRef } = useSectionScroll(sectionRef)
   const { inputRef: flightInputRef, metricsRef: flightMetricsRef } =
-    useStarAscentFlightInput(flightSurfaceRef)
+    useStarAscentFlightInput(flightSurfaceRef, progressRef)
+  const marsTrackball = useMarsTrackballInput(marsSurfaceRef, progressRef)
+
+  useEffect(() => {
+    marsDraggingRef.current = marsTrackball.isDragging
+  }, [marsTrackball.isDragging])
+
   const [settings, setSettings] = useState<StarAscentSettings>(() => ({
     starSize,
     starCount,
@@ -148,16 +165,19 @@ export function StarAscent({
   return (
     <section
       ref={sectionRef}
-      className={cn('relative h-[100svh] w-full overflow-y-auto overscroll-y-contain', className)}
+      className={cn(
+        'relative h-[100svh] w-full overflow-y-auto overscroll-y-contain',
+        className,
+      )}
       style={{ backgroundColor: GENESIS_5_STARS.void }}
-      aria-label="Hold to fly through the star field, or scroll the page"
+      aria-label="Scroll from the star field into Mars; hold to fly, then grab the planet to rotate it"
     >
       <div className="relative w-full" style={{ height: scrollHeight }}>
         <div className="sticky top-0 h-[100svh] w-full">
           <Canvas
-            dpr={[1, 1.5]}
+            dpr={[1, 1.75]}
             gl={{
-              antialias: false,
+              antialias: true,
               alpha: false,
               powerPreference: 'high-performance',
             }}
@@ -169,15 +189,18 @@ export function StarAscent({
             }}
           >
             <color attach="background" args={[GENESIS_5_STARS.void]} />
+            <StarAscentScrollRig progressRef={progressRef} />
             <StarAscentFlightRig
               inputRef={flightInputRef}
               metricsRef={flightMetricsRef}
+              progressRef={progressRef}
               flightSpeed={settings.flightSpeed}
               reduceMotion={!!reduceMotion}
             />
             <ScrollStarField
               scrollPxRef={scrollPxRef}
               velocityPxRef={velocityPxRef}
+              progressRef={progressRef}
               flightMetricsRef={flightMetricsRef}
               settings={fieldSettings}
               rotationSpeed={settings.rotationSpeed}
@@ -185,11 +208,28 @@ export function StarAscent({
               palette={palette}
               reduceMotion={!!reduceMotion}
             />
+            <MarsPlanet
+              progressRef={progressRef}
+              orientationRef={marsTrackball.orientationRef}
+              pendingRef={marsTrackball.pendingRef}
+              velocityRef={marsTrackball.velocityRef}
+              isDragging={marsTrackball.isDragging}
+              isDraggingRef={marsDraggingRef}
+              inertiaDecay={marsTrackball.inertiaDecay}
+              rollSpeed={marsRollSpeed}
+              reduceMotion={!!reduceMotion}
+            />
           </Canvas>
 
           <StarAscentFlightSurface
             surfaceRef={flightSurfaceRef}
             className="absolute inset-0 z-[5] cursor-crosshair"
+          />
+
+          <MarsOrbitSurface
+            surfaceRef={marsSurfaceRef}
+            bind={marsTrackball.bind}
+            isDragging={marsTrackball.isDragging}
           />
 
           {showControls ? (
@@ -201,7 +241,9 @@ export function StarAscent({
           ) : null}
 
           <p className="pointer-events-none absolute inset-x-0 bottom-8 z-10 text-center text-[0.65rem] font-medium uppercase tracking-[0.4em] text-white/35">
-            Hold to fly — steer with cursor · scroll for drift
+            {marsTrackball.isDragging
+              ? 'Orbiting Mars'
+              : 'Scroll · hold to fly · grab Mars to rotate'}
           </p>
         </div>
       </div>

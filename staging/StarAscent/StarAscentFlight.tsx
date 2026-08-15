@@ -27,11 +27,13 @@ export type StarAscentFlightMetrics = {
 export function StarAscentFlightRig({
   inputRef,
   metricsRef,
+  progressRef,
   flightSpeed,
   reduceMotion,
 }: {
   inputRef: RefObject<StarAscentFlightInput>
   metricsRef: RefObject<StarAscentFlightMetrics>
+  progressRef: RefObject<number>
   flightSpeed: number
   reduceMotion: boolean
 }) {
@@ -51,7 +53,9 @@ export function StarAscentFlightRig({
     const metrics = metricsRef.current
     if (!input || !metrics) return
 
-    if (reduceMotion) {
+    const marsPhase = (progressRef.current ?? 0) > 0.46
+
+    if (reduceMotion || marsPhase) {
       forwardVel.current = 0
       smoothSteerX.current = 0
       smoothSteerY.current = 0
@@ -123,6 +127,7 @@ function steerFromClient(
 
 export function useStarAscentFlightInput(
   surfaceRef: RefObject<HTMLElement | null>,
+  progressRef: RefObject<number>,
 ) {
   const inputRef = useRef<StarAscentFlightInput>({
     active: false,
@@ -151,6 +156,7 @@ export function useStarAscentFlightInput(
 
     const onPointerDown = (event: PointerEvent) => {
       if (event.button !== 0) return
+      if ((progressRef.current ?? 0) > 0.46) return
 
       inputRef.current.active = true
       const steer = steerFromClient(surface, event.clientX, event.clientY)
@@ -181,7 +187,7 @@ export function useStarAscentFlightInput(
       surface.removeEventListener('pointercancel', endFlight)
       surface.removeEventListener('lostpointercapture', endFlight)
     }
-  }, [surfaceRef])
+  }, [surfaceRef, progressRef])
 
   return { inputRef, metricsRef }
 }
