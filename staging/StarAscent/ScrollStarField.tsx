@@ -55,17 +55,12 @@ const BLUR_MAX = 2.2
 const fragmentShader = /* glsl */ `
   uniform float uScrollSpeed;
   uniform float uMotionBrightness;
-  uniform float uFieldOpacity;
   varying vec3 vColor;
   varying float vStarSpeed;
 
   void main() {
-    vec2 uv = gl_PointCoord - 0.5;
     float speedT =
       uScrollSpeed > 0.001 ? clamp(vStarSpeed / uScrollSpeed, 0.0, 1.0) : 0.0;
-
-    float edge = max(abs(uv.x), abs(uv.y));
-    if (edge > 0.5) discard;
 
     float motionBoost = mix(1.0, uMotionBrightness, speedT);
     vec3 boosted = vColor * motionBoost;
@@ -73,14 +68,13 @@ const fragmentShader = /* glsl */ `
     if (peak > 1.0) {
       boosted /= peak;
     }
-    gl_FragColor = vec4(boosted, uFieldOpacity);
+    gl_FragColor = vec4(boosted, 1.0);
   }
 `
 
 export function ScrollStarField({
   scrollPxRef,
   velocityPxRef,
-  progressRef,
   flightMetricsRef,
   settings,
   rotationSpeed,
@@ -90,7 +84,6 @@ export function ScrollStarField({
 }: {
   scrollPxRef: React.RefObject<number>
   velocityPxRef: React.RefObject<number>
-  progressRef: React.RefObject<number>
   flightMetricsRef: React.RefObject<StarAscentFlightMetrics>
   settings: StarAscentSettings
   rotationSpeed: number
@@ -134,13 +127,12 @@ export function ScrollStarField({
         uMaxPointSize: { value: 8 },
         uMotionBrightness: { value: motionBrightness },
         uSteerOffset: { value: new THREE.Vector2(0, 0) },
-        uFieldOpacity: { value: 1 },
       },
       vertexShader,
       fragmentShader,
-      transparent: true,
+      transparent: false,
       depthWrite: false,
-      blending: THREE.AdditiveBlending,
+      blending: THREE.NoBlending,
     })
     mat.uniforms.uPixelRatio.value = Math.min(window.devicePixelRatio, 1.5)
     return mat
@@ -180,10 +172,6 @@ export function ScrollStarField({
     material.uniforms.uFov.value = persp.fov
     material.uniforms.uDepthNear.value = depthNear
     material.uniforms.uDepthFar.value = depthFar
-
-    const progress = progressRef.current ?? 0
-    const marsBlend = THREE.MathUtils.clamp((progress - 0.48) / 0.42, 0, 1)
-    material.uniforms.uFieldOpacity.value = 1 - marsBlend * 0.94
 
     const flightActive = flightMetricsRef.current?.active ?? false
     const steerX = flightMetricsRef.current?.steerX ?? 0

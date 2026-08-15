@@ -6,7 +6,7 @@ import type { StarAscentProps } from './StarAscent'
 export const starAscentVariants: PreviewVariant<StarAscentProps>[] = [
   {
     id: 1,
-    label: 'Genesis drift → Mars — 600vh',
+    label: 'Genesis drift → Moon — 600vh',
     props: {
       scrollHeight: '600vh',
       starSize: DEFAULT_STAR_ASCENT_SETTINGS.starSize,

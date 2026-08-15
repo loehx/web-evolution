@@ -1,6 +1,6 @@
 export { StarAscent, type StarAscentProps } from './StarAscent'
-export { MarsPlanet } from './MarsPlanet'
-export { MARS_PLANET, MARS_TEXTURES } from './marsAssets'
+export { MoonPlanet } from './MoonPlanet'
+export { MOON_PLANET, MOON_TEXTURES } from './moonAssets'
 export {
   DEFAULT_STAR_ASCENT_SETTINGS,
   DEFAULT_STAR_COLOR_MASK,

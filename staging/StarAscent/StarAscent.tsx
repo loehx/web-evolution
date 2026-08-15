@@ -17,18 +17,18 @@ import {
   StarAscentFlightSurface,
   useStarAscentFlightInput,
 } from './StarAscentFlight'
-import { MarsOrbitSurface, useMarsTrackballInput } from './MarsOrbitSurface'
-import { MarsPlanet } from './MarsPlanet'
-import { MARS_PLANET } from './marsAssets'
+import { MoonOrbitSurface, useMoonTrackballInput } from './MoonOrbitSurface'
+import { MoonPlanet } from './MoonPlanet'
+import { MOON_PLANET } from './moonAssets'
 import { StarAscentScrollRig } from './StarAscentScrollRig'
 import { ScrollStarField } from './ScrollStarField'
 
 export type StarAscentProps = {
   className?: string
-  /** Total scroll runway — default 600vh (stars → Mars). */
+  /** Total scroll runway — default 600vh (stars → Moon). */
   scrollHeight?: string
-  /** Mars idle autospin in radians per second — default very slow. */
-  marsRollSpeed?: number
+  /** Moon idle autospin in radians per second — default very slow. */
+  moonRollSpeed?: number
   starSize?: number
   starCount?: number
   motionBrightness?: number
@@ -101,7 +101,7 @@ function useDebouncedValue<T>(value: T, delayMs: number) {
 export function StarAscent({
   className,
   scrollHeight = '600vh',
-  marsRollSpeed = MARS_PLANET.autoSpinSpeed,
+  moonRollSpeed = MOON_PLANET.autoSpinSpeed,
   starSize = DEFAULT_STAR_ASCENT_SETTINGS.starSize,
   starCount = DEFAULT_STAR_ASCENT_SETTINGS.starCount,
   motionBrightness = DEFAULT_STAR_ASCENT_SETTINGS.motionBrightness,
@@ -116,17 +116,17 @@ export function StarAscent({
 }: StarAscentProps) {
   const sectionRef = useRef<HTMLElement>(null)
   const flightSurfaceRef = useRef<HTMLDivElement>(null)
-  const marsSurfaceRef = useRef<HTMLDivElement>(null)
-  const marsDraggingRef = useRef(false)
+  const moonSurfaceRef = useRef<HTMLDivElement>(null)
+  const moonDraggingRef = useRef(false)
   const reduceMotion = useReducedMotion()
   const { scrollPxRef, velocityPxRef, progressRef } = useSectionScroll(sectionRef)
   const { inputRef: flightInputRef, metricsRef: flightMetricsRef } =
     useStarAscentFlightInput(flightSurfaceRef, progressRef)
-  const marsTrackball = useMarsTrackballInput(marsSurfaceRef, progressRef)
+  const moonTrackball = useMoonTrackballInput(moonSurfaceRef, progressRef)
 
   useEffect(() => {
-    marsDraggingRef.current = marsTrackball.isDragging
-  }, [marsTrackball.isDragging])
+    moonDraggingRef.current = moonTrackball.isDragging
+  }, [moonTrackball.isDragging])
 
   const [settings, setSettings] = useState<StarAscentSettings>(() => ({
     starSize,
@@ -170,7 +170,7 @@ export function StarAscent({
         className,
       )}
       style={{ backgroundColor: GENESIS_5_STARS.void }}
-      aria-label="Scroll from the star field into Mars; hold to fly, then grab the planet to rotate it"
+      aria-label="Scroll from the star field into the Moon; hold to fly, then grab the Moon to rotate it"
     >
       <div className="relative w-full" style={{ height: scrollHeight }}>
         <div className="sticky top-0 h-[100svh] w-full">
@@ -200,7 +200,6 @@ export function StarAscent({
             <ScrollStarField
               scrollPxRef={scrollPxRef}
               velocityPxRef={velocityPxRef}
-              progressRef={progressRef}
               flightMetricsRef={flightMetricsRef}
               settings={fieldSettings}
               rotationSpeed={settings.rotationSpeed}
@@ -208,15 +207,15 @@ export function StarAscent({
               palette={palette}
               reduceMotion={!!reduceMotion}
             />
-            <MarsPlanet
+            <MoonPlanet
               progressRef={progressRef}
-              orientationRef={marsTrackball.orientationRef}
-              pendingRef={marsTrackball.pendingRef}
-              velocityRef={marsTrackball.velocityRef}
-              isDragging={marsTrackball.isDragging}
-              isDraggingRef={marsDraggingRef}
-              inertiaDecay={marsTrackball.inertiaDecay}
-              rollSpeed={marsRollSpeed}
+              orientationRef={moonTrackball.orientationRef}
+              pendingRef={moonTrackball.pendingRef}
+              velocityRef={moonTrackball.velocityRef}
+              isDragging={moonTrackball.isDragging}
+              isDraggingRef={moonDraggingRef}
+              inertiaDecay={moonTrackball.inertiaDecay}
+              rollSpeed={moonRollSpeed}
               reduceMotion={!!reduceMotion}
             />
           </Canvas>
@@ -226,10 +225,10 @@ export function StarAscent({
             className="absolute inset-0 z-[5] cursor-crosshair"
           />
 
-          <MarsOrbitSurface
-            surfaceRef={marsSurfaceRef}
-            bind={marsTrackball.bind}
-            isDragging={marsTrackball.isDragging}
+          <MoonOrbitSurface
+            surfaceRef={moonSurfaceRef}
+            bind={moonTrackball.bind}
+            isDragging={moonTrackball.isDragging}
           />
 
           {showControls ? (
@@ -241,9 +240,9 @@ export function StarAscent({
           ) : null}
 
           <p className="pointer-events-none absolute inset-x-0 bottom-8 z-10 text-center text-[0.65rem] font-medium uppercase tracking-[0.4em] text-white/35">
-            {marsTrackball.isDragging
-              ? 'Orbiting Mars'
-              : 'Scroll · hold to fly · grab Mars to rotate'}
+            {moonTrackball.isDragging
+              ? 'Orbiting the Moon'
+              : 'Scroll · hold to fly · grab the Moon to rotate'}
           </p>
         </div>
       </div>

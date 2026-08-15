@@ -53,9 +53,9 @@ export function StarAscentFlightRig({
     const metrics = metricsRef.current
     if (!input || !metrics) return
 
-    const marsPhase = (progressRef.current ?? 0) > 0.46
+    const moonPhase = (progressRef.current ?? 0) > 0.46
 
-    if (reduceMotion || marsPhase) {
+    if (reduceMotion || moonPhase) {
       forwardVel.current = 0
       smoothSteerX.current = 0
       smoothSteerY.current = 0
