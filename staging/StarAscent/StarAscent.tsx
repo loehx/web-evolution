@@ -12,6 +12,11 @@ import {
   type StarColorKey,
 } from './starAscentSettings'
 import { GENESIS_5_STARS, STAR_BRAND_COLORS } from './starFieldGeometry'
+import {
+  StarAscentFlightRig,
+  StarAscentFlightSurface,
+  useStarAscentFlightInput,
+} from './StarAscentFlight'
 import { ScrollStarField } from './ScrollStarField'
 
 export type StarAscentProps = {
@@ -101,14 +106,18 @@ export function StarAscent({
   showControls = true,
 }: StarAscentProps) {
   const sectionRef = useRef<HTMLElement>(null)
+  const flightSurfaceRef = useRef<HTMLDivElement>(null)
   const reduceMotion = useReducedMotion()
   const { scrollPxRef, velocityPxRef } = useSectionScroll(sectionRef)
+  const { inputRef: flightInputRef, metricsRef: flightMetricsRef } =
+    useStarAscentFlightInput(flightSurfaceRef)
   const [settings, setSettings] = useState<StarAscentSettings>(() => ({
     starSize,
     starCount,
     motionBrightness,
     motionBlur,
     rotationSpeed,
+    flightSpeed: DEFAULT_STAR_ASCENT_SETTINGS.flightSpeed,
     colors: { ...DEFAULT_STAR_COLOR_MASK },
   }))
   const debouncedStarCount = useDebouncedValue(settings.starCount, 250)
@@ -141,7 +150,7 @@ export function StarAscent({
       ref={sectionRef}
       className={cn('relative h-[100svh] w-full overflow-y-auto overscroll-y-contain', className)}
       style={{ backgroundColor: GENESIS_5_STARS.void }}
-      aria-label="Scroll to drift through a star field"
+      aria-label="Hold to fly through the star field, or scroll the page"
     >
       <div className="relative w-full" style={{ height: scrollHeight }}>
         <div className="sticky top-0 h-[100svh] w-full">
@@ -160,9 +169,16 @@ export function StarAscent({
             }}
           >
             <color attach="background" args={[GENESIS_5_STARS.void]} />
+            <StarAscentFlightRig
+              inputRef={flightInputRef}
+              metricsRef={flightMetricsRef}
+              flightSpeed={settings.flightSpeed}
+              reduceMotion={!!reduceMotion}
+            />
             <ScrollStarField
               scrollPxRef={scrollPxRef}
               velocityPxRef={velocityPxRef}
+              flightMetricsRef={flightMetricsRef}
               settings={fieldSettings}
               rotationSpeed={settings.rotationSpeed}
               seed={seed}
@@ -170,6 +186,11 @@ export function StarAscent({
               reduceMotion={!!reduceMotion}
             />
           </Canvas>
+
+          <StarAscentFlightSurface
+            surfaceRef={flightSurfaceRef}
+            className="absolute inset-0 z-[5] cursor-crosshair"
+          />
 
           {showControls ? (
             <StarAscentControls
@@ -180,7 +201,7 @@ export function StarAscent({
           ) : null}
 
           <p className="pointer-events-none absolute inset-x-0 bottom-8 z-10 text-center text-[0.65rem] font-medium uppercase tracking-[0.4em] text-white/35">
-            Scroll — stars rise with your pixels
+            Hold to fly — steer with cursor · scroll for drift
           </p>
         </div>
       </div>

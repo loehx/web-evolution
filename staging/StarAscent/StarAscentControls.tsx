@@ -56,6 +56,14 @@ const SLIDER_CONTROLS: ControlSpec[] = [
     step: 0.001,
     format: (v) => v.toFixed(3),
   },
+  {
+    key: 'flightSpeed',
+    label: 'Flight speed',
+    min: 0.25,
+    max: 2.5,
+    step: 0.05,
+    format: (v) => `${v.toFixed(2)}×`,
+  },
 ]
 
 function enabledColorCount(colors: StarAscentSettings['colors']) {

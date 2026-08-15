@@ -2,6 +2,7 @@ import { useEffect, useMemo, useRef } from 'react'
 import { useFrame, useThree } from '@react-three/fiber'
 import * as THREE from 'three'
 import { createScatteredStarGeometry, type StarPalette, STAR_SPAN } from './starFieldGeometry'
+import { STEER_SHIFT, type StarAscentFlightMetrics } from './StarAscentFlight'
 import type { StarAscentSettings } from './starAscentSettings'
 
 const vertexShader = /* glsl */ `
@@ -16,6 +17,7 @@ const vertexShader = /* glsl */ `
   uniform float uDepthFar;
   uniform float uScrollSpeed;
   uniform float uMaxPointSize;
+  uniform vec2 uSteerOffset;
   varying vec3 vColor;
   varying float vMotionMask;
   varying float vStarSpeed;
@@ -24,6 +26,11 @@ const vertexShader = /* glsl */ `
     vColor = color;
     vec3 pos = position;
     pos.y = mod(pos.y + uScrollOffset + uSpan, uSpan * 2.0) - uSpan;
+
+    float depthT = clamp(length(pos) / uSpan, 0.0, 1.0);
+    float steerParallax = mix(0.4, 1.2, depthT);
+    pos.x += uSteerOffset.x * steerParallax;
+    pos.y += uSteerOffset.y * steerParallax;
 
     vec4 mvPosition = modelViewMatrix * vec4(pos, 1.0);
     gl_Position = projectionMatrix * mvPosition;
@@ -37,8 +44,8 @@ const vertexShader = /* glsl */ `
     float frontCutoff = uDepthNear + depthSpan * 0.4;
     vMotionMask = 1.0 - smoothstep(frontCutoff - 6.0, frontCutoff + 8.0, viewDist);
 
-    float depthT = 1.0 - clamp((viewDist - uDepthNear) / depthSpan, 0.0, 1.0);
-    float parallax = mix(0.12, 1.0, depthT);
+    float motionDepthT = 1.0 - clamp((viewDist - uDepthNear) / depthSpan, 0.0, 1.0);
+    float parallax = mix(0.12, 1.0, motionDepthT);
     vStarSpeed = uScrollSpeed * parallax * vMotionMask;
   }
 `
@@ -72,6 +79,7 @@ const fragmentShader = /* glsl */ `
 export function ScrollStarField({
   scrollPxRef,
   velocityPxRef,
+  flightMetricsRef,
   settings,
   rotationSpeed,
   seed,
@@ -80,13 +88,15 @@ export function ScrollStarField({
 }: {
   scrollPxRef: React.RefObject<number>
   velocityPxRef: React.RefObject<number>
+  flightMetricsRef: React.RefObject<StarAscentFlightMetrics>
   settings: StarAscentSettings
   rotationSpeed: number
   seed: number
   palette: StarPalette
   reduceMotion: boolean
 }) {
-  const { starSize, starCount, motionBrightness, motionBlur, colors } = settings
+  const { starSize, starCount, motionBrightness, motionBlur, flightSpeed: flightSpeedSetting, colors } =
+    settings
   const { size, camera } = useThree()
   const pointsRef = useRef<THREE.Points>(null)
   const scrollSpeedRef = useRef(0)
@@ -120,6 +130,7 @@ export function ScrollStarField({
         uScrollSpeed: { value: 0 },
         uMaxPointSize: { value: 8 },
         uMotionBrightness: { value: motionBrightness },
+        uSteerOffset: { value: new THREE.Vector2(0, 0) },
       },
       vertexShader,
       fragmentShader,
@@ -166,7 +177,13 @@ export function ScrollStarField({
     material.uniforms.uDepthNear.value = depthNear
     material.uniforms.uDepthFar.value = depthFar
 
-    if (pointsRef.current && !reduceMotion && rotationSpeed !== 0) {
+    const flightActive = flightMetricsRef.current?.active ?? false
+    const steerX = flightMetricsRef.current?.steerX ?? 0
+    const steerY = flightMetricsRef.current?.steerY ?? 0
+    const steerStrength = STEER_SHIFT * flightSpeedSetting
+    material.uniforms.uSteerOffset.value.set(-steerX * steerStrength, steerY * steerStrength)
+
+    if (pointsRef.current && !reduceMotion && rotationSpeed !== 0 && !flightActive) {
       pointsRef.current.rotation.y += delta * rotationSpeed
     }
 
@@ -178,7 +195,10 @@ export function ScrollStarField({
 
     const velocityPxPerSec = Math.abs(velocityPxRef.current ?? 0)
     const blurCap = BLUR_MAX * motionBlur
-    const targetScrollSpeed = Math.min(velocityPxPerSec * 0.0022 * motionBlur, blurCap)
+    const flightVelocity = flightMetricsRef.current?.speed ?? 0
+    const targetScrollSpeed = flightActive
+      ? Math.min(flightVelocity * 0.085 * motionBlur, blurCap)
+      : Math.min(velocityPxPerSec * 0.0022 * motionBlur, blurCap)
     scrollSpeedRef.current +=
       (targetScrollSpeed - scrollSpeedRef.current) * (1 - Math.exp(-delta / 0.04))
 

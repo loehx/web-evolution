@@ -10,6 +10,7 @@ export type StarAscentSliderKey =
   | 'motionBrightness'
   | 'motionBlur'
   | 'rotationSpeed'
+  | 'flightSpeed'
 
 export type StarAscentSettings = {
   starSize: number
@@ -17,6 +18,7 @@ export type StarAscentSettings = {
   motionBrightness: number
   motionBlur: number
   rotationSpeed: number
+  flightSpeed: number
   colors: StarColorMask
 }
 
@@ -44,5 +46,6 @@ export const DEFAULT_STAR_ASCENT_SETTINGS: StarAscentSettings = {
   motionBrightness: 3,
   motionBlur: 1,
   rotationSpeed: GENESIS_5_STARS.rotationSpeed,
+  flightSpeed: 1,
   colors: DEFAULT_STAR_COLOR_MASK,
 }
