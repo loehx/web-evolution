@@ -4,6 +4,20 @@ Evolve batch history. Newest batches first.
 
 ---
 
+## 2026-08-16
+
+**Words:** prism, compass, strata, beacon, archway
+
+**Roles:** hero, card slider, image+text, contact form, footer
+
+* **ZenithPrismHero** - Luxury full-viewport hero with a grabable CSS glass prism casting spectral ribbons; copy anchors left while pointer orbit inspects every facet.
+* **CompassCardWheel** - Futuristic radial card dial on a compass rose — drag or arrow buttons spin stories to north instead of horizontal scroll.
+* **StrataScrollSplit** - Editorial geological strata bands with scroll-linked parallax; image sits in one sediment layer, headline and body in another.
+* **SignalBeacon** - Brutalist contact tower where signal-strength bars stack beside each field as you type, capped by an orange transmit slab.
+* **ThresholdArchway** - Playful full-viewport footer as a limestone arch — brand in the keystone, navigation links on the curve, legal along the footing.
+
+---
+
 ## 2026-08-13 (Glyph veil)
 
 **Roles:** hero

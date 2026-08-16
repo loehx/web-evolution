@@ -1,4 +1,29 @@
 import {
+  ZenithPrismHero,
+  type ZenithPrismHeroProps,
+} from '../../staging/ZenithPrismHero/ZenithPrismHero'
+import { zenithPrismHeroVariants } from '../../staging/ZenithPrismHero/previews'
+import {
+  CompassCardWheel,
+  type CompassCardWheelProps,
+} from '../../staging/CompassCardWheel/CompassCardWheel'
+import { compassCardWheelVariants } from '../../staging/CompassCardWheel/previews'
+import {
+  StrataScrollSplit,
+  type StrataScrollSplitProps,
+} from '../../staging/StrataScrollSplit/StrataScrollSplit'
+import { strataScrollSplitVariants } from '../../staging/StrataScrollSplit/previews'
+import {
+  SignalBeacon,
+  type SignalBeaconProps,
+} from '../../staging/SignalBeacon/SignalBeacon'
+import { signalBeaconVariants } from '../../staging/SignalBeacon/previews'
+import {
+  ThresholdArchway,
+  type ThresholdArchwayProps,
+} from '../../staging/ThresholdArchway/ThresholdArchway'
+import { thresholdArchwayVariants } from '../../staging/ThresholdArchway/previews'
+import {
   StarAscent,
   type StarAscentProps,
 } from '../../staging/StarAscent/StarAscent'
@@ -94,6 +119,7 @@ import {
 import { viewportSnapDeckVariants } from '../../staging/ViewportSnapDeck/previews'
 import type { StagedComponent } from '@/previews/types'
 
+const BATCH_9_CREATED = '2026-08-16T06:05:00Z'
 const BATCH_7_CREATED = '2026-08-13T13:30:00Z'
 const BATCH_8_CREATED = '2026-08-13T15:00:00Z'
 const BATCH_6_CREATED = '2026-08-13T13:00:00Z'
@@ -103,6 +129,41 @@ const BATCH_2_CREATED = '2026-08-12T09:20:37Z'
 const BATCH_1_CREATED = '2026-08-12T08:51:59Z'
 
 export const stagedComponents: StagedComponent[] = [
+  {
+    name: 'ZenithPrismHero',
+    slug: 'ZenithPrismHero',
+    createdAt: BATCH_9_CREATED,
+    variants: zenithPrismHeroVariants,
+    render: (props) => <ZenithPrismHero {...(props as ZenithPrismHeroProps)} />,
+  },
+  {
+    name: 'CompassCardWheel',
+    slug: 'CompassCardWheel',
+    createdAt: BATCH_9_CREATED,
+    variants: compassCardWheelVariants,
+    render: (props) => <CompassCardWheel {...(props as CompassCardWheelProps)} />,
+  },
+  {
+    name: 'StrataScrollSplit',
+    slug: 'StrataScrollSplit',
+    createdAt: BATCH_9_CREATED,
+    variants: strataScrollSplitVariants,
+    render: (props) => <StrataScrollSplit {...(props as StrataScrollSplitProps)} />,
+  },
+  {
+    name: 'SignalBeacon',
+    slug: 'SignalBeacon',
+    createdAt: BATCH_9_CREATED,
+    variants: signalBeaconVariants,
+    render: (props) => <SignalBeacon {...(props as SignalBeaconProps)} />,
+  },
+  {
+    name: 'ThresholdArchway',
+    slug: 'ThresholdArchway',
+    createdAt: BATCH_9_CREATED,
+    variants: thresholdArchwayVariants,
+    render: (props) => <ThresholdArchway {...(props as ThresholdArchwayProps)} />,
+  },
   {
     name: 'StarAscent',
     slug: 'StarAscent',
