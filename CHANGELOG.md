@@ -4,6 +4,20 @@ Evolve batch history. Newest batches first.
 
 ---
 
+## 2026-08-20
+
+**Words:** cascade, pinwheel, fracture, mooring, ledger
+
+**Roles:** hero, card slider, image+text, contact form, footer
+
+* **CascadeSpireHero** - Brutalist hero where copy cascades down offset concrete slabs while a grabable crystal spire orbits on the right — acid lime accent on charcoal mass, not a centered SaaS hero.
+* **PinwheelCardDeck** - Playful radial card pinwheel: stories sit on spokes around a hub; swipe or arrows spin the deck so the active card faces north instead of horizontal scroll.
+* **FractureEchoSplit** - Editorial image+text stage cleaved by a violet fracture seam; offset echo headlines ghost behind the real copy while photo shards stack with parallax echoes.
+* **MooringPulseForm** - Futuristic full-viewport harbor contact ritual — mooring bollards pulse amber as name, email, and message fields validate along cyan cable tethers.
+* **TerminusLedgerFloor** - Luxury footer as a ruled ledger terminus: gold lines, crimson wax-stamp medallion for the brand, navigation links as marginalia in the margin column.
+
+---
+
 ## 2026-08-16
 
 **Words:** prism, compass, strata, beacon, archway

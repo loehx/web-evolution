@@ -1,4 +1,29 @@
 import {
+  CascadeSpireHero,
+  type CascadeSpireHeroProps,
+} from '../../staging/CascadeSpireHero/CascadeSpireHero'
+import { cascadeSpireHeroVariants } from '../../staging/CascadeSpireHero/previews'
+import {
+  PinwheelCardDeck,
+  type PinwheelCardDeckProps,
+} from '../../staging/PinwheelCardDeck/PinwheelCardDeck'
+import { pinwheelCardDeckVariants } from '../../staging/PinwheelCardDeck/previews'
+import {
+  FractureEchoSplit,
+  type FractureEchoSplitProps,
+} from '../../staging/FractureEchoSplit/FractureEchoSplit'
+import { fractureEchoSplitVariants } from '../../staging/FractureEchoSplit/previews'
+import {
+  MooringPulseForm,
+  type MooringPulseFormProps,
+} from '../../staging/MooringPulseForm/MooringPulseForm'
+import { mooringPulseFormVariants } from '../../staging/MooringPulseForm/previews'
+import {
+  TerminusLedgerFloor,
+  type TerminusLedgerFloorProps,
+} from '../../staging/TerminusLedgerFloor/TerminusLedgerFloor'
+import { terminusLedgerFloorVariants } from '../../staging/TerminusLedgerFloor/previews'
+import {
   ZenithPrismHero,
   type ZenithPrismHeroProps,
 } from '../../staging/ZenithPrismHero/ZenithPrismHero'
@@ -119,6 +144,7 @@ import {
 import { viewportSnapDeckVariants } from '../../staging/ViewportSnapDeck/previews'
 import type { StagedComponent } from '@/previews/types'
 
+const BATCH_10_CREATED = '2026-08-20T07:01:00Z'
 const BATCH_9_CREATED = '2026-08-16T06:05:00Z'
 const BATCH_7_CREATED = '2026-08-13T13:30:00Z'
 const BATCH_8_CREATED = '2026-08-13T15:00:00Z'
@@ -129,6 +155,41 @@ const BATCH_2_CREATED = '2026-08-12T09:20:37Z'
 const BATCH_1_CREATED = '2026-08-12T08:51:59Z'
 
 export const stagedComponents: StagedComponent[] = [
+  {
+    name: 'CascadeSpireHero',
+    slug: 'CascadeSpireHero',
+    createdAt: BATCH_10_CREATED,
+    variants: cascadeSpireHeroVariants,
+    render: (props) => <CascadeSpireHero {...(props as CascadeSpireHeroProps)} />,
+  },
+  {
+    name: 'PinwheelCardDeck',
+    slug: 'PinwheelCardDeck',
+    createdAt: BATCH_10_CREATED,
+    variants: pinwheelCardDeckVariants,
+    render: (props) => <PinwheelCardDeck {...(props as PinwheelCardDeckProps)} />,
+  },
+  {
+    name: 'FractureEchoSplit',
+    slug: 'FractureEchoSplit',
+    createdAt: BATCH_10_CREATED,
+    variants: fractureEchoSplitVariants,
+    render: (props) => <FractureEchoSplit {...(props as FractureEchoSplitProps)} />,
+  },
+  {
+    name: 'MooringPulseForm',
+    slug: 'MooringPulseForm',
+    createdAt: BATCH_10_CREATED,
+    variants: mooringPulseFormVariants,
+    render: (props) => <MooringPulseForm {...(props as MooringPulseFormProps)} />,
+  },
+  {
+    name: 'TerminusLedgerFloor',
+    slug: 'TerminusLedgerFloor',
+    createdAt: BATCH_10_CREATED,
+    variants: terminusLedgerFloorVariants,
+    render: (props) => <TerminusLedgerFloor {...(props as TerminusLedgerFloorProps)} />,
+  },
   {
     name: 'ZenithPrismHero',
     slug: 'ZenithPrismHero',
