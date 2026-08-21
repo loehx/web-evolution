@@ -4,6 +4,20 @@ Evolve batch history. Newest batches first.
 
 ---
 
+## 2026-08-21
+
+**Words:** horizon, vortex, folio, sentinel, dusk
+
+**Roles:** hero, card slider, image+text, contact form, footer
+
+* **HorizonFlareHero** - Futuristic dusk hero bisected by a razor horizon seam; grabable molten CSS flare orb sits on the line while copy floats in the upper sky.
+* **VortexCardSpiral** - Playful card slider where stories descend on concentric spiral rings; swipe or arrows pull the next card to the vortex eye instead of horizontal scroll.
+* **FolioMarginSplit** - Editorial open-folio spread with photograph on verso, headline on recto, and crimson margin annotations running in the gutter like a marked manuscript.
+* **SentinelGateForm** - Brutalist full-viewport iron gate contact ritual; vertical bars part on focus while name, email, and message fields thread through the gaps.
+* **DuskSigilFloor** - Luxury twilight footer on a plum gradient; gold embossed sigil medallion anchors center with navigation links orbiting the wax seal.
+
+---
+
 ## 2026-08-20
 
 **Words:** cascade, pinwheel, fracture, mooring, ledger

@@ -1,4 +1,29 @@
 import {
+  HorizonFlareHero,
+  type HorizonFlareHeroProps,
+} from '../../staging/HorizonFlareHero/HorizonFlareHero'
+import { horizonFlareHeroVariants } from '../../staging/HorizonFlareHero/previews'
+import {
+  VortexCardSpiral,
+  type VortexCardSpiralProps,
+} from '../../staging/VortexCardSpiral/VortexCardSpiral'
+import { vortexCardSpiralVariants } from '../../staging/VortexCardSpiral/previews'
+import {
+  FolioMarginSplit,
+  type FolioMarginSplitProps,
+} from '../../staging/FolioMarginSplit/FolioMarginSplit'
+import { folioMarginSplitVariants } from '../../staging/FolioMarginSplit/previews'
+import {
+  SentinelGateForm,
+  type SentinelGateFormProps,
+} from '../../staging/SentinelGateForm/SentinelGateForm'
+import { sentinelGateFormVariants } from '../../staging/SentinelGateForm/previews'
+import {
+  DuskSigilFloor,
+  type DuskSigilFloorProps,
+} from '../../staging/DuskSigilFloor/DuskSigilFloor'
+import { duskSigilFloorVariants } from '../../staging/DuskSigilFloor/previews'
+import {
   CascadeSpireHero,
   type CascadeSpireHeroProps,
 } from '../../staging/CascadeSpireHero/CascadeSpireHero'
@@ -144,6 +169,7 @@ import {
 import { viewportSnapDeckVariants } from '../../staging/ViewportSnapDeck/previews'
 import type { StagedComponent } from '@/previews/types'
 
+const BATCH_11_CREATED = '2026-08-21T07:04:00Z'
 const BATCH_10_CREATED = '2026-08-20T07:01:00Z'
 const BATCH_9_CREATED = '2026-08-16T06:05:00Z'
 const BATCH_7_CREATED = '2026-08-13T13:30:00Z'
@@ -155,6 +181,41 @@ const BATCH_2_CREATED = '2026-08-12T09:20:37Z'
 const BATCH_1_CREATED = '2026-08-12T08:51:59Z'
 
 export const stagedComponents: StagedComponent[] = [
+  {
+    name: 'HorizonFlareHero',
+    slug: 'HorizonFlareHero',
+    createdAt: BATCH_11_CREATED,
+    variants: horizonFlareHeroVariants,
+    render: (props) => <HorizonFlareHero {...(props as HorizonFlareHeroProps)} />,
+  },
+  {
+    name: 'VortexCardSpiral',
+    slug: 'VortexCardSpiral',
+    createdAt: BATCH_11_CREATED,
+    variants: vortexCardSpiralVariants,
+    render: (props) => <VortexCardSpiral {...(props as VortexCardSpiralProps)} />,
+  },
+  {
+    name: 'FolioMarginSplit',
+    slug: 'FolioMarginSplit',
+    createdAt: BATCH_11_CREATED,
+    variants: folioMarginSplitVariants,
+    render: (props) => <FolioMarginSplit {...(props as FolioMarginSplitProps)} />,
+  },
+  {
+    name: 'SentinelGateForm',
+    slug: 'SentinelGateForm',
+    createdAt: BATCH_11_CREATED,
+    variants: sentinelGateFormVariants,
+    render: (props) => <SentinelGateForm {...(props as SentinelGateFormProps)} />,
+  },
+  {
+    name: 'DuskSigilFloor',
+    slug: 'DuskSigilFloor',
+    createdAt: BATCH_11_CREATED,
+    variants: duskSigilFloorVariants,
+    render: (props) => <DuskSigilFloor {...(props as DuskSigilFloorProps)} />,
+  },
   {
     name: 'CascadeSpireHero',
     slug: 'CascadeSpireHero',
