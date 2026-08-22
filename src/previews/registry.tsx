@@ -1,4 +1,29 @@
 import {
+  EmberRiseHero,
+  type EmberRiseHeroProps,
+} from '../../staging/EmberRiseHero/EmberRiseHero'
+import { emberRiseHeroVariants } from '../../staging/EmberRiseHero/previews'
+import {
+  NexusCardHelix,
+  type NexusCardHelixProps,
+} from '../../staging/NexusCardHelix/NexusCardHelix'
+import { nexusCardHelixVariants } from '../../staging/NexusCardHelix/previews'
+import {
+  LoomWeaveSplit,
+  type LoomWeaveSplitProps,
+} from '../../staging/LoomWeaveSplit/LoomWeaveSplit'
+import { loomWeaveSplitVariants } from '../../staging/LoomWeaveSplit/previews'
+import {
+  KilnForgeForm,
+  type KilnForgeFormProps,
+} from '../../staging/KilnForgeForm/KilnForgeForm'
+import { kilnForgeFormVariants } from '../../staging/KilnForgeForm/previews'
+import {
+  ArborRootFloor,
+  type ArborRootFloorProps,
+} from '../../staging/ArborRootFloor/ArborRootFloor'
+import { arborRootFloorVariants } from '../../staging/ArborRootFloor/previews'
+import {
   HorizonFlareHero,
   type HorizonFlareHeroProps,
 } from '../../staging/HorizonFlareHero/HorizonFlareHero'
@@ -169,6 +194,7 @@ import {
 import { viewportSnapDeckVariants } from '../../staging/ViewportSnapDeck/previews'
 import type { StagedComponent } from '@/previews/types'
 
+const BATCH_12_CREATED = '2026-08-22T07:00:00Z'
 const BATCH_11_CREATED = '2026-08-21T07:04:00Z'
 const BATCH_10_CREATED = '2026-08-20T07:01:00Z'
 const BATCH_9_CREATED = '2026-08-16T06:05:00Z'
@@ -181,6 +207,41 @@ const BATCH_2_CREATED = '2026-08-12T09:20:37Z'
 const BATCH_1_CREATED = '2026-08-12T08:51:59Z'
 
 export const stagedComponents: StagedComponent[] = [
+  {
+    name: 'EmberRiseHero',
+    slug: 'EmberRiseHero',
+    createdAt: BATCH_12_CREATED,
+    variants: emberRiseHeroVariants,
+    render: (props) => <EmberRiseHero {...(props as EmberRiseHeroProps)} />,
+  },
+  {
+    name: 'NexusCardHelix',
+    slug: 'NexusCardHelix',
+    createdAt: BATCH_12_CREATED,
+    variants: nexusCardHelixVariants,
+    render: (props) => <NexusCardHelix {...(props as NexusCardHelixProps)} />,
+  },
+  {
+    name: 'LoomWeaveSplit',
+    slug: 'LoomWeaveSplit',
+    createdAt: BATCH_12_CREATED,
+    variants: loomWeaveSplitVariants,
+    render: (props) => <LoomWeaveSplit {...(props as LoomWeaveSplitProps)} />,
+  },
+  {
+    name: 'KilnForgeForm',
+    slug: 'KilnForgeForm',
+    createdAt: BATCH_12_CREATED,
+    variants: kilnForgeFormVariants,
+    render: (props) => <KilnForgeForm {...(props as KilnForgeFormProps)} />,
+  },
+  {
+    name: 'ArborRootFloor',
+    slug: 'ArborRootFloor',
+    createdAt: BATCH_12_CREATED,
+    variants: arborRootFloorVariants,
+    render: (props) => <ArborRootFloor {...(props as ArborRootFloorProps)} />,
+  },
   {
     name: 'HorizonFlareHero',
     slug: 'HorizonFlareHero',

@@ -4,6 +4,20 @@ Evolve batch history. Newest batches first.
 
 ---
 
+## 2026-08-22
+
+**Words:** ember, nexus, loom, kiln, arbor
+
+**Roles:** hero, card slider, image+text, contact form, footer
+
+* **EmberRiseHero** - Futuristic volcanic hero with grabable ember crystal rising from ash plume; copy anchors left while pointer orbit inspects every molten face.
+* **NexusCardHelix** - Futuristic DNA-helix card carousel where stories orbit a glowing nexus core; swipe or arrows spin the helix instead of horizontal scroll.
+* **LoomWeaveSplit** - Editorial image+text split with animated warp and weft threads crossing the gutter between photograph and serif copy columns.
+* **KilnForgeForm** - Brutalist full-viewport forge contact ritual; horizontal heat bands intensify behind each field as name, email, and message validate.
+* **ArborRootFloor** - Playful forest-floor footer with SVG root branches spreading from a trunk medallion; navigation links sit on root tips above the soil line.
+
+---
+
 ## 2026-08-21
 
 **Words:** horizon, vortex, folio, sentinel, dusk
