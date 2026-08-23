@@ -1,4 +1,29 @@
 import {
+  ObsidianRiftHero,
+  type ObsidianRiftHeroProps,
+} from '../../staging/ObsidianRiftHero/ObsidianRiftHero'
+import { obsidianRiftHeroVariants } from '../../staging/ObsidianRiftHero/previews'
+import {
+  FerrisCardRing,
+  type FerrisCardRingProps,
+} from '../../staging/FerrisCardRing/FerrisCardRing'
+import { ferrisCardRingVariants } from '../../staging/FerrisCardRing/previews'
+import {
+  VellumPressSplit,
+  type VellumPressSplitProps,
+} from '../../staging/VellumPressSplit/VellumPressSplit'
+import { vellumPressSplitVariants } from '../../staging/VellumPressSplit/previews'
+import {
+  ChiselStrikeForm,
+  type ChiselStrikeFormProps,
+} from '../../staging/ChiselStrikeForm/ChiselStrikeForm'
+import { chiselStrikeFormVariants } from '../../staging/ChiselStrikeForm/previews'
+import {
+  CobblePathFloor,
+  type CobblePathFloorProps,
+} from '../../staging/CobblePathFloor/CobblePathFloor'
+import { cobblePathFloorVariants } from '../../staging/CobblePathFloor/previews'
+import {
   EmberRiseHero,
   type EmberRiseHeroProps,
 } from '../../staging/EmberRiseHero/EmberRiseHero'
@@ -194,6 +219,7 @@ import {
 import { viewportSnapDeckVariants } from '../../staging/ViewportSnapDeck/previews'
 import type { StagedComponent } from '@/previews/types'
 
+const BATCH_13_CREATED = '2026-08-23T07:01:00Z'
 const BATCH_12_CREATED = '2026-08-22T07:00:00Z'
 const BATCH_11_CREATED = '2026-08-21T07:04:00Z'
 const BATCH_10_CREATED = '2026-08-20T07:01:00Z'
@@ -207,6 +233,41 @@ const BATCH_2_CREATED = '2026-08-12T09:20:37Z'
 const BATCH_1_CREATED = '2026-08-12T08:51:59Z'
 
 export const stagedComponents: StagedComponent[] = [
+  {
+    name: 'ObsidianRiftHero',
+    slug: 'ObsidianRiftHero',
+    createdAt: BATCH_13_CREATED,
+    variants: obsidianRiftHeroVariants,
+    render: (props) => <ObsidianRiftHero {...(props as ObsidianRiftHeroProps)} />,
+  },
+  {
+    name: 'FerrisCardRing',
+    slug: 'FerrisCardRing',
+    createdAt: BATCH_13_CREATED,
+    variants: ferrisCardRingVariants,
+    render: (props) => <FerrisCardRing {...(props as FerrisCardRingProps)} />,
+  },
+  {
+    name: 'VellumPressSplit',
+    slug: 'VellumPressSplit',
+    createdAt: BATCH_13_CREATED,
+    variants: vellumPressSplitVariants,
+    render: (props) => <VellumPressSplit {...(props as VellumPressSplitProps)} />,
+  },
+  {
+    name: 'ChiselStrikeForm',
+    slug: 'ChiselStrikeForm',
+    createdAt: BATCH_13_CREATED,
+    variants: chiselStrikeFormVariants,
+    render: (props) => <ChiselStrikeForm {...(props as ChiselStrikeFormProps)} />,
+  },
+  {
+    name: 'CobblePathFloor',
+    slug: 'CobblePathFloor',
+    createdAt: BATCH_13_CREATED,
+    variants: cobblePathFloorVariants,
+    render: (props) => <CobblePathFloor {...(props as CobblePathFloorProps)} />,
+  },
   {
     name: 'EmberRiseHero',
     slug: 'EmberRiseHero',

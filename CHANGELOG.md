@@ -4,6 +4,20 @@ Evolve batch history. Newest batches first.
 
 ---
 
+## 2026-08-23
+
+**Words:** obsidian, ferris, vellum, chisel, cobble
+
+**Roles:** hero, card slider, image+text, contact form, footer
+
+* **ObsidianRiftHero** - Brutalist geological rift hero with grabable obsidian shard floating in a violet fracture void; copy clings to the rift wall while pointer orbit inspects every black-glass face.
+* **FerrisCardRing** - Playful carnival card ring where stories ride gondolas on a midnight ferris wheel; swipe or spin buttons bring the next card to the top position.
+* **VellumPressSplit** - Editorial image+text split with translucent vellum membrane and ink-bleed diffusion in the center gutter between photograph and serif copy columns.
+* **ChiselStrikeForm** - Brutalist limestone contact ritual where chisel-strike bars glow orange behind each field as name, email, and message are carved into the slab.
+* **CobblePathFloor** - Playful village-lane footer with moss-green crest medallion and navigation links as stepping stones along a winding cobblestone path.
+
+---
+
 ## 2026-08-22
 
 **Words:** ember, nexus, loom, kiln, arbor
