@@ -1,4 +1,29 @@
 import {
+  AuroraCrownHero,
+  type AuroraCrownHeroProps,
+} from '../../staging/AuroraCrownHero/AuroraCrownHero'
+import { auroraCrownHeroVariants } from '../../staging/AuroraCrownHero/previews'
+import {
+  SpoolReelCarousel,
+  type SpoolReelCarouselProps,
+} from '../../staging/SpoolReelCarousel/SpoolReelCarousel'
+import { spoolReelCarouselVariants } from '../../staging/SpoolReelCarousel/previews'
+import {
+  PatinaOxideSplit,
+  type PatinaOxideSplitProps,
+} from '../../staging/PatinaOxideSplit/PatinaOxideSplit'
+import { patinaOxideSplitVariants } from '../../staging/PatinaOxideSplit/previews'
+import {
+  FuseWireForm,
+  type FuseWireFormProps,
+} from '../../staging/FuseWireForm/FuseWireForm'
+import { fuseWireFormVariants } from '../../staging/FuseWireForm/previews'
+import {
+  WeirSpillFloor,
+  type WeirSpillFloorProps,
+} from '../../staging/WeirSpillFloor/WeirSpillFloor'
+import { weirSpillFloorVariants } from '../../staging/WeirSpillFloor/previews'
+import {
   ObsidianRiftHero,
   type ObsidianRiftHeroProps,
 } from '../../staging/ObsidianRiftHero/ObsidianRiftHero'
@@ -219,6 +244,7 @@ import {
 import { viewportSnapDeckVariants } from '../../staging/ViewportSnapDeck/previews'
 import type { StagedComponent } from '@/previews/types'
 
+const BATCH_14_CREATED = '2026-08-24T07:00:00Z'
 const BATCH_13_CREATED = '2026-08-23T07:01:00Z'
 const BATCH_12_CREATED = '2026-08-22T07:00:00Z'
 const BATCH_11_CREATED = '2026-08-21T07:04:00Z'
@@ -233,6 +259,41 @@ const BATCH_2_CREATED = '2026-08-12T09:20:37Z'
 const BATCH_1_CREATED = '2026-08-12T08:51:59Z'
 
 export const stagedComponents: StagedComponent[] = [
+  {
+    name: 'AuroraCrownHero',
+    slug: 'AuroraCrownHero',
+    createdAt: BATCH_14_CREATED,
+    variants: auroraCrownHeroVariants,
+    render: (props) => <AuroraCrownHero {...(props as AuroraCrownHeroProps)} />,
+  },
+  {
+    name: 'SpoolReelCarousel',
+    slug: 'SpoolReelCarousel',
+    createdAt: BATCH_14_CREATED,
+    variants: spoolReelCarouselVariants,
+    render: (props) => <SpoolReelCarousel {...(props as SpoolReelCarouselProps)} />,
+  },
+  {
+    name: 'PatinaOxideSplit',
+    slug: 'PatinaOxideSplit',
+    createdAt: BATCH_14_CREATED,
+    variants: patinaOxideSplitVariants,
+    render: (props) => <PatinaOxideSplit {...(props as PatinaOxideSplitProps)} />,
+  },
+  {
+    name: 'FuseWireForm',
+    slug: 'FuseWireForm',
+    createdAt: BATCH_14_CREATED,
+    variants: fuseWireFormVariants,
+    render: (props) => <FuseWireForm {...(props as FuseWireFormProps)} />,
+  },
+  {
+    name: 'WeirSpillFloor',
+    slug: 'WeirSpillFloor',
+    createdAt: BATCH_14_CREATED,
+    variants: weirSpillFloorVariants,
+    render: (props) => <WeirSpillFloor {...(props as WeirSpillFloorProps)} />,
+  },
   {
     name: 'ObsidianRiftHero',
     slug: 'ObsidianRiftHero',

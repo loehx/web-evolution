@@ -4,6 +4,20 @@ Evolve batch history. Newest batches first.
 
 ---
 
+## 2026-08-24
+
+**Words:** aurora, spool, patina, fuse, weir
+
+**Roles:** hero, card slider, image+text, contact form, footer
+
+* **AuroraCrownHero** - Futuristic polar-night hero with living aurora curtain and grabable ice-crystal crown floating in the luminous field; copy anchors the frozen ground line while pointer orbit inspects every facet.
+* **SpoolReelCarousel** - Editorial film-spool card slider where stories stack as frames on a vertical reel; swipe or arrows unwind the next frame from the amber hub.
+* **PatinaOxideSplit** - Luxury image+text split with oxidized copper plate and verdigris bleed diffusing through the center seam between photograph and serif copy.
+* **FuseWireForm** - Futuristic electrical fuse-panel contact ritual where glowing amber wires connect name, email, and message terminals that spark cyan on focus.
+* **WeirSpillFloor** - Brutalist dam-weir footer with animated water spilling over the concrete crest; brand and navigation links sit on spillway slabs below the overflow.
+
+---
+
 ## 2026-08-23
 
 **Words:** obsidian, ferris, vellum, chisel, cobble
