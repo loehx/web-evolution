@@ -1,4 +1,29 @@
 import {
+  QuartzFacetHero,
+  type QuartzFacetHeroProps,
+} from '../../staging/QuartzFacetHero/QuartzFacetHero'
+import { quartzFacetHeroVariants } from '../../staging/QuartzFacetHero/previews'
+import {
+  RippleCardPool,
+  type RippleCardPoolProps,
+} from '../../staging/RippleCardPool/RippleCardPool'
+import { rippleCardPoolVariants } from '../../staging/RippleCardPool/previews'
+import {
+  VerdureCanopySplit,
+  type VerdureCanopySplitProps,
+} from '../../staging/VerdureCanopySplit/VerdureCanopySplit'
+import { verdureCanopySplitVariants } from '../../staging/VerdureCanopySplit/previews'
+import {
+  RelaySwitchForm,
+  type RelaySwitchFormProps,
+} from '../../staging/RelaySwitchForm/RelaySwitchForm'
+import { relaySwitchFormVariants } from '../../staging/RelaySwitchForm/previews'
+import {
+  BasaltShelfFloor,
+  type BasaltShelfFloorProps,
+} from '../../staging/BasaltShelfFloor/BasaltShelfFloor'
+import { basaltShelfFloorVariants } from '../../staging/BasaltShelfFloor/previews'
+import {
   AuroraCrownHero,
   type AuroraCrownHeroProps,
 } from '../../staging/AuroraCrownHero/AuroraCrownHero'
@@ -244,6 +269,7 @@ import {
 import { viewportSnapDeckVariants } from '../../staging/ViewportSnapDeck/previews'
 import type { StagedComponent } from '@/previews/types'
 
+const BATCH_15_CREATED = '2026-08-25T07:02:00Z'
 const BATCH_14_CREATED = '2026-08-24T07:00:00Z'
 const BATCH_13_CREATED = '2026-08-23T07:01:00Z'
 const BATCH_12_CREATED = '2026-08-22T07:00:00Z'
@@ -259,6 +285,41 @@ const BATCH_2_CREATED = '2026-08-12T09:20:37Z'
 const BATCH_1_CREATED = '2026-08-12T08:51:59Z'
 
 export const stagedComponents: StagedComponent[] = [
+  {
+    name: 'QuartzFacetHero',
+    slug: 'QuartzFacetHero',
+    createdAt: BATCH_15_CREATED,
+    variants: quartzFacetHeroVariants,
+    render: (props) => <QuartzFacetHero {...(props as QuartzFacetHeroProps)} />,
+  },
+  {
+    name: 'RippleCardPool',
+    slug: 'RippleCardPool',
+    createdAt: BATCH_15_CREATED,
+    variants: rippleCardPoolVariants,
+    render: (props) => <RippleCardPool {...(props as RippleCardPoolProps)} />,
+  },
+  {
+    name: 'VerdureCanopySplit',
+    slug: 'VerdureCanopySplit',
+    createdAt: BATCH_15_CREATED,
+    variants: verdureCanopySplitVariants,
+    render: (props) => <VerdureCanopySplit {...(props as VerdureCanopySplitProps)} />,
+  },
+  {
+    name: 'RelaySwitchForm',
+    slug: 'RelaySwitchForm',
+    createdAt: BATCH_15_CREATED,
+    variants: relaySwitchFormVariants,
+    render: (props) => <RelaySwitchForm {...(props as RelaySwitchFormProps)} />,
+  },
+  {
+    name: 'BasaltShelfFloor',
+    slug: 'BasaltShelfFloor',
+    createdAt: BATCH_15_CREATED,
+    variants: basaltShelfFloorVariants,
+    render: (props) => <BasaltShelfFloor {...(props as BasaltShelfFloorProps)} />,
+  },
   {
     name: 'AuroraCrownHero',
     slug: 'AuroraCrownHero',

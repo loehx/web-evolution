@@ -4,6 +4,20 @@ Evolve batch history. Newest batches first.
 
 ---
 
+## 2026-08-25
+
+**Words:** quartz, ripple, verdure, relay, basalt
+
+**Roles:** hero, card slider, image+text, contact form, footer
+
+* **QuartzFacetHero** - Luxury polar hero with grabable quartz octahedron casting spectral facet reflections across a frozen field; copy anchors left while pointer orbit inspects every ice-blue face.
+* **RippleCardPool** - Playful card slider where stories ride concentric ripple ring crests pulsing outward from a still pool center; swipe or arrows advance to the next ring position.
+* **VerdureCanopySplit** - Editorial forest split with animated leaf canopy casting drifting dappled gold light across the copy column while photograph sits beneath overlapping silhouettes.
+* **RelaySwitchForm** - Futuristic relay rack contact ritual where toggle switches flip amber on focus for name, email, and message fields before the green close-relay submit bar.
+* **BasaltShelfFloor** - Brutalist cliff footer with layered basalt shelf slabs stepping down from a rust-stamped crest; navigation links sit on each descending shelf tier.
+
+---
+
 ## 2026-08-24
 
 **Words:** aurora, spool, patina, fuse, weir
