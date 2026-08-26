@@ -1,5 +1,70 @@
 # Evolve — Reference
 
+## Online reference hunt (mandatory before design)
+
+Every component needs a **real URL** you opened in the browser. Do not proceed to creative direction until all five roles have a logged reference.
+
+### Awards workflow (preferred for page sections)
+
+1. Open one awards index (rotate each batch):
+   - [Awwwards — Websites](https://www.awwwards.com/websites/)
+   - [The FWA](https://thefwa.com/)
+   - [CSS Design Awards](https://www.cssdesignawards.com/)
+   - [Site Inspire](https://www.siteinspire.com/)
+2. **Pick a random winner** — e.g. scroll to a random offset, use “Honorable Mention” / “Site of the Day” from a non-consecutive day, or pick from the 5th–15th result. Avoid reusing the same site name in `MEMORY.md` / `CHANGELOG.md` when possible.
+3. Open the **live site** (not just the awards profile).
+4. Identify one section that fits the role:
+   - Hero → first viewport or primary intro band
+   - Card slider → horizontal card/track/carousel block
+   - Image + text → split, overlap, or editorial image+copy block
+   - Contact → form module, inquiry panel, or booking block
+   - Footer → page footer or closing band
+5. Log what you are lifting: composition (columns, type scale), motion (scroll, hover, reveal), and one distinctive detail.
+
+### CodePen workflow (when the role needs motion/CSS craft)
+
+Search examples:
+
+| Role | Example queries |
+|------|-----------------|
+| Hero | `hero scroll animation`, `fullscreen hero`, `typography hero` |
+| Card slider | `card slider`, `horizontal scroll cards`, `carousel drag` |
+| Image + text | `image text split`, `editorial layout`, `overlap image text` |
+| Contact | `contact form layout`, `inquiry form`, `split contact` |
+| Footer | `footer layout`, `mega footer`, `minimal footer` |
+
+Prefer pens with **viewable HTML/CSS/JS** and a live preview. Open the pen before citing it.
+
+### Other example sources
+
+- [Codrops](https://tympanus.net/codrops/) tutorials with demos
+- [CodePen Trending](https://codepen.io/trending)
+- Conference / product launch sites linked from awards profiles
+
+### Reference log template (paste into each SPEC.md)
+
+```markdown
+## Reference
+
+- **Source type:** award site | CodePen | other
+- **Awards URL:** (if applicable)
+- **Live / pen URL:** https://…
+- **Site / pen name:**
+- **Section lifted:** e.g. “homepage hero — staggered display type + full-bleed video”
+- **Why it fits the role:** one sentence
+- **Adaptation notes:** what stays faithful vs. what changes for this repo (tokens, full viewport, props)
+```
+
+### What counts as a bad reference
+
+- No URL, or URL you did not open
+- shadcn / Aceternity / Tailwind UI block gallery as the only source
+- Thumbnail-only inspiration with no inspectable layout
+- A concept you “made up” after glancing at trends
+- A tiny widget you cannot scale to full viewport without inventing a new layout
+
+---
+
 ## Email template (verbatim)
 
 Use this exact wording. Replace `<preview>` with the deploy preview base URL (e.g. `https://deploy-preview-1--web-evolution-2026.netlify.app`) and `<agentUrl>` with this run's Cursor agent chat URL (from `cursor-cloud` MCP `run-info` → `url`):
@@ -123,15 +188,20 @@ Add component-specific variants (e.g. PayloadPanel: streaming status, error stat
 
 ## Creative direction template (write before code)
 
+Reference URLs from Step 3 must appear in SPEC.md first.
+
 ```markdown
 ## Creative direction
 
-**Style:** Editorial | Brutalist | Futuristic | Luxury | Playful  (pick one)
-**Typography:** e.g. huge grotesk headlines, compact body
-**Layout:** e.g. asymmetric, wide margins, full-bleed stage
-**Color:** e.g. off-white + black + one accent
-**Motion:** e.g. slow image-reveal, fast micro hovers, scroll text
-**Signature:** one motif you can name (not “gradient orbs + Inter”)
+**Reference:** <live or pen URL> — <section lifted>
+**Style:** Editorial | Brutalist | Futuristic | Luxury | Playful  (pick one — match the reference)
+**Typography:** e.g. huge grotesk headlines, compact body (from reference)
+**Layout:** e.g. asymmetric, wide margins, full-bleed stage (from reference)
+**Color:** e.g. off-white + black + one accent (from reference)
+**Motion:** e.g. slow image-reveal, fast micro hovers, scroll text (from reference)
+**Signature:** one motif from the reference you can name (not “gradient orbs + Inter”)
+**Faithful to reference:** layout hierarchy, spacing rhythm, motion character
+**Changed for repo:** tokens, full viewport, props API, reduced-motion, touch
 ```
 
 Five components in a batch must not share the same **Signature**.
@@ -141,14 +211,18 @@ Five components in a batch must not share the same **Signature**.
 ```markdown
 # ComponentName
 
+## Reference
+- Source type / URLs / section lifted / adaptation notes (see reference hunt template)
+
 ## Creative direction
-- Style / Typography / Layout / Color / Motion / Signature
+- Reference URL, Style / Typography / Layout / Color / Motion / Signature
+- Faithful to reference vs. changed for repo
 
 ## Role
 - hero | card slider | image+text | contact form | footer
 
 ## Look
-- One-sentence spatial or motion idea (not “hero”, “cards”, or “marquee”)
+- One-sentence spatial or motion idea **from the reference** (not “hero”, “cards”, or “marquee”)
 - Hierarchy, type as a design element, intentional whitespace
 
 ## Motion
@@ -201,11 +275,12 @@ Hierarchy: **hero highly animated → primary noticeable → content subtle → 
 ## Design rules (enforce in review)
 
 1. Never a generic SaaS landing page or repeated identical cards.
-2. Concept before components. Asymmetry and large type are allowed; decoration without composition is not.
-3. Animation must communicate hierarchy or interaction — never because it is possible.
-4. Every interaction works on touch. Hover never required to understand content.
-5. `prefers-reduced-motion`. Mobile is designed independently, not compressed desktop.
-6. Reuse tokens and named moves; do not make every stage visually identical.
+2. **Every stage traces to a logged online reference** — no freestyle invention.
+3. Concept before components. Asymmetry and large type are allowed; decoration without composition is not.
+4. Animation must communicate hierarchy or interaction — never because it is possible.
+5. Every interaction works on touch. Hover never required to understand content.
+6. `prefers-reduced-motion`. Mobile is designed independently, not compressed desktop.
+7. Reuse tokens and named moves; do not make every stage visually identical.
 
 ---
 

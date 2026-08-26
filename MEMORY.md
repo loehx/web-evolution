@@ -1,6 +1,6 @@
 # Evolve Memory
 
-Learnings from declined components. **Read this at the start of every `/evolve` run** before inventing or building.
+Learnings from declined components. **Read this at the start of every `/evolve` run** before hunting references or building.
 
 When Alex declines a component and gives a reason, append an entry below. Format is defined in the `/evolve` skill reference (`.cursor/skills/evolve/reference.md`).
 
