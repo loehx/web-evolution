@@ -1,4 +1,29 @@
 import {
+  GneissStormHero,
+  type GneissStormHeroProps,
+} from '../../staging/GneissStormHero/GneissStormHero'
+import { gneissStormHeroVariants } from '../../staging/GneissStormHero/previews'
+import {
+  MercurySlideCarousel,
+  type MercurySlideCarouselProps,
+} from '../../staging/MercurySlideCarousel/MercurySlideCarousel'
+import { mercurySlideCarouselVariants } from '../../staging/MercurySlideCarousel/previews'
+import {
+  SiltLayerSplit,
+  type SiltLayerSplitProps,
+} from '../../staging/SiltLayerSplit/SiltLayerSplit'
+import { siltLayerSplitVariants } from '../../staging/SiltLayerSplit/previews'
+import {
+  AnvilStrikeForm,
+  type AnvilStrikeFormProps,
+} from '../../staging/AnvilStrikeForm/AnvilStrikeForm'
+import { anvilStrikeFormVariants } from '../../staging/AnvilStrikeForm/previews'
+import {
+  GlacierCrestFloor,
+  type GlacierCrestFloorProps,
+} from '../../staging/GlacierCrestFloor/GlacierCrestFloor'
+import { glacierCrestFloorVariants } from '../../staging/GlacierCrestFloor/previews'
+import {
   QuartzFacetHero,
   type QuartzFacetHeroProps,
 } from '../../staging/QuartzFacetHero/QuartzFacetHero'
@@ -269,6 +294,7 @@ import {
 import { viewportSnapDeckVariants } from '../../staging/ViewportSnapDeck/previews'
 import type { StagedComponent } from '@/previews/types'
 
+const BATCH_16_CREATED = '2026-08-26T07:02:00Z'
 const BATCH_15_CREATED = '2026-08-25T07:02:00Z'
 const BATCH_14_CREATED = '2026-08-24T07:00:00Z'
 const BATCH_13_CREATED = '2026-08-23T07:01:00Z'
@@ -285,6 +311,41 @@ const BATCH_2_CREATED = '2026-08-12T09:20:37Z'
 const BATCH_1_CREATED = '2026-08-12T08:51:59Z'
 
 export const stagedComponents: StagedComponent[] = [
+  {
+    name: 'GneissStormHero',
+    slug: 'GneissStormHero',
+    createdAt: BATCH_16_CREATED,
+    variants: gneissStormHeroVariants,
+    render: (props) => <GneissStormHero {...(props as GneissStormHeroProps)} />,
+  },
+  {
+    name: 'MercurySlideCarousel',
+    slug: 'MercurySlideCarousel',
+    createdAt: BATCH_16_CREATED,
+    variants: mercurySlideCarouselVariants,
+    render: (props) => <MercurySlideCarousel {...(props as MercurySlideCarouselProps)} />,
+  },
+  {
+    name: 'SiltLayerSplit',
+    slug: 'SiltLayerSplit',
+    createdAt: BATCH_16_CREATED,
+    variants: siltLayerSplitVariants,
+    render: (props) => <SiltLayerSplit {...(props as SiltLayerSplitProps)} />,
+  },
+  {
+    name: 'AnvilStrikeForm',
+    slug: 'AnvilStrikeForm',
+    createdAt: BATCH_16_CREATED,
+    variants: anvilStrikeFormVariants,
+    render: (props) => <AnvilStrikeForm {...(props as AnvilStrikeFormProps)} />,
+  },
+  {
+    name: 'GlacierCrestFloor',
+    slug: 'GlacierCrestFloor',
+    createdAt: BATCH_16_CREATED,
+    variants: glacierCrestFloorVariants,
+    render: (props) => <GlacierCrestFloor {...(props as GlacierCrestFloorProps)} />,
+  },
   {
     name: 'QuartzFacetHero',
     slug: 'QuartzFacetHero',

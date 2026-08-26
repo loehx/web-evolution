@@ -4,6 +4,20 @@ Evolve batch history. Newest batches first.
 
 ---
 
+## 2026-08-26
+
+**Words:** gneiss, mercury, silt, anvil, glacier
+
+**Roles:** hero, card slider, image+text, contact form, footer
+
+* **GneissStormHero** - Brutalist tempest hero with grabable banded gneiss boulder rotating in diagonal rain; copy anchors the storm wall while pointer orbit inspects every pink-gray foliation stripe.
+* **MercurySlideCarousel** - Futuristic liquid mercury card slider where stories glide on a reflective silver trough; swipe or arrows advance with ripple pulses across the meniscus.
+* **SiltLayerSplit** - Editorial sediment split with horizontal silt bands drifting through the center gutter between photograph and serif copy columns.
+* **AnvilStrikeForm** - Brutalist forge contact ritual where orange strike glow flashes behind each field on focus, capped by an iron anvil silhouette at the base.
+* **GlacierCrestFloor** - Luxury glacier footer with crystalline ice crest and navigation links descending on translucent shelf slabs below the frost-blue brand stamp.
+
+---
+
 ## 2026-08-25
 
 **Words:** quartz, ripple, verdure, relay, basalt
