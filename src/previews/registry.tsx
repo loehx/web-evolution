@@ -24,6 +24,16 @@ import {
 } from '../../staging/FjordMistFloor/FjordMistFloor'
 import { fjordMistFloorVariants } from '../../staging/FjordMistFloor/previews'
 import {
+  TesseraDrift,
+  type TesseraDriftProps,
+} from '../../staging/TesseraDrift/TesseraDrift'
+import { tesseraDriftVariants } from '../../staging/TesseraDrift/previews'
+import {
+  TesseraDriftShader,
+  type TesseraDriftShaderProps,
+} from '../../staging/TesseraDriftShader/TesseraDriftShader'
+import { tesseraDriftShaderVariants } from '../../staging/TesseraDriftShader/previews'
+import {
   GneissStormHero,
   type GneissStormHeroProps,
 } from '../../staging/GneissStormHero/GneissStormHero'
@@ -319,7 +329,12 @@ import {
 import { viewportSnapDeckVariants } from '../../staging/ViewportSnapDeck/previews'
 import type { StagedComponent } from '@/previews/types'
 
+// Every new entry must include sourceUrl (live reference from SPEC.md) and optional sourceLabel.
+// Preview gallery shows sourceUrl as a clickable overlay link for review.
+
 const BATCH_17_CREATED = '2026-08-27T07:04:00Z'
+const TESSERA_DRIFT_CREATED = '2026-08-21T13:50:00Z'
+const TESSERA_DRIFT_SHADER_CREATED = '2026-08-21T15:10:00Z'
 const BATCH_16_CREATED = '2026-08-26T07:02:00Z'
 const BATCH_15_CREATED = '2026-08-25T07:02:00Z'
 const BATCH_14_CREATED = '2026-08-24T07:00:00Z'
@@ -371,6 +386,20 @@ export const stagedComponents: StagedComponent[] = [
     createdAt: BATCH_17_CREATED,
     variants: fjordMistFloorVariants,
     render: (props) => <FjordMistFloor {...(props as FjordMistFloorProps)} />,
+  },
+  {
+    name: 'TesseraDrift',
+    slug: 'TesseraDrift',
+    createdAt: TESSERA_DRIFT_CREATED,
+    variants: tesseraDriftVariants,
+    render: (props) => <TesseraDrift {...(props as TesseraDriftProps)} />,
+  },
+  {
+    name: 'TesseraDriftShader',
+    slug: 'TesseraDriftShader',
+    createdAt: TESSERA_DRIFT_SHADER_CREATED,
+    variants: tesseraDriftShaderVariants,
+    render: (props) => <TesseraDriftShader {...(props as TesseraDriftShaderProps)} />,
   },
   {
     name: 'GneissStormHero',

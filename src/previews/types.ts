@@ -10,6 +10,10 @@ export interface StagedComponent<TProps = unknown> {
   name: string
   slug: string
   createdAt: string
+  /** Live reference URL from SPEC.md — required when registering new staging components. */
+  sourceUrl?: string
+  /** Short label for the preview overlay, e.g. "Awwwards — Studio Name, hero". */
+  sourceLabel?: string
   variants: PreviewVariant<TProps>[]
   render: (props: TProps) => ReactNode
 }

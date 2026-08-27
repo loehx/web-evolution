@@ -286,6 +286,29 @@ Hierarchy: **hero highly animated → primary noticeable → content subtle → 
 
 ## New component implementation standards
 
+### Preview registry (`src/previews/registry.tsx`)
+
+Every new staging component **must** register with:
+
+| Field | Required | Notes |
+|-------|----------|-------|
+| `sourceUrl` | **Yes** | Live reference URL from `SPEC.md` — award site, CodePen, or other |
+| `sourceLabel` | No | Short overlay label, e.g. `Awwwards — Studio Name, hero` |
+
+The preview gallery renders `sourceUrl` as a fixed top-right link on `/<ComponentName>` and in `/new` / index lists. **Do not register without `sourceUrl`.**
+
+```tsx
+{
+  name: 'ComponentName',
+  slug: 'ComponentName',
+  createdAt: '2026-08-27T12:00:00Z',
+  sourceUrl: 'https://codepen.io/example/pen/abc123',
+  sourceLabel: 'CodePen — hero scroll parallax',
+  variants: componentNameVariants,
+  render: (props) => <ComponentName {...(props as ComponentNameProps)} />,
+},
+```
+
 | Rule | Requirement | Primitive |
 |------|-------------|-----------|
 | Images | Fixed aspect ratio; center-crop unlike sources | `RatioImage` from `@/components/primitives` |
@@ -338,7 +361,18 @@ Same name in alive/ or dead/?
 
 ### Variant section structure (full bleed)
 
+Overlay chrome includes a **clickable `sourceUrl`** (top-right) so reviewers can open the original reference while scrolling variants.
+
 ```tsx
+<div className="fixed left-4 right-4 top-4 z-50 flex items-start justify-between gap-4">
+  <Link to="/">← Components</Link>
+  {component.sourceUrl ? (
+    <a href={component.sourceUrl} target="_blank" rel="noopener noreferrer">
+      {component.sourceLabel ?? 'Source'} ↗
+    </a>
+  ) : null}
+</div>
+
 {component.variants.map((variant) => (
   <section
     key={variant.id}

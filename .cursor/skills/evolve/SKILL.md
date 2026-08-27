@@ -7,7 +7,8 @@ description: >-
   online (CodePen, examples, or award-winning sites — pick a section from a
   random winner, do not invent from scratch), build 20 numbered preview variants
   each, email Alex for keep/die review, log decline reasons to MEMORY.md, then
-  move survivors to alive/ or dead/. Use when the user invokes /evolve or asks to
+  move survivors to alive/ or dead/. Register every component in the preview
+  registry with sourceUrl (clickable in preview). Use when the user invokes /evolve or asks to
   evolve, curate, or review web components.
 disable-model-invocation: true
 ---
@@ -53,7 +54,7 @@ Evolve Progress:
 - [ ] Step 3b: Name components + creative direction anchored to each reference (before any code)
 - [ ] Step 4: Write SPEC.md (reference links, look, motion, mobile→desktop, neighbors)
 - [ ] Step 5: Implement from references, then responsive + motion + reduced-motion review
-- [ ] Step 6: 20 variants, wire previews, verify
+- [ ] Step 6: 20 variants, wire previews (include `sourceUrl` in registry), verify
 - [ ] Step 7: Present creations with numbered use-case list
 - [ ] Step 8: Email Alex (alexloehn@gmail.com)
 - [ ] Step 9: Append batch to CHANGELOG.md
@@ -198,12 +199,28 @@ Implement in `src/previews/PreviewGallery.tsx`:
 1. One route per component: `/<ComponentName>`
 2. Map `component.variants` → one `<section id="variant-{id}">` per variant
 3. Each section is **full bleed**: `min-h-[100svh] w-full` — no `max-w-*`, no page padding, no bordered card around the render
-4. Overlay chrome only: back link + `#id` · label (`fixed` / `absolute`)
+4. Overlay chrome only: back link + **clickable source reference link** (`sourceUrl` from registry) + `#id` · label (`fixed` / `absolute`)
 5. Do **not** shrink variants to `h-[70svh]` / `min-h-[32rem]` to pack the list — each variant owns at least one viewport
 
 Do **not** create `/preview/<ComponentName>/<variantId>` pages. Old links should redirect to the component page.
 
 Register in `src/previews/registry.tsx`; list only `staging/` components.
+
+**Every registry entry must include `sourceUrl`** — the same live reference URL logged in `SPEC.md` (award site, CodePen, or other). Optional `sourceLabel` gives a short human label for the preview overlay (e.g. `Awwwards — Studio Name, hero section`). The preview gallery renders this as a fixed overlay link so Alex can open the original reference while reviewing variants. **Do not register a component without `sourceUrl`.**
+
+Example registry entry:
+
+```tsx
+{
+  name: 'GneissStormHero',
+  slug: 'GneissStormHero',
+  createdAt: BATCH_16_CREATED,
+  sourceUrl: 'https://www.awwwards.com/sites/example-studio/',
+  sourceLabel: 'Awwwards — Example Studio, hero',
+  variants: gneissStormHeroVariants,
+  render: (props) => <GneissStormHero {...(props as GneissStormHeroProps)} />,
+},
+```
 
 Preview URLs:
 
@@ -297,6 +314,7 @@ After moves:
 - Duplicating an alive component under the same name
 - Preview containers (`max-w-*`, padded cards) that clip the component from the browser edges
 - Components shorter or narrower than the viewport
+- Registering in `src/previews/registry.tsx` without `sourceUrl` (must match SPEC.md reference)
 - Boring / template UI (generic heroes, card grids, thin ribbons)
 - Using Aceternity/shadcn/Tailwind UI as the **design** reference instead of a real site or pen
 - Coding before reference URLs and creative direction are in SPEC.md
