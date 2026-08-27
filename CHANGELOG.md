@@ -4,6 +4,20 @@ Evolve batch history. Newest batches first.
 
 ---
 
+## 2026-08-27
+
+**Words:** zephyr, orrery, brocade, rivet, fjord
+
+**Roles:** hero, card slider, image+text, contact form, footer
+
+* **ZephyrGaleHero** - Futuristic gale hero with grabable translucent wind-crystal octahedron rotating in horizontal cyan streaks; copy anchors left while pointer orbit inspects every facet.
+* **OrreryPlanetDeck** - Luxury planetarium card slider where stories ride elliptical brass orbital rings; swipe or arrows spin the orrery to the next planet position.
+* **BrocadeLoomSplit** - Editorial luxury split with animated gold brocade threads weaving through the center gutter between photograph and serif copy columns.
+* **RivetWeldForm** - Brutalist steel-plate contact ritual where orange weld glow flashes behind each field as rivet heads heat on focus before the seal-weld submit bar.
+* **FjordMistFloor** - Editorial Nordic footer with descending cliff shelves fading into rising fjord mist; brand on highest ledge, navigation links on each tier below.
+
+---
+
 ## 2026-08-26
 
 **Words:** gneiss, mercury, silt, anvil, glacier

@@ -1,4 +1,29 @@
 import {
+  ZephyrGaleHero,
+  type ZephyrGaleHeroProps,
+} from '../../staging/ZephyrGaleHero/ZephyrGaleHero'
+import { zephyrGaleHeroVariants } from '../../staging/ZephyrGaleHero/previews'
+import {
+  OrreryPlanetDeck,
+  type OrreryPlanetDeckProps,
+} from '../../staging/OrreryPlanetDeck/OrreryPlanetDeck'
+import { orreryPlanetDeckVariants } from '../../staging/OrreryPlanetDeck/previews'
+import {
+  BrocadeLoomSplit,
+  type BrocadeLoomSplitProps,
+} from '../../staging/BrocadeLoomSplit/BrocadeLoomSplit'
+import { brocadeLoomSplitVariants } from '../../staging/BrocadeLoomSplit/previews'
+import {
+  RivetWeldForm,
+  type RivetWeldFormProps,
+} from '../../staging/RivetWeldForm/RivetWeldForm'
+import { rivetWeldFormVariants } from '../../staging/RivetWeldForm/previews'
+import {
+  FjordMistFloor,
+  type FjordMistFloorProps,
+} from '../../staging/FjordMistFloor/FjordMistFloor'
+import { fjordMistFloorVariants } from '../../staging/FjordMistFloor/previews'
+import {
   GneissStormHero,
   type GneissStormHeroProps,
 } from '../../staging/GneissStormHero/GneissStormHero'
@@ -294,6 +319,7 @@ import {
 import { viewportSnapDeckVariants } from '../../staging/ViewportSnapDeck/previews'
 import type { StagedComponent } from '@/previews/types'
 
+const BATCH_17_CREATED = '2026-08-27T07:04:00Z'
 const BATCH_16_CREATED = '2026-08-26T07:02:00Z'
 const BATCH_15_CREATED = '2026-08-25T07:02:00Z'
 const BATCH_14_CREATED = '2026-08-24T07:00:00Z'
@@ -311,6 +337,41 @@ const BATCH_2_CREATED = '2026-08-12T09:20:37Z'
 const BATCH_1_CREATED = '2026-08-12T08:51:59Z'
 
 export const stagedComponents: StagedComponent[] = [
+  {
+    name: 'ZephyrGaleHero',
+    slug: 'ZephyrGaleHero',
+    createdAt: BATCH_17_CREATED,
+    variants: zephyrGaleHeroVariants,
+    render: (props) => <ZephyrGaleHero {...(props as ZephyrGaleHeroProps)} />,
+  },
+  {
+    name: 'OrreryPlanetDeck',
+    slug: 'OrreryPlanetDeck',
+    createdAt: BATCH_17_CREATED,
+    variants: orreryPlanetDeckVariants,
+    render: (props) => <OrreryPlanetDeck {...(props as OrreryPlanetDeckProps)} />,
+  },
+  {
+    name: 'BrocadeLoomSplit',
+    slug: 'BrocadeLoomSplit',
+    createdAt: BATCH_17_CREATED,
+    variants: brocadeLoomSplitVariants,
+    render: (props) => <BrocadeLoomSplit {...(props as BrocadeLoomSplitProps)} />,
+  },
+  {
+    name: 'RivetWeldForm',
+    slug: 'RivetWeldForm',
+    createdAt: BATCH_17_CREATED,
+    variants: rivetWeldFormVariants,
+    render: (props) => <RivetWeldForm {...(props as RivetWeldFormProps)} />,
+  },
+  {
+    name: 'FjordMistFloor',
+    slug: 'FjordMistFloor',
+    createdAt: BATCH_17_CREATED,
+    variants: fjordMistFloorVariants,
+    render: (props) => <FjordMistFloor {...(props as FjordMistFloorProps)} />,
+  },
   {
     name: 'GneissStormHero',
     slug: 'GneissStormHero',
