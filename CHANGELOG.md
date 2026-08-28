@@ -4,6 +4,20 @@ Evolve batch history. Newest batches first.
 
 ---
 
+## 2026-08-28
+
+**Words:** nebula, plinth, cinder, shale, estuary
+
+**Roles:** hero, card slider, image+text, contact form, footer
+
+* **NebulaCoronaHero** - Futuristic nebula hero with grabable corona icosahedron rotating inside drifting magenta gas clouds; copy anchors left while pointer orbit inspects every glowing facet.
+* **PlinthCardPedestal** - Brutalist card slider where stories ascend on staggered limestone plinth pedestals; drag the horizontal rail or use arrows to snap the next card to center focus.
+* **CinderAshSplit** - Editorial volcanic split with broken-grid photograph shards overlapping serif copy; ember ash particles drift through the center gutter seam between columns.
+* **ShaleBedForm** - Brutalist geological contact ritual where each field sits on a horizontal shale stratum that shifts on focus before the mineral-amber submit bar seals the bed.
+* **EstuaryTidalFloor** - Editorial tidal footer with branching estuary delta channels; brand crests the highest sandbar while navigation links descend on lower tidal shelves into mist.
+
+---
+
 ## 2026-08-27
 
 **Words:** zephyr, orrery, brocade, rivet, fjord

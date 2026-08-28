@@ -1,4 +1,29 @@
 import {
+  NebulaCoronaHero,
+  type NebulaCoronaHeroProps,
+} from '../../staging/NebulaCoronaHero/NebulaCoronaHero'
+import { nebulaCoronaHeroVariants } from '../../staging/NebulaCoronaHero/previews'
+import {
+  PlinthCardPedestal,
+  type PlinthCardPedestalProps,
+} from '../../staging/PlinthCardPedestal/PlinthCardPedestal'
+import { plinthCardPedestalVariants } from '../../staging/PlinthCardPedestal/previews'
+import {
+  CinderAshSplit,
+  type CinderAshSplitProps,
+} from '../../staging/CinderAshSplit/CinderAshSplit'
+import { cinderAshSplitVariants } from '../../staging/CinderAshSplit/previews'
+import {
+  ShaleBedForm,
+  type ShaleBedFormProps,
+} from '../../staging/ShaleBedForm/ShaleBedForm'
+import { shaleBedFormVariants } from '../../staging/ShaleBedForm/previews'
+import {
+  EstuaryTidalFloor,
+  type EstuaryTidalFloorProps,
+} from '../../staging/EstuaryTidalFloor/EstuaryTidalFloor'
+import { estuaryTidalFloorVariants } from '../../staging/EstuaryTidalFloor/previews'
+import {
   ZephyrGaleHero,
   type ZephyrGaleHeroProps,
 } from '../../staging/ZephyrGaleHero/ZephyrGaleHero'
@@ -332,6 +357,7 @@ import type { StagedComponent } from '@/previews/types'
 // Every new entry must include sourceUrl (live reference from SPEC.md) and optional sourceLabel.
 // Preview gallery shows sourceUrl as a clickable overlay link for review.
 
+const BATCH_18_CREATED = '2026-08-28T07:16:00Z'
 const BATCH_17_CREATED = '2026-08-27T07:04:00Z'
 const TESSERA_DRIFT_CREATED = '2026-08-21T13:50:00Z'
 const TESSERA_DRIFT_SHADER_CREATED = '2026-08-21T15:10:00Z'
@@ -352,6 +378,51 @@ const BATCH_2_CREATED = '2026-08-12T09:20:37Z'
 const BATCH_1_CREATED = '2026-08-12T08:51:59Z'
 
 export const stagedComponents: StagedComponent[] = [
+  {
+    name: 'NebulaCoronaHero',
+    slug: 'NebulaCoronaHero',
+    createdAt: BATCH_18_CREATED,
+    sourceUrl: 'https://www.rideradian.com/',
+    sourceLabel: 'Awwwards — Radian, hero',
+    variants: nebulaCoronaHeroVariants,
+    render: (props) => <NebulaCoronaHero {...(props as NebulaCoronaHeroProps)} />,
+  },
+  {
+    name: 'PlinthCardPedestal',
+    slug: 'PlinthCardPedestal',
+    createdAt: BATCH_18_CREATED,
+    sourceUrl: 'https://codepen.io/GreenSock/pen/RwKwLWK',
+    sourceLabel: 'CodePen — draggable card carousel',
+    variants: plinthCardPedestalVariants,
+    render: (props) => <PlinthCardPedestal {...(props as PlinthCardPedestalProps)} />,
+  },
+  {
+    name: 'CinderAshSplit',
+    slug: 'CinderAshSplit',
+    createdAt: BATCH_18_CREATED,
+    sourceUrl: 'https://www.hotel-jagerhof.com/',
+    sourceLabel: 'Awwwards — Hotel Jägerhof, broken grid',
+    variants: cinderAshSplitVariants,
+    render: (props) => <CinderAshSplit {...(props as CinderAshSplitProps)} />,
+  },
+  {
+    name: 'ShaleBedForm',
+    slug: 'ShaleBedForm',
+    createdAt: BATCH_18_CREATED,
+    sourceUrl: 'https://codepen.io/Yaya1203/pen/jOKNwGB',
+    sourceLabel: 'CodePen — layered bedrock form',
+    variants: shaleBedFormVariants,
+    render: (props) => <ShaleBedForm {...(props as ShaleBedFormProps)} />,
+  },
+  {
+    name: 'EstuaryTidalFloor',
+    slug: 'EstuaryTidalFloor',
+    createdAt: BATCH_18_CREATED,
+    sourceUrl: 'https://theoceanagency.org/',
+    sourceLabel: 'FWA — The Ocean Agency, footer',
+    variants: estuaryTidalFloorVariants,
+    render: (props) => <EstuaryTidalFloor {...(props as EstuaryTidalFloorProps)} />,
+  },
   {
     name: 'ZephyrGaleHero',
     slug: 'ZephyrGaleHero',
