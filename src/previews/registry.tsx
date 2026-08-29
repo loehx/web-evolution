@@ -1,4 +1,29 @@
 import {
+  MagmaCoreHero,
+  type MagmaCoreHeroProps,
+} from '../../staging/MagmaCoreHero/MagmaCoreHero'
+import { magmaCoreHeroVariants } from '../../staging/MagmaCoreHero/previews'
+import {
+  TurbineBladeCarousel,
+  type TurbineBladeCarouselProps,
+} from '../../staging/TurbineBladeCarousel/TurbineBladeCarousel'
+import { turbineBladeCarouselVariants } from '../../staging/TurbineBladeCarousel/previews'
+import {
+  SlateChalkSplit,
+  type SlateChalkSplitProps,
+} from '../../staging/SlateChalkSplit/SlateChalkSplit'
+import { slateChalkSplitVariants } from '../../staging/SlateChalkSplit/previews'
+import {
+  MonsoonDelugeForm,
+  type MonsoonDelugeFormProps,
+} from '../../staging/MonsoonDelugeForm/MonsoonDelugeForm'
+import { monsoonDelugeFormVariants } from '../../staging/MonsoonDelugeForm/previews'
+import {
+  PromontoryCrestFloor,
+  type PromontoryCrestFloorProps,
+} from '../../staging/PromontoryCrestFloor/PromontoryCrestFloor'
+import { promontoryCrestFloorVariants } from '../../staging/PromontoryCrestFloor/previews'
+import {
   NebulaCoronaHero,
   type NebulaCoronaHeroProps,
 } from '../../staging/NebulaCoronaHero/NebulaCoronaHero'
@@ -357,6 +382,7 @@ import type { StagedComponent } from '@/previews/types'
 // Every new entry must include sourceUrl (live reference from SPEC.md) and optional sourceLabel.
 // Preview gallery shows sourceUrl as a clickable overlay link for review.
 
+const BATCH_19_CREATED = '2026-08-29T07:14:00Z'
 const BATCH_18_CREATED = '2026-08-28T07:16:00Z'
 const BATCH_17_CREATED = '2026-08-27T07:04:00Z'
 const TESSERA_DRIFT_CREATED = '2026-08-21T13:50:00Z'
@@ -378,6 +404,51 @@ const BATCH_2_CREATED = '2026-08-12T09:20:37Z'
 const BATCH_1_CREATED = '2026-08-12T08:51:59Z'
 
 export const stagedComponents: StagedComponent[] = [
+  {
+    name: 'MagmaCoreHero',
+    slug: 'MagmaCoreHero',
+    createdAt: BATCH_19_CREATED,
+    sourceUrl: 'https://www.trionn.studio/',
+    sourceLabel: 'Awwwards — TRIONN, 3D hero',
+    variants: magmaCoreHeroVariants,
+    render: (props) => <MagmaCoreHero {...(props as MagmaCoreHeroProps)} />,
+  },
+  {
+    name: 'TurbineBladeCarousel',
+    slug: 'TurbineBladeCarousel',
+    createdAt: BATCH_19_CREATED,
+    sourceUrl: 'https://codepen.io/japanihon/pen/poLbNLa',
+    sourceLabel: 'CodePen — CSS scroll snap carousel',
+    variants: turbineBladeCarouselVariants,
+    render: (props) => <TurbineBladeCarousel {...(props as TurbineBladeCarouselProps)} />,
+  },
+  {
+    name: 'SlateChalkSplit',
+    slug: 'SlateChalkSplit',
+    createdAt: BATCH_19_CREATED,
+    sourceUrl: 'https://www.studiok95.com/',
+    sourceLabel: 'Awwwards — Studio K95, editorial split',
+    variants: slateChalkSplitVariants,
+    render: (props) => <SlateChalkSplit {...(props as SlateChalkSplitProps)} />,
+  },
+  {
+    name: 'MonsoonDelugeForm',
+    slug: 'MonsoonDelugeForm',
+    createdAt: BATCH_19_CREATED,
+    sourceUrl: 'https://codepen.io/dilums/pen/wvYgwzj',
+    sourceLabel: 'CodePen — rain animation overlay',
+    variants: monsoonDelugeFormVariants,
+    render: (props) => <MonsoonDelugeForm {...(props as MonsoonDelugeFormProps)} />,
+  },
+  {
+    name: 'PromontoryCrestFloor',
+    slug: 'PromontoryCrestFloor',
+    createdAt: BATCH_19_CREATED,
+    sourceUrl: 'https://trilha.rocket.new/',
+    sourceLabel: 'CSS Design Awards — Trilha, cliff footer',
+    variants: promontoryCrestFloorVariants,
+    render: (props) => <PromontoryCrestFloor {...(props as PromontoryCrestFloorProps)} />,
+  },
   {
     name: 'NebulaCoronaHero',
     slug: 'NebulaCoronaHero',

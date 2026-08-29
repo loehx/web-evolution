@@ -4,6 +4,20 @@ Evolve batch history. Newest batches first.
 
 ---
 
+## 2026-08-29
+
+**Words:** magma, turbine, slate, monsoon, promontory
+
+**Roles:** hero, card slider, image+text, contact form, footer
+
+* **MagmaCoreHero** - Futuristic volcanic hero with grabable magma dodecahedron rotating inside pulsing lava haze; copy anchors left while pointer orbit inspects every glowing orange facet.
+* **TurbineBladeCarousel** - Brutalist card slider where stories mount on steel turbine blade spokes radiating from a central hub; drag the rail or use arrows to snap the next blade to center.
+* **SlateChalkSplit** - Editorial chalk-on-slate split with oversized display type crossing the seam; chalk dust particles drift through the center gutter between photograph and copy columns.
+* **MonsoonDelugeForm** - Futuristic monsoon contact ritual where rain streaks fall behind each field and cyan lightning flashes on focus before the storm-clear submit bar.
+* **PromontoryCrestFloor** - Editorial cliff footer with brand on the highest promontory crest; navigation links descend on ochre cliff shelf tiers into rising mist.
+
+---
+
 ## 2026-08-28
 
 **Words:** nebula, plinth, cinder, shale, estuary
