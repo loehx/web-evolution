@@ -4,6 +4,20 @@ Evolve batch history. Newest batches first.
 
 ---
 
+## 2026-08-30
+
+**Words:** tundra, pylon, iris, geyser, citadel
+
+**Roles:** hero, card slider, image+text, contact form, footer
+
+* **TundraFrostHero** - Futuristic arctic hero with grabable frost octahedron rotating inside drifting polar mist; copy anchors left while pointer orbit inspects every icy cyan facet.
+* **PylonCardArray** - Brutalist card slider where stories mount on steel transmission pylon cross-arms radiating from a central tower hub; drag the rail or use arrows to snap the next card to center.
+* **IrisPetalSplit** - Editorial botanical split with oversized display type crossing an iris-petal seam; gold pollen particles drift through the violet gutter between photograph and copy columns.
+* **GeyserVentForm** - Futuristic geothermal contact ritual where steam plumes intensify behind each field and mineral teal glow flashes on focus before the vent-seal submit bar.
+* **CitadelParapetFloor** - Luxury castle footer with gold brand crest on the highest parapet; navigation links descend on stone rampart tiers into rising mist.
+
+---
+
 ## 2026-08-29
 
 **Words:** magma, turbine, slate, monsoon, promontory

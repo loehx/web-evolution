@@ -1,4 +1,29 @@
 import {
+  TundraFrostHero,
+  type TundraFrostHeroProps,
+} from '../../staging/TundraFrostHero/TundraFrostHero'
+import { tundraFrostHeroVariants } from '../../staging/TundraFrostHero/previews'
+import {
+  PylonCardArray,
+  type PylonCardArrayProps,
+} from '../../staging/PylonCardArray/PylonCardArray'
+import { pylonCardArrayVariants } from '../../staging/PylonCardArray/previews'
+import {
+  IrisPetalSplit,
+  type IrisPetalSplitProps,
+} from '../../staging/IrisPetalSplit/IrisPetalSplit'
+import { irisPetalSplitVariants } from '../../staging/IrisPetalSplit/previews'
+import {
+  GeyserVentForm,
+  type GeyserVentFormProps,
+} from '../../staging/GeyserVentForm/GeyserVentForm'
+import { geyserVentFormVariants } from '../../staging/GeyserVentForm/previews'
+import {
+  CitadelParapetFloor,
+  type CitadelParapetFloorProps,
+} from '../../staging/CitadelParapetFloor/CitadelParapetFloor'
+import { citadelParapetFloorVariants } from '../../staging/CitadelParapetFloor/previews'
+import {
   MagmaCoreHero,
   type MagmaCoreHeroProps,
 } from '../../staging/MagmaCoreHero/MagmaCoreHero'
@@ -382,6 +407,7 @@ import type { StagedComponent } from '@/previews/types'
 // Every new entry must include sourceUrl (live reference from SPEC.md) and optional sourceLabel.
 // Preview gallery shows sourceUrl as a clickable overlay link for review.
 
+const BATCH_20_CREATED = '2026-08-30T07:03:00Z'
 const BATCH_19_CREATED = '2026-08-29T07:14:00Z'
 const BATCH_18_CREATED = '2026-08-28T07:16:00Z'
 const BATCH_17_CREATED = '2026-08-27T07:04:00Z'
@@ -404,6 +430,51 @@ const BATCH_2_CREATED = '2026-08-12T09:20:37Z'
 const BATCH_1_CREATED = '2026-08-12T08:51:59Z'
 
 export const stagedComponents: StagedComponent[] = [
+  {
+    name: 'TundraFrostHero',
+    slug: 'TundraFrostHero',
+    createdAt: BATCH_20_CREATED,
+    sourceUrl: 'https://ciao.energy/',
+    sourceLabel: 'Awwwards — CIAO ENERGY, 3D hero',
+    variants: tundraFrostHeroVariants,
+    render: (props) => <TundraFrostHero {...(props as TundraFrostHeroProps)} />,
+  },
+  {
+    name: 'PylonCardArray',
+    slug: 'PylonCardArray',
+    createdAt: BATCH_20_CREATED,
+    sourceUrl: 'https://codepen.io/GreenSock/pen/RwKwLWK',
+    sourceLabel: 'CodePen — draggable snapping card gallery',
+    variants: pylonCardArrayVariants,
+    render: (props) => <PylonCardArray {...(props as PylonCardArrayProps)} />,
+  },
+  {
+    name: 'IrisPetalSplit',
+    slug: 'IrisPetalSplit',
+    createdAt: BATCH_20_CREATED,
+    sourceUrl: 'https://toteme.com/',
+    sourceLabel: 'Totême — editorial split-screen',
+    variants: irisPetalSplitVariants,
+    render: (props) => <IrisPetalSplit {...(props as IrisPetalSplitProps)} />,
+  },
+  {
+    name: 'GeyserVentForm',
+    slug: 'GeyserVentForm',
+    createdAt: BATCH_20_CREATED,
+    sourceUrl: 'https://codepen.io/NadaSadek/pen/xxRgZbq',
+    sourceLabel: 'CodePen — CSS steam animation',
+    variants: geyserVentFormVariants,
+    render: (props) => <GeyserVentForm {...(props as GeyserVentFormProps)} />,
+  },
+  {
+    name: 'CitadelParapetFloor',
+    slug: 'CitadelParapetFloor',
+    createdAt: BATCH_20_CREATED,
+    sourceUrl: 'https://thereach.eu/',
+    sourceLabel: 'CSS Design Awards — The Reach, footer',
+    variants: citadelParapetFloorVariants,
+    render: (props) => <CitadelParapetFloor {...(props as CitadelParapetFloorProps)} />,
+  },
   {
     name: 'MagmaCoreHero',
     slug: 'MagmaCoreHero',
