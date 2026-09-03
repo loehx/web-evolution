@@ -1,4 +1,4 @@
-import { PreviewGallery, PreviewIndex } from '@/previews/PreviewGallery'
+import { PreviewGallery, PreviewIndex, PreviewNew } from '@/previews/PreviewGallery'
 import { stagedComponents } from '@/previews/registry.tsx'
 import { BrowserRouter, Navigate, Route, Routes, useParams } from 'react-router-dom'
 
@@ -12,6 +12,7 @@ export function AppRouter() {
     <BrowserRouter>
       <Routes>
         <Route path="/" element={<PreviewIndex components={stagedComponents} />} />
+        <Route path="/new" element={<PreviewNew components={stagedComponents} />} />
         <Route path="/:slug" element={<PreviewGallery components={stagedComponents} />} />
         <Route path="/preview" element={<Navigate to="/" replace />} />
         <Route path="/preview/:slug" element={<LegacyPreviewRedirect />} />

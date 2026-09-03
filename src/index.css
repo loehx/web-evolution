@@ -3,6 +3,18 @@
 @theme {
   --font-sans: 'Inter', ui-sans-serif, system-ui, sans-serif;
   --animate-marquee: marquee var(--marquee-duration, 30s) linear infinite;
+
+  --radius-sm: 0.25rem;
+  --radius-md: 0.5rem;
+  --radius-lg: 1rem;
+
+  --text-display: 4.5rem;
+  --text-display--line-height: 0.9;
+
+  --duration-micro: 200ms;
+  --duration-standard: 400ms;
+  --duration-emphasis: 800ms;
+  --duration-hero: 1200ms;
 }
 
 @keyframes marquee {
