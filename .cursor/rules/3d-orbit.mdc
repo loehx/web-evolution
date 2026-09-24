@@ -1,0 +1,19 @@
+---
+description: 3D models must be explorable by click/tap-hold-drag orbit on X and Y
+alwaysApply: true
+---
+
+# 3D orbit interaction
+
+If a component includes a 3D model (Three.js, R3F, CSS 3D, or similar), it **must** be explorable:
+
+- **Click or tap, hold, and move** rotates the model
+- Horizontal drag → **rotate Y** (yaw)
+- Vertical drag → **rotate X** (pitch)
+- User can see **all sides** (full orbit, not a tiny tilt)
+- Same gesture on **touch** — `touch-action: none` on the hit target so the page does not steal the drag
+- Hover-only spin is illegal; idle auto-rotate is optional and must respect `prefers-reduced-motion`. **Pointer orbit always stays available** (user-initiated)
+
+Use `usePointerOrbit` from `src/lib/usePointerOrbit.ts`. Spread `bind` on the hit target. Apply `rotation` (degrees) via CSS `rotateX` / `rotateY`, or `radians` to a Three.js object.
+
+Do not ship a 3D object that is only a static render or a CSS animation the user cannot grab.

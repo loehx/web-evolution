@@ -1,0 +1,32 @@
+---
+description: Mandatory — read Alex's Web Fundamentals gist before any UI, layout, motion, or component work
+alwaysApply: true
+---
+
+# Web Fundamentals (required reading)
+
+At the **start of every agent session**, before designing or implementing UI, components, motion, forms, images, or interaction patterns, read the full document:
+
+**https://gist.github.com/loehx/53929aa5ffadd13f54cbd53c13f87546**
+
+Prefer the raw markdown when fetching:
+
+**https://gist.githubusercontent.com/loehx/53929aa5ffadd13f54cbd53c13f87546/raw/web-fundamentals.md**
+
+Do not skip this for small diffs. Treat it as binding alongside other `.cursor/rules/` unless Alex explicitly overrides in chat.
+
+## Topics in the gist (read all sections there)
+
+- Clickable area (padding / negative margin for hit targets, especially icons)
+- Icons aligned to text on the Y-axis
+- Images (`srcset`, fixed aspect-ratio containers, `object-fit: cover`)
+- Animations (CSS over JS-driven; hover on fine pointers only; active scale)
+- Parallax (background moves down on scroll)
+- Accordions (`grid-template-rows: 0fr → 1fr`; one open at a time)
+- Reveal / unreveal (scroll trigger ~80vh, module-by-module, letter headlines, word body copy, border-anchored slides, highlights after text)
+- Forms (field validation; checkbox/radio for yes/no; custom dropdowns from project or free sources)
+- Browser API (prefer custom global scroll/resize/theme observers over `IntersectionObserver` / `ResizeObserver` where the gist applies)
+
+## This repo
+
+Stack here is **Vite + React + Tailwind + Motion** (`design-motion-system.mdc`). When the gist and existing primitives differ (e.g. Motion vs CSS-only, `useInView`), follow the gist’s **user-facing intent** (touch-first hover, reveal choreography, unreveal, reduced motion) and call out conflicts to Alex instead of silently ignoring the gist.
